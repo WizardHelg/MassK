@@ -30,7 +30,7 @@ namespace MassK
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPictureDirectory));
-            this.customDataGrid1 = new MassK.Controls.CustomDataGrid();
+            this.customDataGrid1 = new MassK.UI.Controls.CustomDataGrid();
             this.panel2 = new System.Windows.Forms.Panel();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -252,7 +252,7 @@ namespace MassK
 
         #endregion
 
-        private Controls.CustomDataGrid customDataGrid1;
+        private UI.Controls.CustomDataGrid customDataGrid1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.TextBox textBox1;

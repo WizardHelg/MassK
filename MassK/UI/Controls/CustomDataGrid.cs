@@ -6,13 +6,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MassK.Controls
+namespace MassK.UI.Controls
 {
     class CustomDataGrid : DataGridView
     {
        public CustomDataGrid()
         {
             DoubleBuffered = true;
+            AllowUserToDeleteRows = false;
+            AllowUserToResizeRows = false;
+            
            // DataGridViewImageColumn imgCol = new DataGridViewImageColumn();
            // imgCol.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
            // Columns.Add(imgCol);

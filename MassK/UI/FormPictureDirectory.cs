@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MassK.LangPacks;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,7 +15,12 @@ namespace MassK
     {
         public FormPictureDirectory()
         {
-            InitializeComponent();
+        }
+
+        public FormPictureDirectory(LangPack langPack)
+       {        
+            langPack.SetText(this);
+                InitializeComponent();
         }
     }
 }

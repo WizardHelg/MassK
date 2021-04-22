@@ -40,7 +40,7 @@ namespace MassK
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridViewImageColumn4 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.customDataGrid1 = new MassK.Controls.CustomDataGrid();
+            this.customDataGrid1 = new MassK.UI.Controls.CustomDataGrid();
             this.button1 = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -223,6 +223,6 @@ namespace MassK
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn4;
-        private Controls.CustomDataGrid customDataGrid1;
+        private UI.Controls.CustomDataGrid customDataGrid1;
     }
 }

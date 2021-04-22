@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MassK.LangPacks;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,8 +13,9 @@ namespace MassK
 {
     public partial class FormProductDirectory : Form
     {
-        public FormProductDirectory()
+        public FormProductDirectory(LangPack langPack)
         {
+            langPack.SetText(this);
             InitializeComponent();
         }
     }

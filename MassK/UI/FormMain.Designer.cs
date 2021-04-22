@@ -48,10 +48,10 @@ namespace MassK
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.BtnWeighingMachins = new System.Windows.Forms.Button();
-            this.customDataGrid1 = new MassK.Controls.CustomDataGrid();
+            this.customDataGrid = new MassK.UI.Controls.CustomDataGrid();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.customDataGrid1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.customDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // BtnProducts
@@ -281,14 +281,14 @@ namespace MassK
             // 
             // customDataGrid1
             // 
-            this.customDataGrid1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.customDataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.customDataGrid1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.customDataGrid1.Location = new System.Drawing.Point(3, 132);
-            this.customDataGrid1.Name = "customDataGrid1";
-            this.customDataGrid1.Size = new System.Drawing.Size(882, 324);
-            this.customDataGrid1.TabIndex = 5;
+            this.customDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.customDataGrid.Location = new System.Drawing.Point(3, 132);
+            this.customDataGrid.Name = "customDataGrid1";
+            this.customDataGrid.Size = new System.Drawing.Size(882, 324);
+            this.customDataGrid.TabIndex = 5;
             // 
             // FormMain
             // 
@@ -296,7 +296,7 @@ namespace MassK
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(886, 555);
             this.Controls.Add(this.BtnProducts);
-            this.Controls.Add(this.customDataGrid1);
+            this.Controls.Add(this.customDataGrid );
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.button2);
@@ -312,13 +312,10 @@ namespace MassK
             this.Name = "FormMain";
             this.Text = "Редактор клавиатуры весов";
             this.Load += new System.EventHandler(this.FormMain_Load);
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FormMain_MouseDown);
-            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FormMain_MouseMove);
-            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.FormMain_MouseUp);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.customDataGrid1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.customDataGrid)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -326,7 +323,7 @@ namespace MassK
         #endregion
 
         private System.Windows.Forms.Button BtnProducts;
-        private Controls.CustomDataGrid customDataGrid1;
+        private UI.Controls.CustomDataGrid customDataGrid;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.ComboBox comboBox1;

@@ -51,14 +51,12 @@
   <ItemGroup>
     <Compile Include="BL\Products.cs" />
     <Compile Include="Data\ExcelLoader.cs" />
+    <Compile Include="Data\Loader.cs" />
+    <Compile Include="Exceptions\BException.cs" />
+    <Compile Include="Exceptions\ErrorMessageClass.cs" />
+    <Compile Include="Settings\SettingsMassK.cs" />
     <Compile Include="UI\Controls\CustomDataGrid.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="UI\Controls\uDataGrid.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\Controls\uDataGrid.Designer.cs">
-      <DependentUpon>uDataGrid.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\FormAddWeighingMachine.cs">
       <SubType>Form</SubType>
@@ -98,6 +96,8 @@
     <Compile Include="UI\FormWeighingMachins.Designer.cs">
       <DependentUpon>FormWeighingMachins.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\LangPacks\LangPack.cs" />
+    <Compile Include="UI\StyleUI.cs" />
     <EmbeddedResource Include="UI\FormAddWeighingMachine.resx">
       <DependentUpon>FormAddWeighingMachine.cs</DependentUpon>
     </EmbeddedResource>
@@ -141,5 +141,6 @@
   <ItemGroup>
     <Content Include="ProgrammSource\logo.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

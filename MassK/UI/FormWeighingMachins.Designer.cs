@@ -34,7 +34,7 @@ namespace MassK
             this.label1 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.customDataGrid1 = new MassK.Controls.CustomDataGrid();
+            this.customDataGrid1 = new MassK.UI.Controls.CustomDataGrid();
             this.button4 = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
@@ -197,7 +197,7 @@ namespace MassK
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Panel panel2;
-        private Controls.CustomDataGrid customDataGrid1;
+        private UI.Controls.CustomDataGrid customDataGrid1;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Button button1;
