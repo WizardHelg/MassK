@@ -29,6 +29,7 @@ namespace MassK
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAddWeighingMachine));
             this.SuspendLayout();
             // 
             // FormAddWeighingMachine
@@ -36,6 +37,7 @@ namespace MassK
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(576, 207);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormAddWeighingMachine";
             this.Text = "Добавить весы";
             this.ResumeLayout(false);
