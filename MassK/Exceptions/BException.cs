@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IsuzuDraft.Exceptions
+namespace MassK.Exceptions
 {
     class BException : Exception
     {

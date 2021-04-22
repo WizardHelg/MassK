@@ -1,4 +1,5 @@
 ﻿using IsuzuDraft.Exceptions;
+using MassK.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,10 +24,9 @@ namespace MassK.Data
             {  throw new BException("File not found"); }
             else
             {
-                Excel = fd
+                XL.xlBook book = XL.xlBook(fd.FileName); 
+                Products =  GetProducts()
             }
-
-            Products = GetProducts()
         }
 
         public void 
