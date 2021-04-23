@@ -1,11 +1,6 @@
-﻿using IsuzuDraft.Exceptions;
-using System;
-using System.Collections.Generic;
+﻿using MassK.Exceptions;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+
 
 namespace MassK.Settings
 {
@@ -17,6 +12,7 @@ namespace MassK.Settings
         {
             PathLengPacksXML,
             TestExcel
+               
         }
 
         public bool GetSetting(SettingTypeEnum settingType, out string path)

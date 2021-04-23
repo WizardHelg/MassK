@@ -1,12 +1,14 @@
-﻿using IsuzuDraft.Exceptions;
+﻿using MassK.BL;
 using MassK.Exceptions;
+using Microsoft.Office.Interop.Excel;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace MassK.Data
 {
@@ -24,11 +26,46 @@ namespace MassK.Data
             {  throw new BException("File not found"); }
             else
             {
-                XL.xlBook book = XL.xlBook(fd.FileName); 
-                Products =  GetProducts()
+                XL.xlBook book =new XL.xlBook(fd.FileName);
+                Products = GetProducts(book.GetListObj("Products"));
+                book.Close();   
             }
+
         }
 
-        public void 
+        private List<Product> GetProducts(ListObject listObject)
+        {
+            List<Product> products = new List<Product>();
+            foreach(Excel.ListRow row in listObject.ListRows)
+            {
+                string idText = row.Range[1, 1].Value?.ToString() ?? "";
+                if (!string.IsNullOrEmpty(idText))
+                {
+                    string pictureName = row.Range[1, 5].Value?.ToString() ?? "";
+                    string pictureFileName = GetFileName(pictureName);
+                    Bitmap picture = new Bitmap(pictureFileName);
+                    products.Add(new Product()
+                    {
+                        ID = int.TryParse(idText, out int id) ? id : 0,
+                        Code = row.Range[1, 2].Value?.ToString() ?? "",
+                        Name = row.Range[1, 3].Value?.ToString() ?? "",
+                        PictureID = row.Range[1, 4].Value?.ToString() ?? "",
+                        ImagePicture = pictureName,
+                        Picture = picture ,
+                        Number = int.TryParse(row.Range[1, 3].Value?.ToString() ?? "", out int num) ? num : 0,
+                        Category = row.Range[1, 2].Value?.ToString() ?? "",
+                    }) ;
+                }
+            }
+            return products;
+        }
+
+        private string GetFileName(string pictureName)
+        {
+            string filename = "";
+            string directory = @"H:\Projects\Масса-К\Pictures";
+
+            return filename;
+        }
     }
 }

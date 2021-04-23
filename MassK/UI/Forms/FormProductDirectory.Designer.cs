@@ -32,16 +32,16 @@ namespace MassK
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormProductDirectory));
             this.panel2 = new System.Windows.Forms.Panel();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
+            this.BtnHelp = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.LbTitle = new System.Windows.Forms.Label();
             this.dataGridViewImageColumn4 = new System.Windows.Forms.DataGridViewImageColumn();
             this.customDataGrid1 = new MassK.UI.Controls.CustomDataGrid();
-            this.button1 = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.customDataGrid1)).BeginInit();
@@ -74,6 +74,20 @@ namespace MassK
             this.checkBox1.TabIndex = 4;
             this.checkBox1.Text = "Показать не выбранные товары";
             this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.BackColor = System.Drawing.Color.White;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button1.ForeColor = System.Drawing.Color.CornflowerBlue;
+            this.button1.Location = new System.Drawing.Point(545, 41);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(118, 30);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "Применить";
+            this.button1.UseVisualStyleBackColor = false;
             // 
             // comboBox1
             // 
@@ -120,46 +134,46 @@ namespace MassK
             this.label2.Text = "Найти товар";
             this.label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // button3
+            // BtnHelp
             // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.BackColor = System.Drawing.Color.White;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button3.ForeColor = System.Drawing.Color.CornflowerBlue;
-            this.button3.Location = new System.Drawing.Point(559, 11);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(93, 23);
-            this.button3.TabIndex = 0;
-            this.button3.Text = "Справка";
-            this.button3.UseVisualStyleBackColor = false;
+            this.BtnHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnHelp.BackColor = System.Drawing.Color.White;
+            this.BtnHelp.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.BtnHelp.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.BtnHelp.ForeColor = System.Drawing.Color.CornflowerBlue;
+            this.BtnHelp.Location = new System.Drawing.Point(559, 11);
+            this.BtnHelp.Name = "BtnHelp";
+            this.BtnHelp.Size = new System.Drawing.Size(93, 23);
+            this.BtnHelp.TabIndex = 0;
+            this.BtnHelp.Text = "Справка";
+            this.BtnHelp.UseVisualStyleBackColor = false;
             // 
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.button3);
+            this.panel1.Controls.Add(this.LbTitle);
+            this.panel1.Controls.Add(this.BtnHelp);
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(672, 42);
             this.panel1.TabIndex = 14;
             // 
-            // label1
+            // LbTitle
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.LbTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoEllipsis = true;
-            this.label1.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label1.Location = new System.Drawing.Point(26, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(523, 23);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Выбор товаров для клавиатуры";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.LbTitle.AutoEllipsis = true;
+            this.LbTitle.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.LbTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.LbTitle.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.LbTitle.Location = new System.Drawing.Point(26, 9);
+            this.LbTitle.Name = "LbTitle";
+            this.LbTitle.Size = new System.Drawing.Size(523, 23);
+            this.LbTitle.TabIndex = 1;
+            this.LbTitle.Text = "Выбор товаров для клавиатуры";
+            this.LbTitle.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // dataGridViewImageColumn4
             // 
@@ -168,6 +182,8 @@ namespace MassK
             // 
             // customDataGrid1
             // 
+            this.customDataGrid1.AllowUserToDeleteRows = false;
+            this.customDataGrid1.AllowUserToResizeRows = false;
             this.customDataGrid1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -176,20 +192,6 @@ namespace MassK
             this.customDataGrid1.Name = "customDataGrid1";
             this.customDataGrid1.Size = new System.Drawing.Size(672, 287);
             this.customDataGrid1.TabIndex = 12;
-            // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.BackColor = System.Drawing.Color.White;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.ForeColor = System.Drawing.Color.CornflowerBlue;
-            this.button1.Location = new System.Drawing.Point(545, 41);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(118, 30);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Применить";
-            this.button1.UseVisualStyleBackColor = false;
             // 
             // FormProductDirectory
             // 
@@ -219,9 +221,9 @@ namespace MassK
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button BtnHelp;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label LbTitle;
         private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn4;
         private UI.Controls.CustomDataGrid customDataGrid1;
     }

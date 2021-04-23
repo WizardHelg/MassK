@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MassK.BL
 {
-    class Products
+    class Product
     {
         /// <summary>
         /// ID товара
