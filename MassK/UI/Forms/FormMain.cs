@@ -15,13 +15,13 @@ namespace MassK
         {
             InitializeComponent();
             string cur_lang = settings.Lang;
+            LangPack.Load(Directory.GetCurrentDirectory());
             SetText(cur_lang);
             FillLangs(_langPack);
         }
 
         private void SetText(string cur_lang)
-        {
-            LangPack.Load(Directory.GetCurrentDirectory());
+        {           
             if (!string.IsNullOrEmpty(LangPack.GetLangNames().Find(x => x == cur_lang)))
                 LangPack.SetLang(cur_lang);
             else

@@ -59,9 +59,9 @@ namespace MassK.LangPacks
         public static void SetCurrentCultureLang()
         {
             CultureInfo ci = CultureInfo.CurrentUICulture;
-            string lang_name = ci.EnglishName
-                                 .Split(new char[] { ' ' }, 2, StringSplitOptions.RemoveEmptyEntries)[0]
-                                 .ToLower();
+            string lang_name = ci.NativeName
+                                 .Split(new char[] { ' ' }, 2, StringSplitOptions.RemoveEmptyEntries)[0];
+            lang_name = $"{lang_name.Substring(0, 1).ToUpper()}{lang_name.Substring(1, lang_name.Length - 1)}";
             _lang_packs.TryGetValue(lang_name, out LangPack lang_pack);
            Lang = lang_pack;
         }
@@ -111,8 +111,11 @@ namespace MassK.LangPacks
 
             foreach(Control control in root.Controls)
             {
+                if (control.Name != "")
+                {
                 buffer.Add(control);
                 buffer.AddRange(GetControls(control));
+                }
             }
 
             return buffer;
