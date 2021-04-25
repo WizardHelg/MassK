@@ -41,7 +41,6 @@ namespace MassK.BL
                 g.SmoothingMode = SmoothingMode.HighQuality;
                 g.InterpolationMode = InterpolationMode.HighQualityBicubic;
                 g.PixelOffsetMode = PixelOffsetMode.HighQuality;
-
                 g.DrawImage(s_bitmap, t_rec);
             }
 

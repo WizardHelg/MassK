@@ -43,8 +43,9 @@ namespace MassK.LangPacks
             {
                 XDocument x_doc = XDocument.Load(file.FullName);
                 if(x_doc.Root.Element("Name") is XElement element && !_lang_packs.ContainsKey(element.Value))
-                    _lang_packs.Add(element.Value, new LangPack(x_doc));
+                _lang_packs.Add(element.Value, new LangPack(x_doc));
             }
+
         }
 
         /// <summary>

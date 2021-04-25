@@ -125,7 +125,7 @@ namespace MassK
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.panel1.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.BtnHelp);
             this.panel1.Location = new System.Drawing.Point(2, 3);
@@ -244,6 +244,7 @@ namespace MassK
             this.MinimumSize = new System.Drawing.Size(622, 467);
             this.Name = "FormPictureDirectory";
             this.Text = "Библиотека картинок";
+            this.Load += new System.EventHandler(this.FormPictureDirectory_Load);
             ((System.ComponentModel.ISupportInitialize)(this.customDataGrid1)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();

@@ -14,7 +14,7 @@ namespace MassK.UI.Controls
         {
             DoubleBuffered = true;
             AllowUserToDeleteRows = false;
-            AllowUserToResizeRows = false;
+           // AllowUserToResizeRows = false;
             
            // DataGridViewImageColumn imgCol = new DataGridViewImageColumn();
            // imgCol.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;

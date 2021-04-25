@@ -32,27 +32,35 @@ namespace MassK
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.BtnProducts = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.ChkBoxShowProducts = new System.Windows.Forms.CheckBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.LbField = new System.Windows.Forms.Label();
+            this.LbFindProduct = new System.Windows.Forms.Label();
             this.BtnHelp = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.LbTitleMain = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.BtnFile = new System.Windows.Forms.Button();
             this.dataGridViewImageColumn4 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.BtnPictureDirectory = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.BtnWeighingMachins = new System.Windows.Forms.Button();
+            this.ButtonUnloadToWeighing = new System.Windows.Forms.Button();
             this.customDataGrid = new MassK.UI.Controls.CustomDataGrid();
-            this.CbxLang = new System.Windows.Forms.ComboBox();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.MenuFile = new System.Windows.Forms.ToolStripDropDownButton();
+            this.загрузитьДанныеИзВесовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.загрузитьДанныеСUSBFlashToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.сохранитьПроектВПКToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.загрузитьПроектИзПКToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuSettings = new System.Windows.Forms.ToolStripDropDownButton();
+            this.CbxLang = new System.Windows.Forms.ToolStripComboBox();
+            this.MenuDescription = new System.Windows.Forms.ToolStripButton();
+            this.библиотекаКартинокToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.таблицаВесовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.номераТоваровToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.категорииТоваровToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.customDataGrid)).BeginInit();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // BtnProducts
@@ -61,7 +69,7 @@ namespace MassK
             this.BtnProducts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnProducts.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.BtnProducts.ForeColor = System.Drawing.Color.Black;
-            this.BtnProducts.Location = new System.Drawing.Point(13, 96);
+            this.BtnProducts.Location = new System.Drawing.Point(13, 83);
             this.BtnProducts.Name = "BtnProducts";
             this.BtnProducts.Size = new System.Drawing.Size(102, 30);
             this.BtnProducts.TabIndex = 6;
@@ -74,33 +82,33 @@ namespace MassK
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.panel2.Controls.Add(this.checkBox1);
+            this.panel2.Controls.Add(this.ChkBoxShowProducts);
             this.panel2.Controls.Add(this.comboBox1);
             this.panel2.Controls.Add(this.textBox1);
-            this.panel2.Controls.Add(this.label3);
-            this.panel2.Controls.Add(this.label2);
+            this.panel2.Controls.Add(this.LbField);
+            this.panel2.Controls.Add(this.LbFindProduct);
             this.panel2.Location = new System.Drawing.Point(2, 460);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(883, 42);
+            this.panel2.Size = new System.Drawing.Size(879, 42);
             this.panel2.TabIndex = 11;
             // 
-            // checkBox1
+            // ChkBoxShowProducts
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkBox1.ForeColor = System.Drawing.Color.White;
-            this.checkBox1.Location = new System.Drawing.Point(12, 11);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(260, 20);
-            this.checkBox1.TabIndex = 4;
-            this.checkBox1.Text = "Показать товары без картинок";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.ChkBoxShowProducts.AutoSize = true;
+            this.ChkBoxShowProducts.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ChkBoxShowProducts.ForeColor = System.Drawing.Color.White;
+            this.ChkBoxShowProducts.Location = new System.Drawing.Point(12, 11);
+            this.ChkBoxShowProducts.Name = "ChkBoxShowProducts";
+            this.ChkBoxShowProducts.Size = new System.Drawing.Size(260, 20);
+            this.ChkBoxShowProducts.TabIndex = 4;
+            this.ChkBoxShowProducts.Text = "Показать товары без картинок";
+            this.ChkBoxShowProducts.UseVisualStyleBackColor = true;
             // 
             // comboBox1
             // 
             this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(721, 11);
+            this.comboBox1.Location = new System.Drawing.Point(717, 11);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(142, 21);
             this.comboBox1.TabIndex = 3;
@@ -108,38 +116,38 @@ namespace MassK
             // textBox1
             // 
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(468, 11);
+            this.textBox1.Location = new System.Drawing.Point(464, 11);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(182, 20);
             this.textBox1.TabIndex = 2;
             // 
-            // label3
+            // LbField
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label3.AutoSize = true;
-            this.label3.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label3.Location = new System.Drawing.Point(659, 13);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(57, 16);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "в поле";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.LbField.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.LbField.AutoSize = true;
+            this.LbField.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.LbField.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.LbField.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.LbField.Location = new System.Drawing.Point(655, 13);
+            this.LbField.Name = "LbField";
+            this.LbField.Size = new System.Drawing.Size(57, 16);
+            this.LbField.TabIndex = 1;
+            this.LbField.Text = "в поле";
+            this.LbField.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // label2
+            // LbFindProduct
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.AutoSize = true;
-            this.label2.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label2.Location = new System.Drawing.Point(358, 13);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(102, 16);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Найти товар";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.LbFindProduct.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.LbFindProduct.AutoSize = true;
+            this.LbFindProduct.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.LbFindProduct.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.LbFindProduct.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.LbFindProduct.Location = new System.Drawing.Point(354, 13);
+            this.LbFindProduct.Name = "LbFindProduct";
+            this.LbFindProduct.Size = new System.Drawing.Size(102, 16);
+            this.LbFindProduct.TabIndex = 1;
+            this.LbFindProduct.Text = "Найти товар";
+            this.LbFindProduct.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // BtnHelp
             // 
@@ -148,7 +156,7 @@ namespace MassK
             this.BtnHelp.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.BtnHelp.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.BtnHelp.ForeColor = System.Drawing.Color.CornflowerBlue;
-            this.BtnHelp.Location = new System.Drawing.Point(770, 11);
+            this.BtnHelp.Location = new System.Drawing.Point(766, 11);
             this.BtnHelp.Name = "BtnHelp";
             this.BtnHelp.Size = new System.Drawing.Size(93, 23);
             this.BtnHelp.TabIndex = 0;
@@ -162,9 +170,9 @@ namespace MassK
             this.panel1.BackColor = System.Drawing.Color.CornflowerBlue;
             this.panel1.Controls.Add(this.LbTitleMain);
             this.panel1.Controls.Add(this.BtnHelp);
-            this.panel1.Location = new System.Drawing.Point(2, 48);
+            this.panel1.Location = new System.Drawing.Point(2, 35);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(883, 42);
+            this.panel1.Size = new System.Drawing.Size(879, 42);
             this.panel1.TabIndex = 10;
             // 
             // LbTitleMain
@@ -177,68 +185,15 @@ namespace MassK
             this.LbTitleMain.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.LbTitleMain.Location = new System.Drawing.Point(26, 9);
             this.LbTitleMain.Name = "LbTitleMain";
-            this.LbTitleMain.Size = new System.Drawing.Size(734, 23);
+            this.LbTitleMain.Size = new System.Drawing.Size(730, 23);
             this.LbTitleMain.TabIndex = 1;
             this.LbTitleMain.Text = "Редактор клавиатуры весов самообслуживания";
             this.LbTitleMain.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // button2
-            // 
-            this.button2.BackColor = System.Drawing.Color.Transparent;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button2.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.button2.Location = new System.Drawing.Point(256, 9);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(119, 29);
-            this.button2.TabIndex = 7;
-            this.button2.Text = "Описание";
-            this.button2.UseVisualStyleBackColor = false;
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.Transparent;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.button1.Location = new System.Drawing.Point(124, 9);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(124, 29);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "Настройка";
-            this.button1.UseVisualStyleBackColor = false;
-            // 
-            // BtnFile
-            // 
-            this.BtnFile.BackColor = System.Drawing.Color.Transparent;
-            this.BtnFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.BtnFile.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.BtnFile.Location = new System.Drawing.Point(14, 9);
-            this.BtnFile.Name = "BtnFile";
-            this.BtnFile.Size = new System.Drawing.Size(102, 29);
-            this.BtnFile.TabIndex = 9;
-            this.BtnFile.Text = "Файл";
-            this.BtnFile.UseVisualStyleBackColor = false;
             // 
             // dataGridViewImageColumn4
             // 
             this.dataGridViewImageColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.dataGridViewImageColumn4.Name = "dataGridViewImageColumn4";
-            // 
-            // BtnPictureDirectory
-            // 
-            this.BtnPictureDirectory.BackColor = System.Drawing.Color.Transparent;
-            this.BtnPictureDirectory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnPictureDirectory.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.BtnPictureDirectory.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.BtnPictureDirectory.Location = new System.Drawing.Point(383, 9);
-            this.BtnPictureDirectory.Name = "BtnPictureDirectory";
-            this.BtnPictureDirectory.Size = new System.Drawing.Size(205, 29);
-            this.BtnPictureDirectory.TabIndex = 8;
-            this.BtnPictureDirectory.Text = "Библиотека картинок";
-            this.BtnPictureDirectory.UseVisualStyleBackColor = false;
-            this.BtnPictureDirectory.Click += new System.EventHandler(this.BtnPictureDirectory_Click);
             // 
             // button4
             // 
@@ -253,32 +208,18 @@ namespace MassK
             this.button4.Text = "Записать на USB";
             this.button4.UseVisualStyleBackColor = false;
             // 
-            // button5
+            // ButtonUnloadToWeighing
             // 
-            this.button5.BackColor = System.Drawing.Color.Transparent;
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button5.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.button5.Location = new System.Drawing.Point(460, 515);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(201, 29);
-            this.button5.TabIndex = 9;
-            this.button5.Text = "Выгрузить в весы";
-            this.button5.UseVisualStyleBackColor = false;
-            // 
-            // BtnWeighingMachins
-            // 
-            this.BtnWeighingMachins.BackColor = System.Drawing.Color.Transparent;
-            this.BtnWeighingMachins.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnWeighingMachins.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.BtnWeighingMachins.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.BtnWeighingMachins.Location = new System.Drawing.Point(596, 9);
-            this.BtnWeighingMachins.Name = "BtnWeighingMachins";
-            this.BtnWeighingMachins.Size = new System.Drawing.Size(152, 29);
-            this.BtnWeighingMachins.TabIndex = 8;
-            this.BtnWeighingMachins.Text = "Таблица весов";
-            this.BtnWeighingMachins.UseVisualStyleBackColor = false;
-            this.BtnWeighingMachins.Click += new System.EventHandler(this.BtnWeighingMachins_Click);
+            this.ButtonUnloadToWeighing.BackColor = System.Drawing.Color.Transparent;
+            this.ButtonUnloadToWeighing.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ButtonUnloadToWeighing.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ButtonUnloadToWeighing.ForeColor = System.Drawing.Color.RoyalBlue;
+            this.ButtonUnloadToWeighing.Location = new System.Drawing.Point(460, 515);
+            this.ButtonUnloadToWeighing.Name = "ButtonUnloadToWeighing";
+            this.ButtonUnloadToWeighing.Size = new System.Drawing.Size(201, 29);
+            this.ButtonUnloadToWeighing.TabIndex = 9;
+            this.ButtonUnloadToWeighing.Text = "Выгрузить в весы";
+            this.ButtonUnloadToWeighing.UseVisualStyleBackColor = false;
             // 
             // customDataGrid
             // 
@@ -288,43 +229,131 @@ namespace MassK
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.customDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.customDataGrid.Location = new System.Drawing.Point(3, 132);
+            this.customDataGrid.Location = new System.Drawing.Point(3, 119);
             this.customDataGrid.Name = "customDataGrid";
-            this.customDataGrid.Size = new System.Drawing.Size(882, 324);
+            this.customDataGrid.Size = new System.Drawing.Size(878, 337);
             this.customDataGrid.TabIndex = 5;
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.AutoSize = false;
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MenuFile,
+            this.MenuSettings,
+            this.CbxLang,
+            this.MenuDescription});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(882, 35);
+            this.toolStrip1.TabIndex = 13;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // MenuFile
+            // 
+            this.MenuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.загрузитьДанныеИзВесовToolStripMenuItem,
+            this.загрузитьДанныеСUSBFlashToolStripMenuItem,
+            this.сохранитьПроектВПКToolStripMenuItem,
+            this.загрузитьПроектИзПКToolStripMenuItem});
+            this.MenuFile.Image = ((System.Drawing.Image)(resources.GetObject("MenuFile.Image")));
+            this.MenuFile.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.MenuFile.Name = "MenuFile";
+            this.MenuFile.Size = new System.Drawing.Size(62, 32);
+            this.MenuFile.Text = "Файл";
+            // 
+            // загрузитьДанныеИзВесовToolStripMenuItem
+            // 
+            this.загрузитьДанныеИзВесовToolStripMenuItem.Name = "загрузитьДанныеИзВесовToolStripMenuItem";
+            this.загрузитьДанныеИзВесовToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
+            this.загрузитьДанныеИзВесовToolStripMenuItem.Text = "Загрузить данные из весов ";
+            // 
+            // загрузитьДанныеСUSBFlashToolStripMenuItem
+            // 
+            this.загрузитьДанныеСUSBFlashToolStripMenuItem.Name = "загрузитьДанныеСUSBFlashToolStripMenuItem";
+            this.загрузитьДанныеСUSBFlashToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
+            this.загрузитьДанныеСUSBFlashToolStripMenuItem.Text = "Загрузить данные с USB-Flash";
+            // 
+            // сохранитьПроектВПКToolStripMenuItem
+            // 
+            this.сохранитьПроектВПКToolStripMenuItem.Name = "сохранитьПроектВПКToolStripMenuItem";
+            this.сохранитьПроектВПКToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
+            this.сохранитьПроектВПКToolStripMenuItem.Text = "Сохранить проект в ПК";
+            // 
+            // загрузитьПроектИзПКToolStripMenuItem
+            // 
+            this.загрузитьПроектИзПКToolStripMenuItem.Name = "загрузитьПроектИзПКToolStripMenuItem";
+            this.загрузитьПроектИзПКToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
+            this.загрузитьПроектИзПКToolStripMenuItem.Text = "Загрузить проект из ПК";
+            this.загрузитьПроектИзПКToolStripMenuItem.Click += new System.EventHandler(this.BtnFile_Click);
+            // 
+            // MenuSettings
+            // 
+            this.MenuSettings.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.таблицаВесовToolStripMenuItem,
+            this.номераТоваровToolStripMenuItem,
+            this.категорииТоваровToolStripMenuItem,
+            this.библиотекаКартинокToolStripMenuItem});
+            this.MenuSettings.Image = ((System.Drawing.Image)(resources.GetObject("MenuSettings.Image")));
+            this.MenuSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.MenuSettings.Name = "MenuSettings";
+            this.MenuSettings.Size = new System.Drawing.Size(90, 32);
+            this.MenuSettings.Text = "Настройка";
             // 
             // CbxLang
             // 
-            this.CbxLang.FormattingEnabled = true;
-            this.CbxLang.Items.AddRange(new object[] {
-            "russian",
-            "english"});
-            this.CbxLang.Location = new System.Drawing.Point(754, 13);
+            this.CbxLang.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.CbxLang.Name = "CbxLang";
-            this.CbxLang.Size = new System.Drawing.Size(120, 21);
-            this.CbxLang.TabIndex = 12;
+            this.CbxLang.Size = new System.Drawing.Size(121, 35);
             this.CbxLang.SelectedIndexChanged += new System.EventHandler(this.CbxLang_SelectedIndexChanged);
+            // 
+            // MenuDescription
+            // 
+            this.MenuDescription.Image = ((System.Drawing.Image)(resources.GetObject("MenuDescription.Image")));
+            this.MenuDescription.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.MenuDescription.Name = "MenuDescription";
+            this.MenuDescription.Size = new System.Drawing.Size(76, 32);
+            this.MenuDescription.Text = "Описание";
+            // 
+            // библиотекаКартинокToolStripMenuItem
+            // 
+            this.библиотекаКартинокToolStripMenuItem.Name = "библиотекаКартинокToolStripMenuItem";
+            this.библиотекаКартинокToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.библиотекаКартинокToolStripMenuItem.Text = "Библиотека картинок";
+            this.библиотекаКартинокToolStripMenuItem.Click += new System.EventHandler(this.BtnPictureDirectory_Click);
+            // 
+            // таблицаВесовToolStripMenuItem
+            // 
+            this.таблицаВесовToolStripMenuItem.Name = "таблицаВесовToolStripMenuItem";
+            this.таблицаВесовToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.таблицаВесовToolStripMenuItem.Text = "Таблица весов";
+            this.таблицаВесовToolStripMenuItem.Click += new System.EventHandler(this.BtnWeighingMachins_Click);
+            // 
+            // номераТоваровToolStripMenuItem
+            // 
+            this.номераТоваровToolStripMenuItem.Name = "номераТоваровToolStripMenuItem";
+            this.номераТоваровToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.номераТоваровToolStripMenuItem.Text = "Номера товаров";
+            // 
+            // категорииТоваровToolStripMenuItem
+            // 
+            this.категорииТоваровToolStripMenuItem.Name = "категорииТоваровToolStripMenuItem";
+            this.категорииТоваровToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.категорииТоваровToolStripMenuItem.Text = "Категории товаров";
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(886, 555);
-            this.Controls.Add(this.CbxLang);
+            this.ClientSize = new System.Drawing.Size(882, 555);
+            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.BtnProducts);
             this.Controls.Add(this.customDataGrid);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.BtnWeighingMachins);
-            this.Controls.Add(this.BtnPictureDirectory);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.button5);
+            this.Controls.Add(this.ButtonUnloadToWeighing);
             this.Controls.Add(this.button4);
-            this.Controls.Add(this.BtnFile);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(824, 555);
+            this.MinimumSize = new System.Drawing.Size(898, 590);
             this.Name = "FormMain";
             this.Text = "Редактор клавиатуры весов";
             this.Load += new System.EventHandler(this.FormMain_Load);
@@ -332,6 +361,8 @@ namespace MassK
             this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.customDataGrid)).EndInit();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -341,23 +372,30 @@ namespace MassK
         private System.Windows.Forms.Button BtnProducts;
         private UI.Controls.CustomDataGrid customDataGrid;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox ChkBoxShowProducts;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label LbField;
+        private System.Windows.Forms.Label LbFindProduct;
         private System.Windows.Forms.Button BtnHelp;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label LbTitleMain;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button BtnFile;
         private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn4;
-        private System.Windows.Forms.Button BtnPictureDirectory;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button BtnWeighingMachins;
-        private System.Windows.Forms.ComboBox CbxLang;
+        private System.Windows.Forms.Button ButtonUnloadToWeighing;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripDropDownButton MenuFile;
+        private System.Windows.Forms.ToolStripDropDownButton MenuSettings;
+        private System.Windows.Forms.ToolStripMenuItem загрузитьДанныеИзВесовToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem загрузитьДанныеСUSBFlashToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem сохранитьПроектВПКToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem загрузитьПроектИзПКToolStripMenuItem;
+        private System.Windows.Forms.ToolStripComboBox CbxLang;
+        private System.Windows.Forms.ToolStripButton MenuDescription;
+        private System.Windows.Forms.ToolStripMenuItem таблицаВесовToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem номераТоваровToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem категорииТоваровToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem библиотекаКартинокToolStripMenuItem;
     }
 }
 

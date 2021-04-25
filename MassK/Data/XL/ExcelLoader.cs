@@ -30,7 +30,6 @@ namespace MassK.Data
                 Products = GetProducts(book.GetListObj("Products"));
                 book.Close();   
             }
-
         }
 
         private List<Product> GetProducts(ListObject listObject)
@@ -43,7 +42,15 @@ namespace MassK.Data
                 {
                     string pictureName = row.Range[1, 5].Value?.ToString() ?? "";
                     string pictureFileName = GetFileName(pictureName);
-                    Bitmap picture = new Bitmap(pictureFileName);
+                    Bitmap picture;
+                    if (File.Exists(pictureFileName))
+                    {
+                        picture = new Bitmap(pictureFileName);
+                    }
+                    else
+                    {
+                        picture = default;
+                    }
                     products.Add(new Product()
                     {
                         ID = int.TryParse(idText, out int id) ? id : 0,
@@ -52,8 +59,8 @@ namespace MassK.Data
                         PictureID = row.Range[1, 4].Value?.ToString() ?? "",
                         ImagePicture = pictureName,
                         Picture = picture ,
-                        Number = int.TryParse(row.Range[1, 3].Value?.ToString() ?? "", out int num) ? num : 0,
-                        Category = row.Range[1, 2].Value?.ToString() ?? "",
+                        Number = int.TryParse(row.Range[1, 7].Value?.ToString() ?? "", out int num) ? num : 0,
+                        Category = row.Range[1, 8].Value?.ToString() ?? "",
                     }) ;
                 }
             }
@@ -61,10 +68,9 @@ namespace MassK.Data
         }
 
         private string GetFileName(string pictureName)
-        {
-            string filename = "";
-            string directory = @"H:\Projects\Масса-К\Pictures";
-
+        {            
+            string directory = SettingManager.ImagePath;         
+            string  filename = Path.Combine(directory, pictureName+".png");
             return filename;
         }
     }

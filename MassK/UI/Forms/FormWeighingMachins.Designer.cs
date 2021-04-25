@@ -34,14 +34,14 @@ namespace MassK
             this.label1 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.customDataGrid1 = new MassK.UI.Controls.CustomDataGrid();
-            this.button4 = new System.Windows.Forms.Button();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.customDataGrid = new MassK.UI.Controls.CustomDataGrid();
+            this.BtnAdd = new System.Windows.Forms.Button();
+            this.ChkBox = new System.Windows.Forms.CheckBox();
+            this.BtnFind = new System.Windows.Forms.Button();
+            this.BtnCheckConnection = new System.Windows.Forms.Button();
+            this.BtnDelete = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.customDataGrid1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.customDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -95,97 +95,99 @@ namespace MassK
             this.panel2.Size = new System.Drawing.Size(611, 42);
             this.panel2.TabIndex = 16;
             // 
-            // customDataGrid1
+            // customDataGrid
             // 
-            this.customDataGrid1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.customDataGrid.AllowUserToDeleteRows = false;
+            this.customDataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.customDataGrid1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.customDataGrid1.Location = new System.Drawing.Point(4, 92);
-            this.customDataGrid1.Name = "customDataGrid1";
-            this.customDataGrid1.Size = new System.Drawing.Size(607, 249);
-            this.customDataGrid1.TabIndex = 15;
+            this.customDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.customDataGrid.Location = new System.Drawing.Point(4, 92);
+            this.customDataGrid.Name = "customDataGrid";
+            this.customDataGrid.Size = new System.Drawing.Size(607, 249);
+            this.customDataGrid.TabIndex = 15;
             // 
-            // button4
+            // BtnAdd
             // 
-            this.button4.BackColor = System.Drawing.Color.Transparent;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button4.ForeColor = System.Drawing.Color.Black;
-            this.button4.Location = new System.Drawing.Point(145, 54);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(90, 30);
-            this.button4.TabIndex = 18;
-            this.button4.Text = "Добавить";
-            this.button4.UseVisualStyleBackColor = false;
+            this.BtnAdd.BackColor = System.Drawing.Color.Transparent;
+            this.BtnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.BtnAdd.ForeColor = System.Drawing.Color.Black;
+            this.BtnAdd.Location = new System.Drawing.Point(145, 54);
+            this.BtnAdd.Name = "BtnAdd";
+            this.BtnAdd.Size = new System.Drawing.Size(90, 30);
+            this.BtnAdd.TabIndex = 18;
+            this.BtnAdd.Text = "Добавить";
+            this.BtnAdd.UseVisualStyleBackColor = false;
             // 
-            // checkBox1
+            // ChkBox
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(13, 71);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(15, 14);
-            this.checkBox1.TabIndex = 19;
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.ChkBox.AutoSize = true;
+            this.ChkBox.Location = new System.Drawing.Point(13, 71);
+            this.ChkBox.Name = "ChkBox";
+            this.ChkBox.Size = new System.Drawing.Size(15, 14);
+            this.ChkBox.TabIndex = 19;
+            this.ChkBox.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // BtnFind
             // 
-            this.button1.BackColor = System.Drawing.Color.Transparent;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.ForeColor = System.Drawing.Color.Black;
-            this.button1.Location = new System.Drawing.Point(49, 54);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(90, 30);
-            this.button1.TabIndex = 18;
-            this.button1.Text = "Найти";
-            this.button1.UseVisualStyleBackColor = false;
+            this.BtnFind.BackColor = System.Drawing.Color.Transparent;
+            this.BtnFind.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnFind.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.BtnFind.ForeColor = System.Drawing.Color.Black;
+            this.BtnFind.Location = new System.Drawing.Point(49, 54);
+            this.BtnFind.Name = "BtnFind";
+            this.BtnFind.Size = new System.Drawing.Size(90, 30);
+            this.BtnFind.TabIndex = 18;
+            this.BtnFind.Text = "Найти";
+            this.BtnFind.UseVisualStyleBackColor = false;
             // 
-            // button2
+            // BtnCheckConnection
             // 
-            this.button2.BackColor = System.Drawing.Color.Transparent;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button2.ForeColor = System.Drawing.Color.Black;
-            this.button2.Location = new System.Drawing.Point(337, 54);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(145, 30);
-            this.button2.TabIndex = 18;
-            this.button2.Text = "Проверить связь";
-            this.button2.UseVisualStyleBackColor = false;
+            this.BtnCheckConnection.BackColor = System.Drawing.Color.Transparent;
+            this.BtnCheckConnection.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnCheckConnection.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.BtnCheckConnection.ForeColor = System.Drawing.Color.Black;
+            this.BtnCheckConnection.Location = new System.Drawing.Point(337, 54);
+            this.BtnCheckConnection.Name = "BtnCheckConnection";
+            this.BtnCheckConnection.Size = new System.Drawing.Size(145, 30);
+            this.BtnCheckConnection.TabIndex = 18;
+            this.BtnCheckConnection.Text = "Проверить связь";
+            this.BtnCheckConnection.UseVisualStyleBackColor = false;
             // 
-            // button5
+            // BtnDelete
             // 
-            this.button5.BackColor = System.Drawing.Color.Transparent;
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button5.ForeColor = System.Drawing.Color.Black;
-            this.button5.Location = new System.Drawing.Point(241, 54);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(90, 30);
-            this.button5.TabIndex = 18;
-            this.button5.Text = "Удалить";
-            this.button5.UseVisualStyleBackColor = false;
+            this.BtnDelete.BackColor = System.Drawing.Color.Transparent;
+            this.BtnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.BtnDelete.ForeColor = System.Drawing.Color.Black;
+            this.BtnDelete.Location = new System.Drawing.Point(241, 54);
+            this.BtnDelete.Name = "BtnDelete";
+            this.BtnDelete.Size = new System.Drawing.Size(90, 30);
+            this.BtnDelete.TabIndex = 18;
+            this.BtnDelete.Text = "Удалить";
+            this.BtnDelete.UseVisualStyleBackColor = false;
             // 
             // FormWeighingMachins
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(614, 385);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.ChkBox);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.customDataGrid1);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.button4);
+            this.Controls.Add(this.customDataGrid);
+            this.Controls.Add(this.BtnDelete);
+            this.Controls.Add(this.BtnCheckConnection);
+            this.Controls.Add(this.BtnFind);
+            this.Controls.Add(this.BtnAdd);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(630, 420);
             this.Name = "FormWeighingMachins";
             this.Text = "Таблица весов";
+            this.Load += new System.EventHandler(this.FormWeighingMachins_Load);
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.customDataGrid1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.customDataGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -197,11 +199,11 @@ namespace MassK
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Panel panel2;
-        private UI.Controls.CustomDataGrid customDataGrid1;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button5;
+        private UI.Controls.CustomDataGrid customDataGrid;
+        private System.Windows.Forms.Button BtnAdd;
+        private System.Windows.Forms.CheckBox ChkBox;
+        private System.Windows.Forms.Button BtnFind;
+        private System.Windows.Forms.Button BtnCheckConnection;
+        private System.Windows.Forms.Button BtnDelete;
     }
 }

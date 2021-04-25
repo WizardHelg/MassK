@@ -6,10 +6,11 @@ using System.Xml.Linq;
 using System.IO;
 using System.Reflection;
 
-namespace MassK.BL
+namespace MassK
 {
     static class SettingManager
     {
+        //public static string L { get; set; } = Directory.GetCurrentDirectory();
         public static string RootPath { get; set; } = Application.StartupPath;
         public static string LangPath { get; set; } = Path.Combine(RootPath, "Lang");
         public static string ImagePath { get; set; } = Path.Combine(RootPath, "Images");

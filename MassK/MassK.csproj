@@ -70,7 +70,7 @@
     <Compile Include="BL\ImageItem.cs" />
     <Compile Include="BL\ImageManager.cs" />
     <Compile Include="BL\Product.cs" />
-    <Compile Include="BL\SettingManager.cs" />
+    <Compile Include="Settings\SettingManager.cs" />
     <Compile Include="Data\XL\ExcelHelper.cs" />
     <Compile Include="Data\XL\ExcelLoader.cs" />
     <Compile Include="Data\XL\xlBook.cs" />
@@ -113,6 +113,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\Forms\FormSetProductNumber.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\FormSetProductNumber.Designer.cs">
+      <DependentUpon>FormSetProductNumber.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Forms\FormWeighingMachins.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -146,6 +152,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="UI\Forms\FormSetProductNumber.resx">
+      <DependentUpon>FormSetProductNumber.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\FormWeighingMachins.resx">
       <DependentUpon>FormWeighingMachins.cs</DependentUpon>
     </EmbeddedResource>
