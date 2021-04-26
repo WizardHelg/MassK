@@ -21,5 +21,10 @@ namespace MassK
             panel1.BackColor = StyleUI.FrameColor;
             panel2.BackColor = StyleUI.FrameColor;
         }
+
+        private void BtnApply_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

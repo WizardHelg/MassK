@@ -1,4 +1,5 @@
 ﻿using MassK.BL;
+using MassK.UI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,10 +21,8 @@ namespace MassK
             InitializeComponent();
             dataGrid.RowHeadersVisible = false;
             dataGrid.DataError += DataGrid_DataError;
-            //SettingManager.Load<>
-            //  dataGrid.Columns.Add("ID", "ID");
-            // dataGrid.Columns.Add("Category", "Категория");
-            //  dataGrid.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            panel1.BackColor = StyleUI.FrameColor;
+            panel2.BackColor = StyleUI.FrameColor;           
         }
 
         private void DataGrid_DataError(object sender, DataGridViewDataErrorEventArgs e)
@@ -34,11 +33,10 @@ namespace MassK
 
         private void BtnAdd_Click(object sender, EventArgs e)
         {
-            // dataGrid.Rows.Add();
+          
             int id = Categories.OrderByDescending(i => i.ID).FirstOrDefault()?.ID ?? 0;
             
             Categories.Add(new ProductCategory() { ID = ++id, Category = "" });
-
             SetDataSource();
         }
 
@@ -46,18 +44,13 @@ namespace MassK
         {
             dataGrid.DataSource = null;
             dataGrid.DataSource = Categories;
+            dataGrid.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
         }
 
 
         private void FormCategoryProducts_Load(object sender, EventArgs e)
         {
-            //BindingSource source = new BindingSource();
-            //source.cha
-            //source.DataSource = users;
-            //dataGridView1.DataSource = source;
-
-            dataGrid.DataSource = Categories;
-            dataGrid.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            SetDataSource();
         }
 
         private void BtnSave_Click(object sender, EventArgs e)

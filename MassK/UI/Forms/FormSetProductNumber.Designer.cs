@@ -62,6 +62,7 @@ namespace MassK.UI.Forms
             this.RBtnPLU.Text = "Использовать PLU";
             this.RBtnPLU.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.RBtnPLU.UseVisualStyleBackColor = true;
+            this.RBtnPLU.CheckedChanged += new System.EventHandler(this.RBtnPLU_CheckedChanged);
             // 
             // RBtnOperator
             // 
@@ -74,6 +75,7 @@ namespace MassK.UI.Forms
             this.RBtnOperator.Text = "Ввод оператором";
             this.RBtnOperator.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.RBtnOperator.UseVisualStyleBackColor = true;
+            this.RBtnOperator.CheckedChanged += new System.EventHandler(this.RBtnOperator_CheckedChanged);
             // 
             // BtnHelp
             // 
@@ -94,6 +96,7 @@ namespace MassK.UI.Forms
             this.BtnSave.TabIndex = 5;
             this.BtnSave.Text = "Сохранить";
             this.BtnSave.UseVisualStyleBackColor = true;
+            this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
             // BtnCancel
             // 

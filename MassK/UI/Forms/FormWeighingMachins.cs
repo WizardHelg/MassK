@@ -95,5 +95,14 @@ namespace MassK
         {
 
         }
+
+        private void ChkBox_CheckedChanged(object sender, EventArgs e)
+        {
+            foreach (WeighingMachine itm in WeighingMachines)
+            {
+                itm.Load = ChkBox.Checked;
+            }
+            SetData();
+        }
     }
 }

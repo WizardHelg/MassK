@@ -89,7 +89,7 @@ namespace MassK
             this.panel2.Controls.Add(this.LbFindProduct);
             this.panel2.Location = new System.Drawing.Point(2, 534);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(972, 42);
+            this.panel2.Size = new System.Drawing.Size(1025, 42);
             this.panel2.TabIndex = 11;
             // 
             // ChkBoxShowProducts
@@ -108,7 +108,7 @@ namespace MassK
             // 
             this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(810, 11);
+            this.comboBox1.Location = new System.Drawing.Point(863, 11);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(142, 21);
             this.comboBox1.TabIndex = 3;
@@ -116,10 +116,11 @@ namespace MassK
             // textBox1
             // 
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(557, 11);
+            this.textBox1.Location = new System.Drawing.Point(610, 11);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(182, 20);
             this.textBox1.TabIndex = 2;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // LbField
             // 
@@ -128,7 +129,7 @@ namespace MassK
             this.LbField.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.LbField.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.LbField.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.LbField.Location = new System.Drawing.Point(748, 13);
+            this.LbField.Location = new System.Drawing.Point(801, 13);
             this.LbField.Name = "LbField";
             this.LbField.Size = new System.Drawing.Size(57, 16);
             this.LbField.TabIndex = 1;
@@ -142,7 +143,7 @@ namespace MassK
             this.LbFindProduct.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.LbFindProduct.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.LbFindProduct.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.LbFindProduct.Location = new System.Drawing.Point(447, 13);
+            this.LbFindProduct.Location = new System.Drawing.Point(500, 13);
             this.LbFindProduct.Name = "LbFindProduct";
             this.LbFindProduct.Size = new System.Drawing.Size(102, 16);
             this.LbFindProduct.TabIndex = 1;
@@ -156,7 +157,7 @@ namespace MassK
             this.BtnHelp.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.BtnHelp.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.BtnHelp.ForeColor = System.Drawing.Color.CornflowerBlue;
-            this.BtnHelp.Location = new System.Drawing.Point(859, 10);
+            this.BtnHelp.Location = new System.Drawing.Point(912, 10);
             this.BtnHelp.Name = "BtnHelp";
             this.BtnHelp.Size = new System.Drawing.Size(93, 23);
             this.BtnHelp.TabIndex = 0;
@@ -172,7 +173,7 @@ namespace MassK
             this.panel1.Controls.Add(this.BtnHelp);
             this.panel1.Location = new System.Drawing.Point(2, 35);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(972, 42);
+            this.panel1.Size = new System.Drawing.Size(1025, 42);
             this.panel1.TabIndex = 10;
             // 
             // LbTitleMain
@@ -185,7 +186,7 @@ namespace MassK
             this.LbTitleMain.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.LbTitleMain.Location = new System.Drawing.Point(26, 9);
             this.LbTitleMain.Name = "LbTitleMain";
-            this.LbTitleMain.Size = new System.Drawing.Size(823, 23);
+            this.LbTitleMain.Size = new System.Drawing.Size(876, 23);
             this.LbTitleMain.TabIndex = 1;
             this.LbTitleMain.Text = "Редактор клавиатуры весов самообслуживания";
             this.LbTitleMain.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -202,7 +203,7 @@ namespace MassK
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button4.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.button4.Location = new System.Drawing.Point(765, 580);
+            this.button4.Location = new System.Drawing.Point(818, 580);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(201, 29);
             this.button4.TabIndex = 9;
@@ -216,7 +217,7 @@ namespace MassK
             this.ButtonUnloadToWeighing.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ButtonUnloadToWeighing.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.ButtonUnloadToWeighing.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.ButtonUnloadToWeighing.Location = new System.Drawing.Point(552, 580);
+            this.ButtonUnloadToWeighing.Location = new System.Drawing.Point(605, 580);
             this.ButtonUnloadToWeighing.Name = "ButtonUnloadToWeighing";
             this.ButtonUnloadToWeighing.Size = new System.Drawing.Size(201, 29);
             this.ButtonUnloadToWeighing.TabIndex = 9;
@@ -233,7 +234,7 @@ namespace MassK
             this.customDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.customDataGrid.Location = new System.Drawing.Point(3, 119);
             this.customDataGrid.Name = "customDataGrid";
-            this.customDataGrid.Size = new System.Drawing.Size(971, 414);
+            this.customDataGrid.Size = new System.Drawing.Size(1024, 414);
             this.customDataGrid.TabIndex = 5;
             // 
             // toolStrip1
@@ -246,7 +247,7 @@ namespace MassK
             this.MenuDescription});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(975, 35);
+            this.toolStrip1.Size = new System.Drawing.Size(1028, 35);
             this.toolStrip1.TabIndex = 13;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -348,7 +349,7 @@ namespace MassK
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(975, 612);
+            this.ClientSize = new System.Drawing.Size(1028, 612);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.BtnProducts);
             this.Controls.Add(this.customDataGrid);
