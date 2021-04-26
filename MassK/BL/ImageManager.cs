@@ -10,6 +10,8 @@ namespace MassK.BL
 {
     static class ImageManager
     {
+        public static string[] ImageExtentions = new string[] { ".bmp", ".png", ".tiff", ".img", ".gif", ".", ".", ".", ".", ".", ".jpg", ".jpeg" };
+
         public static string ImportPicture(string sourcePath)
         {
             

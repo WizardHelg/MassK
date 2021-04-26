@@ -36,7 +36,7 @@ namespace MassK
 
         private void BtnImport_Click(object sender, EventArgs e)
         {
-            // OpenFileDialog ofd = new OpenFileDialog() { Filter = "PNG | *.png", Multiselect = true };
+        
             Ookii.Dialogs.WinForms.VistaFolderBrowserDialog ofd = new Ookii.Dialogs.WinForms.VistaFolderBrowserDialog();
             if (ofd.ShowDialog() == DialogResult.OK)
             {
@@ -48,6 +48,7 @@ namespace MassK
                     string extention = fi.Extension.ToLower();
                     if (extention != ".png" && extention != ".jpg") continue;
                     ImageManager.ImportPicture(file);
+
                 }
                 SetData();
             }
@@ -109,9 +110,13 @@ namespace MassK
                 HeaderText = "Картинка"
             };
             dataGrid.Columns.Add(imageColumn);
-                        
+            imageColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
+
+
             dataGrid.RowHeadersVisible = false;
-            dataGrid.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            //dataGrid.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;            
+            dataGrid.RowTemplate.MinimumHeight = 50;
+
             dataGrid.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
             dataGrid.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
             dataGrid.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
@@ -131,7 +136,21 @@ namespace MassK
 
         private void BtnAdd_Click(object sender, EventArgs e)
         {
-
+            OpenFileDialog ofd = new OpenFileDialog() { Filter = "PNG | *.png", Multiselect = true };
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {                
+                string[] files = ofd.FileNames;
+                foreach (string file in files)
+                {
+                    FileInfo fi = new FileInfo(file);
+                    string extention = fi.Extension.ToLower();
+                    if (ImageManager.ImageExtentions.Contains(extention,StringComparer.InvariantCultureIgnoreCase) )
+                    {
+                        ImageManager.ImportPicture(file);
+                    }
+                }
+                SetData();
+            }
         }
 
         private void BtnExport_Click(object sender, EventArgs e)
@@ -164,6 +183,23 @@ namespace MassK
                 _images.Add(imageItem);
             }
             SettingManager.Save(_images);
+        }
+
+        private void BtnDelete_Click(object sender, EventArgs e)
+        {
+            if (dataGrid.SelectedRows.Count > 0)
+            {
+                string path = dataGrid.SelectedRows[0].Cells[3].Value?.ToString() ?? "";
+                if (File.Exists(path))
+                {
+                    dataGrid.Rows.Remove(dataGrid.SelectedRows[0]);
+                    _images.RemoveAll(x => x.Path == path);
+
+                    File.Delete(path);
+                    MessageBox.Show($"Файл :{path}. Был удален!", "Изображение удалено", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                }
+            }
         }
     }
 }

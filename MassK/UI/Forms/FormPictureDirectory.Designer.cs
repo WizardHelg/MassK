@@ -190,6 +190,7 @@ namespace MassK
             this.BtnDelete.TabIndex = 14;
             this.BtnDelete.Text = "Удалить";
             this.BtnDelete.UseVisualStyleBackColor = false;
+            this.BtnDelete.Click += new System.EventHandler(this.BtnDelete_Click);
             // 
             // BtnExport
             // 

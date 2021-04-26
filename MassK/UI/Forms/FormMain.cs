@@ -34,8 +34,8 @@ namespace MassK
                        
             customDataGrid.RowHeadersVisible = false;
 
-            List<ProductCategory> categories = SettingManager.Load<ProductCategory>();
-            if (categories == null) categories = new List<ProductCategory>();
+            _categories = SettingManager.Load<ProductCategory>();
+            if (_categories == null) _categories = new List<ProductCategory>();
 
             SetDataGrid();
             customDataGrid.RowCount = 20;
@@ -230,9 +230,8 @@ namespace MassK
                 cboxColumn.Items.Add(category.Category);
             }
 
-            customDataGrid.Columns.Add(cboxColumn);
-            customDataGrid.RowTemplate.Height = 60;
-            customDataGrid.RowTemplate.MinimumHeight = 30;
+            customDataGrid.Columns.Add(cboxColumn);            
+            customDataGrid.RowTemplate.MinimumHeight = 50;
             // customDataGrid.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             customDataGrid.Columns[0].ReadOnly = true;
             customDataGrid.Columns[1].ReadOnly = true;
