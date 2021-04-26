@@ -5,6 +5,8 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using System.IO;
 using System.Reflection;
+using MassK.BL;
+using System.Drawing;
 
 namespace MassK
 {
@@ -132,9 +134,14 @@ namespace MassK
                 XElement element = new XElement(type.Name);
 
                 foreach(var prop in props)
+                {
+                    if (prop.PropertyType != typeof(Image) )
+                    {
                     element.Add(new XElement(
                         prop.Name,
-                        prop.GetValue(item).ToString()));
+                        prop.GetValue(item)?.ToString()??""));
+                    }
+                }
 
                 root.Add(element);
             }

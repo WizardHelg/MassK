@@ -33,11 +33,12 @@ namespace MassK
             this.panel1 = new System.Windows.Forms.Panel();
             this.BtnHelp = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.customDataGrid = new MassK.UI.Controls.CustomDataGrid();
+            this.BtnSave = new System.Windows.Forms.Button();
             this.BtnDelete = new System.Windows.Forms.Button();
             this.BtnAdd = new System.Windows.Forms.Button();
+            this.dataGrid = new MassK.UI.Controls.CustomDataGrid();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.customDataGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -48,7 +49,7 @@ namespace MassK
             this.panel1.Controls.Add(this.BtnHelp);
             this.panel1.Location = new System.Drawing.Point(2, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(611, 42);
+            this.panel1.Size = new System.Drawing.Size(391, 42);
             this.panel1.TabIndex = 22;
             // 
             // BtnHelp
@@ -58,7 +59,7 @@ namespace MassK
             this.BtnHelp.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.BtnHelp.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.BtnHelp.ForeColor = System.Drawing.Color.CornflowerBlue;
-            this.BtnHelp.Location = new System.Drawing.Point(503, 11);
+            this.BtnHelp.Location = new System.Drawing.Point(283, 11);
             this.BtnHelp.Name = "BtnHelp";
             this.BtnHelp.Size = new System.Drawing.Size(93, 23);
             this.BtnHelp.TabIndex = 0;
@@ -70,22 +71,24 @@ namespace MassK
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.panel2.Location = new System.Drawing.Point(2, 340);
+            this.panel2.Location = new System.Drawing.Point(1, 290);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(611, 42);
+            this.panel2.Size = new System.Drawing.Size(391, 42);
             this.panel2.TabIndex = 21;
             // 
-            // customDataGrid
+            // BtnSave
             // 
-            this.customDataGrid.AllowUserToDeleteRows = false;
-            this.customDataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.customDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.customDataGrid.Location = new System.Drawing.Point(4, 79);
-            this.customDataGrid.Name = "customDataGrid";
-            this.customDataGrid.Size = new System.Drawing.Size(607, 261);
-            this.customDataGrid.TabIndex = 20;
+            this.BtnSave.BackColor = System.Drawing.Color.Transparent;
+            this.BtnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.BtnSave.ForeColor = System.Drawing.Color.Black;
+            this.BtnSave.Location = new System.Drawing.Point(274, 336);
+            this.BtnSave.Name = "BtnSave";
+            this.BtnSave.Size = new System.Drawing.Size(108, 30);
+            this.BtnSave.TabIndex = 26;
+            this.BtnSave.Text = "Сохранить";
+            this.BtnSave.UseVisualStyleBackColor = false;
+            this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
             // BtnDelete
             // 
@@ -99,6 +102,7 @@ namespace MassK
             this.BtnDelete.TabIndex = 23;
             this.BtnDelete.Text = "Удалить";
             this.BtnDelete.UseVisualStyleBackColor = false;
+            this.BtnDelete.Click += new System.EventHandler(this.BtnDelete_Click);
             // 
             // BtnAdd
             // 
@@ -112,22 +116,38 @@ namespace MassK
             this.BtnAdd.TabIndex = 26;
             this.BtnAdd.Text = "Добавить";
             this.BtnAdd.UseVisualStyleBackColor = false;
+            this.BtnAdd.Click += new System.EventHandler(this.BtnAdd_Click);
+            // 
+            // dataGrid
+            // 
+            this.dataGrid.AllowUserToDeleteRows = false;
+            this.dataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGrid.Location = new System.Drawing.Point(4, 79);
+            this.dataGrid.Name = "dataGrid";
+            this.dataGrid.Size = new System.Drawing.Size(387, 210);
+            this.dataGrid.TabIndex = 20;
             // 
             // FormCategoryProducts
             // 
+            this.AcceptButton = this.BtnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(614, 385);
+            this.ClientSize = new System.Drawing.Size(394, 369);
+            this.Controls.Add(this.BtnSave);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.customDataGrid);
+            this.Controls.Add(this.dataGrid);
             this.Controls.Add(this.BtnDelete);
             this.Controls.Add(this.BtnAdd);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormCategoryProducts";
             this.Text = "Категории товаров";
+            this.Load += new System.EventHandler(this.FormCategoryProducts_Load);
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.customDataGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -137,8 +157,9 @@ namespace MassK
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button BtnHelp;
         private System.Windows.Forms.Panel panel2;
-        private UI.Controls.CustomDataGrid customDataGrid;
+        private UI.Controls.CustomDataGrid dataGrid;
         private System.Windows.Forms.Button BtnDelete;
         private System.Windows.Forms.Button BtnAdd;
+        private System.Windows.Forms.Button BtnSave;
     }
 }
