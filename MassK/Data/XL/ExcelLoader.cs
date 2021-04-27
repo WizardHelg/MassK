@@ -17,61 +17,73 @@ namespace MassK.Data
         public override void Load()
         {
             OpenFileDialog fd = new OpenFileDialog()
-           {
-               Filter = "Документ Excel|*.xls*|All files|*.*",
-               Title = "Выберите Книгу Excel c данными для клавиатуры весов."
-           };
-          
-             if (fd.ShowDialog() != DialogResult.OK ||  !File.Exists(fd.FileName))
-            {  throw new BException("File not found"); }
+            {
+                Filter = "Документ Excel|*.xls*|All files|*.*",
+                Title = "Выберите Книгу Excel c данными для клавиатуры весов."
+            };
+
+            if (fd.ShowDialog() != DialogResult.OK || !File.Exists(fd.FileName))
+            { return; } //throw new BException("File not found"); }
             else
             {
-                XL.xlBook book =new XL.xlBook(fd.FileName);
+                XL.xlBook book = new XL.xlBook(fd.FileName);
                 Products = GetProducts(book.GetListObj("Products"));
-                book.Close();   
+                book.Close();
             }
         }
 
-        private List<Product> GetProducts(ListObject listObject)
+        private List<KeyboardItem> GetProducts(ListObject listObject)
         {
-            List<Product> products = new List<Product>();
-            foreach(Excel.ListRow row in listObject.ListRows)
+            List<KeyboardItem> products = new List<KeyboardItem>();
+            List<ImageItem> images = ImageManager.LoadPictures();
+
+            foreach (Excel.ListRow row in listObject.ListRows)
             {
                 string idText = row.Range[1, 1].Value?.ToString() ?? "";
                 if (!string.IsNullOrEmpty(idText))
                 {
-                    string pictureName = row.Range[1, 5].Value?.ToString() ?? "";
-                    string pictureFileName = GetFileName(pictureName);
-                    Bitmap picture;
-                    if (File.Exists(pictureFileName))
+                    Bitmap picture = default;
+                    ImageItem img = default;
+                    string pictureId = row.Range[1, 4].Value?.ToString() ?? "";
+
+
+                    if (int.TryParse(pictureId, out int idimg))
                     {
-                        picture = new Bitmap(pictureFileName);
+                        img = (string.IsNullOrWhiteSpace(pictureId)) ? default : images.First(x => x.Id == idimg) ;
                     }
-                    else
+
+                    string path = "";
+                    if (!string.IsNullOrEmpty(img?.Path ?? ""))
                     {
-                        picture = default;
+                        if (File.Exists(img.Path))
+                        {
+                            picture = new Bitmap(img.Path);
+                            path = img.Path;
+                        }
                     }
-                    products.Add(new Product()
+
+                    products.Add(new KeyboardItem()
                     {
                         ID = int.TryParse(idText, out int id) ? id : 0,
                         Code = row.Range[1, 2].Value?.ToString() ?? "",
                         Name = row.Range[1, 3].Value?.ToString() ?? "",
                         PictureID = row.Range[1, 4].Value?.ToString() ?? "",
-                        PictureName = pictureName,
-                        Picture = picture ,
+                        PictureName = row.Range[1, 5].Value?.ToString() ?? "",
+                        Picture = picture,
                         Number = int.TryParse(row.Range[1, 7].Value?.ToString() ?? "", out int num) ? num : 0,
                         Category = row.Range[1, 8].Value?.ToString() ?? "",
+                        ImagePath = path
                     }) ;
                 }
             }
             return products;
         }
 
-        private string GetFileName(string pictureName)
-        {            
-            string directory = SettingManager.ImagePath;         
-            string  filename = Path.Combine(directory, pictureName+".png");
-            return filename;
-        }
+        //private string GetFileName(string pictureName)
+        //{            
+        //    string directory = SettingManager.ImagePath;         
+        //    string  filename = Path.Combine(directory, pictureName+".png");
+        //    return filename;
+        //}
     }
 }

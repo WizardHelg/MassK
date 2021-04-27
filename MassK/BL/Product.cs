@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,8 +12,8 @@ namespace MassK.BL
         /// <summary>
         /// ID товара
         /// </summary>
-       [DisplayName ("ID")]
-        public int ID { get; set; }
+        [DisplayName("ID - товара")]
+        public int ProductID { get; set; }
 
         /// <summary>
         /// Код товара
@@ -26,27 +24,15 @@ namespace MassK.BL
         /// <summary>
         /// Наименование товара
         /// </summary>
-         [DisplayName ("Наименование товара")]
-        public string Name { get; set; }
+        [DisplayName("PLU")]
+        public string PLU { get; set; }
 
         /// <summary>
         /// ID картинки
         /// </summary>
-        [DisplayName("ID - картинки")]
-        public string PictureID { get; set; }
-
-        /// <summary>
-        ///  Изображение
-        /// </summary>
-        [DisplayName("Имя картинки")]
-        public string PictureName { get; set; }
-
-        /// <summary>
-        /// Графическое изображение товара
-        /// </summary>
-        [DisplayName("Картинка")]
-        public Image Picture { get; set; }
-
+        [DisplayName("Наименование товара")]
+        public string ProducеName { get; set; }
+        
         /// <summary>
         /// № товара 
         /// </summary>
@@ -56,8 +42,8 @@ namespace MassK.BL
         /// <summary>
         /// Наименование категории 
         /// </summary>
-        [DisplayName("Категория")]
-        public string Category { get; set; }
+        [DisplayName("Выбранные")]
+        public bool Selected { get; set; }
 
     }
 }

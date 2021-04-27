@@ -12,7 +12,7 @@ namespace MassK.Data
         /// <summary>
         /// Список товаров
         /// </summary>
-        public List<Product> Products { get; set; }
+        public List<KeyboardItem> Products { get; set; }
 
         public abstract void Load();
     }

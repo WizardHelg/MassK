@@ -81,7 +81,7 @@ namespace MassK
         {
             if (dataGrid.SelectedRows.Count > 0)
             {
-                WeighingMachines.RemoveAt(dataGrid.SelectedRows[0].Index);
+               /// WeighingMachines.RemoveAt(dataGrid.Rows[].Index);
             }
             SetData();
         }
@@ -100,7 +100,7 @@ namespace MassK
         {
             foreach (WeighingMachine itm in WeighingMachines)
             {
-                itm.Load = ChkBox.Checked;
+                itm.Unload = ChkBox.Checked;
             }
             SetData();
         }

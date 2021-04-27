@@ -41,10 +41,10 @@ namespace MassK
             this.panel1 = new System.Windows.Forms.Panel();
             this.LbTitle = new System.Windows.Forms.Label();
             this.dataGridViewImageColumn4 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.customDataGrid1 = new MassK.UI.Controls.CustomDataGrid();
+            this.dataGrid = new MassK.UI.Controls.CustomDataGrid();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.customDataGrid1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // panel2
@@ -181,18 +181,18 @@ namespace MassK
             this.dataGridViewImageColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.dataGridViewImageColumn4.Name = "dataGridViewImageColumn4";
             // 
-            // customDataGrid1
+            // dataGrid
             // 
-            this.customDataGrid1.AllowUserToDeleteRows = false;
-            this.customDataGrid1.AllowUserToResizeRows = false;
-            this.customDataGrid1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dataGrid.AllowUserToDeleteRows = false;
+            this.dataGrid.AllowUserToResizeRows = false;
+            this.dataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.customDataGrid1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.customDataGrid1.Location = new System.Drawing.Point(1, 48);
-            this.customDataGrid1.Name = "customDataGrid1";
-            this.customDataGrid1.Size = new System.Drawing.Size(861, 330);
-            this.customDataGrid1.TabIndex = 12;
+            this.dataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGrid.Location = new System.Drawing.Point(1, 48);
+            this.dataGrid.Name = "dataGrid";
+            this.dataGrid.Size = new System.Drawing.Size(861, 330);
+            this.dataGrid.TabIndex = 12;
             // 
             // FormProductDirectory
             // 
@@ -202,14 +202,15 @@ namespace MassK
             this.ClientSize = new System.Drawing.Size(868, 469);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.customDataGrid1);
+            this.Controls.Add(this.dataGrid);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormProductDirectory";
             this.Text = "Справочник товаров";
+            this.Load += new System.EventHandler(this.FormProductDirectory_Load);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.customDataGrid1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -227,6 +228,6 @@ namespace MassK
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label LbTitle;
         private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn4;
-        private UI.Controls.CustomDataGrid customDataGrid1;
+        private UI.Controls.CustomDataGrid dataGrid;
     }
 }

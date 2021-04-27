@@ -153,5 +153,81 @@ namespace MassK
 
             x_doc.Save(Path.Combine(SettingPath, $"{type.Name}.xml"));
         }
+
+     
+        internal static void Save<T>(List<T> data, string fileName)
+        {
+            XElement root = new XElement("Data");
+            Type type = typeof(T);
+            List<PropertyInfo> props = (from prop in type.GetProperties()
+                                        let prop_type = prop.PropertyType
+                                        where prop_type.IsValueType || prop_type == typeof(string)
+                                        select prop).ToList();
+
+            foreach (T item in data)
+            {
+                XElement element = new XElement(type.Name);
+
+                foreach (var prop in props)
+                {
+                    if (prop.PropertyType != typeof(Image))
+                    {
+                        element.Add(new XElement(
+                            prop.Name,
+                            prop.GetValue(item)?.ToString() ?? ""));
+                    }
+                }
+
+                root.Add(element);
+            }
+
+            XDocument x_doc = new XDocument(root);
+
+            //if (!Directory.Exists(SettingPath))
+            //    Directory.CreateDirectory(SettingPath);
+            x_doc.Save(fileName);
+          
+        }
+
+        public static List<KeyboardItem> Load(string path)
+        {           
+            if (!File.Exists(path))
+                return null;
+
+            Type type = typeof(KeyboardItem);
+            List<KeyboardItem> buffer = new List<KeyboardItem>();
+            XDocument x_doc = XDocument.Load(path);
+
+            foreach (var elemet in x_doc.Root.Elements())
+            {
+                KeyboardItem item = new KeyboardItem();
+                foreach (var child_element in elemet.Elements())
+                {
+                    if (type.GetProperty(child_element.Name.LocalName) is PropertyInfo prop)
+                    {
+                        if (prop.PropertyType.IsValueType)
+                        {
+                            try
+                            {
+                                prop.SetValue(item, Convert.ChangeType(child_element.Value, prop.PropertyType));
+                            }
+                            catch
+                            {
+                                item = null;
+                                break;
+                            }
+                        }
+                        else
+                            prop.SetValue(item, child_element.Value);
+                    }
+                }
+
+                if (item != null)
+                    buffer.Add(item);
+            }
+
+            return buffer.Count > 0 ? buffer : null;
+        }
+
     }
 }

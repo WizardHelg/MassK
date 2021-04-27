@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace MassK.BL
 {
-    class ImageItem
+  public  class ImageItem
     {
 
         [DisplayName("ID")]

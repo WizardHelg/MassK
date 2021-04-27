@@ -34,58 +34,11 @@ namespace MassK
             SetData();
         }
 
-        private void BtnImport_Click(object sender, EventArgs e)
-        {
-        
-            Ookii.Dialogs.WinForms.VistaFolderBrowserDialog ofd = new Ookii.Dialogs.WinForms.VistaFolderBrowserDialog();
-            if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                string folder = ofd.SelectedPath;
-                string[] files = Directory.GetFiles(folder);
-                foreach (string file in files)
-                {
-                    FileInfo fi = new FileInfo(file);
-                    string extention = fi.Extension.ToLower();
-                    if (extention != ".png" && extention != ".jpg") continue;
-                    ImageManager.ImportPicture(file);
-
-                }
-                SetData();
-            }
-        }
+      
 
         private void SetData()
         {
             _images = ImageManager.LoadPictures();
-            //_images = SettingManager.Load<ImageItem>();
-            //if (_images is null) _images = new List<ImageItem>();
-            // string[] files = Directory.GetFiles(SettingManager.ImagePath);
-            // foreach (string file in files)
-            // {
-            //     FileInfo fi = new FileInfo(file);
-            //     string extention = fi.Extension.ToLower();
-            //     if (extention != ".png") continue;
-
-            //     Image picture = new Bitmap(file);
-
-            //     ImageItem item = _images.Find(x => x.Path == file) ?? default;
-            //     if (item is null)
-            //     {
-            //         item = new ImageItem()
-            //         {
-            //             Id = ImageManager.GetFreeId(_images),                        
-            //             Name = Path.GetFileNameWithoutExtension(file),
-            //             Path = file,
-            //             Picture = picture
-            //         };
-            //         _images.Add(item);
-            //     }
-            //     else
-            //     {
-            //         item.Picture = picture;
-            //     }
-            // }
-
             FillDataGrid(_images);
         }
         private void SetDataGrid()
@@ -136,7 +89,7 @@ namespace MassK
 
         private void BtnAdd_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog() { Filter = "PNG | *.png", Multiselect = true };
+            OpenFileDialog ofd = new OpenFileDialog() { Filter = "Все файлы | *.*", Multiselect = true };
             if (ofd.ShowDialog() == DialogResult.OK)
             {                
                 string[] files = ofd.FileNames;
@@ -146,9 +99,13 @@ namespace MassK
                     string extention = fi.Extension.ToLower();
                     if (ImageManager.ImageExtentions.Contains(extention,StringComparer.InvariantCultureIgnoreCase) )
                     {
-                        ImageManager.ImportPicture(file);
+                      string pathNewImg = ImageManager.ImportPicture(file);
+                       int idNewItm = ImageManager.GetFreeId(_images);
+                        _images.Add(new ImageItem() { Path = pathNewImg, Id = idNewItm });
                     }
                 }
+
+                SettingManager.Save(_images);
                 SetData();
             }
         }
@@ -161,6 +118,28 @@ namespace MassK
         private void BtnLogo_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void BtnImport_Click(object sender, EventArgs e)
+        {
+
+            Ookii.Dialogs.WinForms.VistaFolderBrowserDialog ofd = new Ookii.Dialogs.WinForms.VistaFolderBrowserDialog();
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                string folder = ofd.SelectedPath;
+                string[] files = Directory.GetFiles(folder);
+                foreach (string file in files)
+                {
+                    FileInfo fi = new FileInfo(file);
+                    string extention = fi.Extension.ToLower();
+                    if (!ImageManager.ImageExtentions.Contains(extention)) continue;
+                    string newItm = ImageManager.ImportPicture(file);
+                    int idNewItm = ImageManager.GetFreeId(_images);
+                    _images.Add(new ImageItem() { Path = newItm, Id = idNewItm });
+                }
+                SettingManager.Save(_images);               
+                SetData();
+            }
         }
 
         private void BtnSave_Click(object sender, EventArgs e)
@@ -183,21 +162,22 @@ namespace MassK
                 _images.Add(imageItem);
             }
             SettingManager.Save(_images);
+            Close();
         }
 
         private void BtnDelete_Click(object sender, EventArgs e)
         {
-            if (dataGrid.SelectedRows.Count > 0)
+            if (dataGrid.SelectedCells.Count > 0)
             {
-                string path = dataGrid.SelectedRows[0].Cells[3].Value?.ToString() ?? "";
+                string path = dataGrid.Rows[dataGrid.SelectedCells[0].RowIndex].Cells[3].Value?.ToString() ?? "";
                 if (File.Exists(path))
                 {
-                    dataGrid.Rows.Remove(dataGrid.SelectedRows[0]);
+                    dataGrid.Rows.Remove(dataGrid.Rows[dataGrid.SelectedCells[0].RowIndex]);
                     _images.RemoveAll(x => x.Path == path);
-
-                    File.Delete(path);
+                    SettingManager.Save(_images);
+                     //File.Delete(path);
                     MessageBox.Show($"Файл :{path}. Был удален!", "Изображение удалено", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                    SetData();
                 }
             }
         }

@@ -41,7 +41,6 @@ namespace MassK
             this.BtnAdd = new System.Windows.Forms.Button();
             this.BtnImport = new System.Windows.Forms.Button();
             this.BtnDelete = new System.Windows.Forms.Button();
-            this.BtnExport = new System.Windows.Forms.Button();
             this.BtnLogo = new System.Windows.Forms.Button();
             this.BtnSave = new System.Windows.Forms.Button();
             this.dataGrid = new MassK.UI.Controls.CustomDataGrid();
@@ -59,16 +58,16 @@ namespace MassK
             this.panel2.Controls.Add(this.textBox1);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.label2);
-            this.panel2.Location = new System.Drawing.Point(2, 532);
+            this.panel2.Location = new System.Drawing.Point(2, 537);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(970, 42);
+            this.panel2.Size = new System.Drawing.Size(781, 42);
             this.panel2.TabIndex = 12;
             // 
             // comboBox1
             // 
             this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(790, 10);
+            this.comboBox1.Location = new System.Drawing.Point(601, 10);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(165, 21);
             this.comboBox1.TabIndex = 3;
@@ -88,7 +87,7 @@ namespace MassK
             this.label3.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label3.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label3.Location = new System.Drawing.Point(722, 12);
+            this.label3.Location = new System.Drawing.Point(533, 12);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(57, 16);
             this.label3.TabIndex = 1;
@@ -118,7 +117,7 @@ namespace MassK
             this.panel1.Controls.Add(this.BtnHelp);
             this.panel1.Location = new System.Drawing.Point(2, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(970, 42);
+            this.panel1.Size = new System.Drawing.Size(781, 42);
             this.panel1.TabIndex = 13;
             // 
             // label1
@@ -131,7 +130,7 @@ namespace MassK
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.label1.Location = new System.Drawing.Point(10, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(837, 23);
+            this.label1.Size = new System.Drawing.Size(648, 23);
             this.label1.TabIndex = 1;
             this.label1.Text = "Библиотека картинок";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -143,7 +142,7 @@ namespace MassK
             this.BtnHelp.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.BtnHelp.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.BtnHelp.ForeColor = System.Drawing.Color.CornflowerBlue;
-            this.BtnHelp.Location = new System.Drawing.Point(862, 11);
+            this.BtnHelp.Location = new System.Drawing.Point(673, 11);
             this.BtnHelp.Name = "BtnHelp";
             this.BtnHelp.Size = new System.Drawing.Size(93, 23);
             this.BtnHelp.TabIndex = 0;
@@ -192,27 +191,13 @@ namespace MassK
             this.BtnDelete.UseVisualStyleBackColor = false;
             this.BtnDelete.Click += new System.EventHandler(this.BtnDelete_Click);
             // 
-            // BtnExport
-            // 
-            this.BtnExport.BackColor = System.Drawing.Color.Transparent;
-            this.BtnExport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnExport.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.BtnExport.ForeColor = System.Drawing.Color.Black;
-            this.BtnExport.Location = new System.Drawing.Point(386, 53);
-            this.BtnExport.Name = "BtnExport";
-            this.BtnExport.Size = new System.Drawing.Size(102, 30);
-            this.BtnExport.TabIndex = 14;
-            this.BtnExport.Text = "Экспорт";
-            this.BtnExport.UseVisualStyleBackColor = false;
-            this.BtnExport.Click += new System.EventHandler(this.BtnExport_Click);
-            // 
             // BtnLogo
             // 
             this.BtnLogo.BackColor = System.Drawing.Color.Transparent;
             this.BtnLogo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnLogo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.BtnLogo.ForeColor = System.Drawing.Color.Black;
-            this.BtnLogo.Location = new System.Drawing.Point(499, 53);
+            this.BtnLogo.Location = new System.Drawing.Point(387, 53);
             this.BtnLogo.Name = "BtnLogo";
             this.BtnLogo.Size = new System.Drawing.Size(102, 30);
             this.BtnLogo.TabIndex = 14;
@@ -227,7 +212,7 @@ namespace MassK
             this.BtnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.BtnSave.ForeColor = System.Drawing.Color.Black;
-            this.BtnSave.Location = new System.Drawing.Point(855, 577);
+            this.BtnSave.Location = new System.Drawing.Point(666, 582);
             this.BtnSave.Name = "BtnSave";
             this.BtnSave.Size = new System.Drawing.Size(102, 30);
             this.BtnSave.TabIndex = 14;
@@ -245,17 +230,16 @@ namespace MassK
             this.dataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGrid.Location = new System.Drawing.Point(4, 91);
             this.dataGrid.Name = "dataGrid";
-            this.dataGrid.Size = new System.Drawing.Size(966, 440);
+            this.dataGrid.Size = new System.Drawing.Size(777, 445);
             this.dataGrid.TabIndex = 0;
             // 
             // FormPictureDirectory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(973, 610);
+            this.ClientSize = new System.Drawing.Size(784, 615);
             this.Controls.Add(this.BtnLogo);
             this.Controls.Add(this.BtnSave);
-            this.Controls.Add(this.BtnExport);
             this.Controls.Add(this.BtnDelete);
             this.Controls.Add(this.BtnImport);
             this.Controls.Add(this.BtnAdd);
@@ -289,7 +273,6 @@ namespace MassK
         private System.Windows.Forms.Button BtnAdd;
         private System.Windows.Forms.Button BtnImport;
         private System.Windows.Forms.Button BtnDelete;
-        private System.Windows.Forms.Button BtnExport;
         private System.Windows.Forms.Button BtnLogo;
         private System.Windows.Forms.Button BtnSave;
     }

@@ -13,15 +13,11 @@ namespace MassK
 {
     public partial class FormAddWeighingMachine : Form
     {
-      
-               
         public string Connection { get; internal set; }
-
         public string Name { get; internal set; }
         public string Port { get; internal set; }
         public string IpAddress { get; internal set; }
 
-       
 
         LangPack _langPack;
         public FormAddWeighingMachine(LangPack langPack)
@@ -52,6 +48,7 @@ namespace MassK
         {
             CBoxConnectionType.Items.Add("Ethernet");
             CBoxConnectionType.Items.Add("COM");
+            CBoxConnectionType.SelectedIndex = 0;
         }
     }
 }

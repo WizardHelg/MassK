@@ -62,9 +62,9 @@ namespace MassK
 
         private void BtnDelete_Click(object sender, EventArgs e)
         {
-            if (dataGrid.SelectedRows.Count> 0)
+            if (dataGrid.SelectedCells.Count> 0)
             {
-             int id =(int) dataGrid.SelectedRows[0].Cells[0].Value  ;
+             int id =(int) dataGrid.Rows[dataGrid.SelectedCells[0].RowIndex].Cells[0].Value  ;
                 Categories.RemoveAll(x => x.ID == id);
                 SetDataSource();
             }

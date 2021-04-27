@@ -42,6 +42,7 @@ namespace MassK
             this.BtnSave = new System.Windows.Forms.Button();
             this.dataGrid = new MassK.UI.Controls.CustomDataGrid();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -91,7 +92,8 @@ namespace MassK
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.panel2.Location = new System.Drawing.Point(2, 349);
+            this.panel2.Controls.Add(this.BtnSave);
+            this.panel2.Location = new System.Drawing.Point(2, 392);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(797, 42);
             this.panel2.TabIndex = 16;
@@ -165,11 +167,11 @@ namespace MassK
             // BtnSave
             // 
             this.BtnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnSave.BackColor = System.Drawing.Color.Transparent;
+            this.BtnSave.BackColor = System.Drawing.Color.White;
             this.BtnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.BtnSave.ForeColor = System.Drawing.Color.Black;
-            this.BtnSave.Location = new System.Drawing.Point(668, 395);
+            this.BtnSave.Location = new System.Drawing.Point(666, 5);
             this.BtnSave.Name = "BtnSave";
             this.BtnSave.Size = new System.Drawing.Size(120, 30);
             this.BtnSave.TabIndex = 20;
@@ -186,7 +188,7 @@ namespace MassK
             this.dataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGrid.Location = new System.Drawing.Point(4, 92);
             this.dataGrid.Name = "dataGrid";
-            this.dataGrid.Size = new System.Drawing.Size(793, 256);
+            this.dataGrid.Size = new System.Drawing.Size(793, 299);
             this.dataGrid.TabIndex = 15;
             // 
             // FormWeighingMachins
@@ -194,8 +196,7 @@ namespace MassK
             this.AcceptButton = this.BtnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 428);
-            this.Controls.Add(this.BtnSave);
+            this.ClientSize = new System.Drawing.Size(800, 434);
             this.Controls.Add(this.ChkBox);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
@@ -210,6 +211,7 @@ namespace MassK
             this.Text = "Таблица весов";
             this.Load += new System.EventHandler(this.FormWeighingMachins_Load);
             this.panel1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

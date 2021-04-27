@@ -47,8 +47,11 @@ namespace MassK.BL
                 g.DrawImage(s_bitmap, t_rec);
             }
 
-            t_bitmap.Save(save_path, ImageFormat.Png);
-
+            try
+            {
+                t_bitmap.Save(save_path, ImageFormat.Png);
+            }
+            catch  { save_path = ""; };
             return save_path;
         }
 
@@ -61,34 +64,43 @@ namespace MassK.BL
         public static List<ImageItem> LoadPictures()
         {
             List<ImageItem> images = SettingManager.Load<ImageItem>();
-
             if (images is null) images = new List<ImageItem>();
-            string[] files = Directory.GetFiles(SettingManager.ImagePath);
-            foreach (string file in files)
+
+            foreach (ImageItem   item in images)
             {
-                FileInfo fi = new FileInfo(file);
-                string extention = fi.Extension.ToLower();
-                if (extention != ".png") continue;
-
-                Image picture = new Bitmap(file);
-
-                ImageItem item = images.Find(x => x.Path == file) ?? default;
-                if (item is null)
+            if (!string.IsNullOrEmpty(item.Path) )
                 {
-                    item = new ImageItem()
-                    {
-                        Id = ImageManager.GetFreeId(images),
-                        Name = Path.GetFileNameWithoutExtension(file),
-                        Path = file,
-                        Picture = picture
-                    };
-                    images.Add(item);
-                }
-                else
-                {
-                    item.Picture = picture;
+                    if (File.Exists(item.Path))
+                     item.Picture = new Bitmap(item.Path);
                 }
             }
+
+            // string[] files = Directory.GetFiles(SettingManager.ImagePath);
+            //foreach (string file in files)
+            //{
+            //    FileInfo fi = new FileInfo(file);
+            //    string extention = fi.Extension.ToLower();
+            //    if (extention != ".png") continue;
+
+            //    Image picture = new Bitmap(file);
+
+            //    ImageItem item = images.Find(x => x.Path == file) ?? default;
+            //    if (item is null)
+            //    {
+            //        item = new ImageItem()
+            //        {
+            //            Id = ImageManager.GetFreeId(images),
+            //            Name = Path.GetFileNameWithoutExtension(file),
+            //            Path = file,
+            //            Picture = picture
+            //        };
+            //        images.Add(item);
+            //    }
+            //    else
+            //    {
+            //        item.Picture = picture;
+            //    }
+            //}
             return images;
         }
     }

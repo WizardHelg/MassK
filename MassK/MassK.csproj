@@ -75,8 +75,9 @@
   <ItemGroup>
     <Compile Include="BL\ImageItem.cs" />
     <Compile Include="BL\ImageManager.cs" />
-    <Compile Include="BL\Product.cs" />
+    <Compile Include="BL\KeyboardItem.cs" />
     <Compile Include="BL\ProductCategory.cs" />
+    <Compile Include="BL\Product.cs" />
     <Compile Include="BL\WeighingMachine.cs" />
     <Compile Include="Settings\SettingManager.cs" />
     <Compile Include="Data\XL\ExcelHelper.cs" />
@@ -100,17 +101,23 @@
     <Compile Include="UI\Forms\FormCategoryProducts.Designer.cs">
       <DependentUpon>FormCategoryProducts.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Forms\FormChangeImage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\FormChangeImage.Designer.cs">
+      <DependentUpon>FormChangeImage.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Forms\FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UI\Forms\FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Forms\FormPictureDirectory.cs">
+    <Compile Include="UI\Forms\FormImageDirectory.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Forms\FormPictureDirectory.Designer.cs">
-      <DependentUpon>FormPictureDirectory.cs</DependentUpon>
+    <Compile Include="UI\Forms\FormImageDirectory.Designer.cs">
+      <DependentUpon>FormImageDirectory.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Forms\FormProductDirectory.cs">
       <SubType>Form</SubType>
@@ -140,11 +147,14 @@
     <EmbeddedResource Include="UI\Forms\FormCategoryProducts.resx">
       <DependentUpon>FormCategoryProducts.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\FormChangeImage.resx">
+      <DependentUpon>FormChangeImage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Forms\FormPictureDirectory.resx">
-      <DependentUpon>FormPictureDirectory.cs</DependentUpon>
+    <EmbeddedResource Include="UI\Forms\FormImageDirectory.resx">
+      <DependentUpon>FormImageDirectory.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\FormProductDirectory.resx">
       <DependentUpon>FormProductDirectory.cs</DependentUpon>
