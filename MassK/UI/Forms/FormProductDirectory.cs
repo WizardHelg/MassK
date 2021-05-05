@@ -21,8 +21,8 @@ namespace MassK
         {
             langPack.SetText(this);
             InitializeComponent();
-            panel1.BackColor = StyleUI.FrameColor;
-            panel2.BackColor = StyleUI.FrameColor;
+            panel1.BackColor = StyleUI.FrameBlueColor;
+            panel2.BackColor = StyleUI.FrameBlueColor;
         }
 
         private void BtnApply_Click(object sender, EventArgs e)

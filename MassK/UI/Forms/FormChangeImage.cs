@@ -19,15 +19,15 @@ namespace MassK.UI.Forms
         public FormChangeImage()
         {
             InitializeComponent();
-            panel1.BackColor = StyleUI.FrameColor;
-            panel2.BackColor = StyleUI.FrameColor;
+            panel1.BackColor = StyleUI.FrameBlueColor;
+            panel2.BackColor = StyleUI.FrameBlueColor;
         }
 
         public FormChangeImage(List<ImageItem> images)
         {
             InitializeComponent();
-            panel1.BackColor = StyleUI.FrameColor;
-            panel2.BackColor = StyleUI.FrameColor;
+            panel1.BackColor = StyleUI.FrameBlueColor;
+            panel2.BackColor = StyleUI.FrameBlueColor;
             this.images = images;
         }
 

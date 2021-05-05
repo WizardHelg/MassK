@@ -21,8 +21,8 @@ namespace MassK
             InitializeComponent();
             dataGrid.RowHeadersVisible = false;
             dataGrid.DataError += DataGrid_DataError;
-            panel1.BackColor = StyleUI.FrameColor;
-            panel2.BackColor = StyleUI.FrameColor;           
+            panel1.BackColor = StyleUI.FrameBlueColor;
+            panel2.BackColor = StyleUI.FrameBlueColor;           
         }
 
         private void DataGrid_DataError(object sender, DataGridViewDataErrorEventArgs e)

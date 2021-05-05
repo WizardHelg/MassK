@@ -23,8 +23,8 @@ namespace MassK
         {
             langPack.SetText(this);
             InitializeComponent();
-            panel1.BackColor = StyleUI.FrameColor;
-            panel2.BackColor = StyleUI.FrameColor;
+            panel1.BackColor = StyleUI.FrameBlueColor;
+            panel2.BackColor = StyleUI.FrameBlueColor;
 
             SetDataGrid();
         }
@@ -62,6 +62,9 @@ namespace MassK
                 Name = "picture",
                 HeaderText = "Картинка"
             };
+
+           // DataGridViewImageColumn imageColumn = (DataGridViewImageColumn)dataGrid.Columns[4];
+
             dataGrid.Columns.Add(imageColumn);
             imageColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
 
@@ -74,7 +77,9 @@ namespace MassK
             dataGrid.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
             dataGrid.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
             dataGrid.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGrid.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+            dataGrid.Columns[3].Visible = false;
+            // dataGrid.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
         }
 
         private void FillDataGrid(List<ImageItem> images)

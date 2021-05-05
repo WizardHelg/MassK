@@ -10,7 +10,7 @@ namespace MassK.BL
 {
     static class ImageManager
     {
-        public static string[] ImageExtentions = new string[] { ".bmp", ".png", ".tiff", ".img", ".gif", ".", ".", ".", ".", ".", ".jpg", ".jpeg" };
+        public static string[] ImageExtentions = new string[] { ".bmp", ".png", ".tiff", ".img", ".gif", ".jpe", ".jfif", ".jpg", ".jpeg" };
 
         public static string ImportPicture(string sourcePath)
         {
@@ -68,10 +68,16 @@ namespace MassK.BL
 
             foreach (ImageItem   item in images)
             {
+                FileInfo fi = new FileInfo(item.Path);
             if (!string.IsNullOrEmpty(item.Path) )
                 {
                     if (File.Exists(item.Path))
                      item.Picture = new Bitmap(item.Path);
+                    string[] filename = Path.GetFileNameWithoutExtension(fi.Name).Split('_');
+                     int.TryParse(filename[0],out int id);
+                    item.Id = id;
+                    item.Group = (filename.Length > 2) ? filename[1] : "";
+                    item.Name = (filename.Length > 3) ? filename[2] : "";
                 }
             }
 

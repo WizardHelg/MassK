@@ -36,8 +36,8 @@ namespace MassK
         public FormMain()
         {
             InitializeComponent();
-            panel1.BackColor = StyleUI.FrameColor;
-            panel2.BackColor = StyleUI.FrameColor;
+            panel1.BackColor = StyleUI.FrameBlueColor;
+            panel2.BackColor = StyleUI.FrameBlueColor;
 
             string cur_lang = settings.Lang;
             FillLangs(_langPack);
@@ -185,7 +185,7 @@ namespace MassK
 
             Loader loader = new ExcelLoader();
             loader.Load();
-            _KeyboardItems = loader.Products;
+            _KeyboardItems = loader.KeyboardItems;
             SetDataGrid();
             FillDataGrid(_KeyboardItems);
         }
@@ -394,6 +394,11 @@ namespace MassK
         }
 
         private void CbxLang_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
         {
 
         }

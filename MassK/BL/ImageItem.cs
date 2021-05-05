@@ -3,6 +3,9 @@ using System.Drawing;
 
 namespace MassK.BL
 {
+    /// <summary>
+    /// Элемент библиотеки картинок
+    /// </summary>
   public  class ImageItem
     {
 

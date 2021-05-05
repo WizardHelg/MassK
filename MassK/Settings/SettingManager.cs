@@ -13,9 +13,25 @@ namespace MassK
     static class SettingManager
     {
         //public static string L { get; set; } = Directory.GetCurrentDirectory();
+        public static readonly Properties.Settings settings = Properties.Settings.Default;
         public static string RootPath { get; set; } = Application.StartupPath;
         public static string LangPath { get; set; } = Path.Combine(RootPath, "Lang");
         public static string ImagePath { get; set; } = Path.Combine(RootPath, "Images");
+        public static string RusImagePath { get; set; } = Path.Combine(ImagePath, "Картинки RUS_290421");
+        public static string EngImagePath { get; set; } = Path.Combine(ImagePath, "Картинки RUS_290421");
+        public static string DefaultImagesPath { 
+            get
+            {
+                _DefaultImagesPath = (settings.Lang == "Русский")? RusImagePath : EngImagePath;
+                return _DefaultImagesPath;
+            }
+            set
+            {
+                _DefaultImagesPath = value;
+            } 
+        }
+       static string  _DefaultImagesPath;
+
         public static string SettingPath { get; set; } = Path.Combine(RootPath, "Settings");
 
         /// <summary>

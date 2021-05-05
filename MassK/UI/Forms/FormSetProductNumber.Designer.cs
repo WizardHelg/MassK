@@ -46,17 +46,19 @@ namespace MassK.UI.Forms
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.RBtnPLU);
             this.panel1.Controls.Add(this.RBtnOperator);
-            this.panel1.Location = new System.Drawing.Point(6, 10);
+            this.panel1.Location = new System.Drawing.Point(8, 9);
+            this.panel1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(334, 106);
+            this.panel1.Size = new System.Drawing.Size(396, 109);
             this.panel1.TabIndex = 0;
             // 
             // RBtnPLU
             // 
-            this.RBtnPLU.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.RBtnPLU.Location = new System.Drawing.Point(74, 54);
+            this.RBtnPLU.Font = new System.Drawing.Font("Verdana", 12F);
+            this.RBtnPLU.Location = new System.Drawing.Point(112, 59);
+            this.RBtnPLU.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.RBtnPLU.Name = "RBtnPLU";
-            this.RBtnPLU.Size = new System.Drawing.Size(168, 26);
+            this.RBtnPLU.Size = new System.Drawing.Size(190, 36);
             this.RBtnPLU.TabIndex = 0;
             this.RBtnPLU.TabStop = true;
             this.RBtnPLU.Text = "Использовать PLU";
@@ -66,10 +68,11 @@ namespace MassK.UI.Forms
             // 
             // RBtnOperator
             // 
-            this.RBtnOperator.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.RBtnOperator.Location = new System.Drawing.Point(74, 22);
+            this.RBtnOperator.Font = new System.Drawing.Font("Verdana", 12F);
+            this.RBtnOperator.Location = new System.Drawing.Point(112, 15);
+            this.RBtnOperator.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.RBtnOperator.Name = "RBtnOperator";
-            this.RBtnOperator.Size = new System.Drawing.Size(161, 26);
+            this.RBtnOperator.Size = new System.Drawing.Size(178, 36);
             this.RBtnOperator.TabIndex = 0;
             this.RBtnOperator.TabStop = true;
             this.RBtnOperator.Text = "Ввод оператором";
@@ -80,9 +83,10 @@ namespace MassK.UI.Forms
             // BtnHelp
             // 
             this.BtnHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.BtnHelp.Location = new System.Drawing.Point(6, 122);
+            this.BtnHelp.Location = new System.Drawing.Point(8, 124);
+            this.BtnHelp.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.BtnHelp.Name = "BtnHelp";
-            this.BtnHelp.Size = new System.Drawing.Size(75, 23);
+            this.BtnHelp.Size = new System.Drawing.Size(125, 32);
             this.BtnHelp.TabIndex = 4;
             this.BtnHelp.Text = "Справка";
             this.BtnHelp.UseVisualStyleBackColor = true;
@@ -90,9 +94,10 @@ namespace MassK.UI.Forms
             // BtnSave
             // 
             this.BtnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnSave.Location = new System.Drawing.Point(184, 121);
+            this.BtnSave.Location = new System.Drawing.Point(144, 124);
+            this.BtnSave.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.BtnSave.Name = "BtnSave";
-            this.BtnSave.Size = new System.Drawing.Size(75, 23);
+            this.BtnSave.Size = new System.Drawing.Size(125, 32);
             this.BtnSave.TabIndex = 5;
             this.BtnSave.Text = "Сохранить";
             this.BtnSave.UseVisualStyleBackColor = true;
@@ -102,9 +107,10 @@ namespace MassK.UI.Forms
             // 
             this.BtnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.BtnCancel.Location = new System.Drawing.Point(265, 121);
+            this.BtnCancel.Location = new System.Drawing.Point(279, 124);
+            this.BtnCancel.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.BtnCancel.Name = "BtnCancel";
-            this.BtnCancel.Size = new System.Drawing.Size(75, 23);
+            this.BtnCancel.Size = new System.Drawing.Size(125, 32);
             this.BtnCancel.TabIndex = 6;
             this.BtnCancel.Text = "Отменить";
             this.BtnCancel.UseVisualStyleBackColor = true;
@@ -112,15 +118,17 @@ namespace MassK.UI.Forms
             // FormSetProductNumber
             // 
             this.AcceptButton = this.BtnSave;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.BtnCancel;
-            this.ClientSize = new System.Drawing.Size(347, 148);
+            this.ClientSize = new System.Drawing.Size(415, 162);
             this.Controls.Add(this.BtnHelp);
             this.Controls.Add(this.BtnSave);
             this.Controls.Add(this.BtnCancel);
             this.Controls.Add(this.panel1);
+            this.Font = new System.Drawing.Font("Verdana", 12F);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Name = "FormSetProductNumber";
             this.Text = "Выбрать способ установки номера товара";
             this.panel1.ResumeLayout(false);

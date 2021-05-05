@@ -26,8 +26,8 @@ namespace MassK.Data
             { return; } //throw new BException("File not found"); }
             else
             {
-                XL.xlBook book = new XL.xlBook(fd.FileName);
-                Products = GetProducts(book.GetListObj("Products"));
+                XL.XlBook book = new XL.XlBook(fd.FileName);
+                KeyboardItems = GetProducts(book.GetListObj("Products"));
                 book.Close();
             }
         }

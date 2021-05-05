@@ -53,31 +53,33 @@ namespace MassK
             // 
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.panel2.BackColor = System.Drawing.Color.RoyalBlue;
             this.panel2.Controls.Add(this.comboBox1);
             this.panel2.Controls.Add(this.textBox1);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.label2);
-            this.panel2.Location = new System.Drawing.Point(2, 537);
+            this.panel2.Location = new System.Drawing.Point(2, 525);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(781, 42);
+            this.panel2.Size = new System.Drawing.Size(781, 52);
             this.panel2.TabIndex = 12;
             // 
             // comboBox1
             // 
             this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox1.Font = new System.Drawing.Font("Verdana", 12F);
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(601, 10);
+            this.comboBox1.Location = new System.Drawing.Point(601, 13);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(165, 21);
+            this.comboBox1.Size = new System.Drawing.Size(165, 26);
             this.comboBox1.TabIndex = 3;
             // 
             // textBox1
             // 
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBox1.Location = new System.Drawing.Point(73, 11);
+            this.textBox1.Font = new System.Drawing.Font("Verdana", 12F);
+            this.textBox1.Location = new System.Drawing.Point(73, 14);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(231, 20);
+            this.textBox1.Size = new System.Drawing.Size(231, 27);
             this.textBox1.TabIndex = 2;
             // 
             // label3
@@ -85,11 +87,11 @@ namespace MassK
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.Font = new System.Drawing.Font("Verdana", 12F);
             this.label3.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label3.Location = new System.Drawing.Point(533, 12);
+            this.label3.Location = new System.Drawing.Point(533, 15);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(57, 16);
+            this.label3.Size = new System.Drawing.Size(64, 18);
             this.label3.TabIndex = 1;
             this.label3.Text = "в поле";
             this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -99,11 +101,11 @@ namespace MassK
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
             this.label2.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.Font = new System.Drawing.Font("Verdana", 12F);
             this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label2.Location = new System.Drawing.Point(12, 13);
+            this.label2.Location = new System.Drawing.Point(12, 16);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(54, 16);
+            this.label2.Size = new System.Drawing.Size(57, 18);
             this.label2.TabIndex = 1;
             this.label2.Text = "Найти";
             this.label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -112,10 +114,10 @@ namespace MassK
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.panel1.BackColor = System.Drawing.Color.RoyalBlue;
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.BtnHelp);
-            this.panel1.Location = new System.Drawing.Point(2, 3);
+            this.panel1.Location = new System.Drawing.Point(2, 2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(781, 42);
             this.panel1.TabIndex = 13;
@@ -126,7 +128,7 @@ namespace MassK
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoEllipsis = true;
             this.label1.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.label1.Location = new System.Drawing.Point(10, 9);
             this.label1.Name = "label1";
@@ -140,11 +142,11 @@ namespace MassK
             this.BtnHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnHelp.BackColor = System.Drawing.Color.White;
             this.BtnHelp.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.BtnHelp.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.BtnHelp.Font = new System.Drawing.Font("Verdana", 12F);
             this.BtnHelp.ForeColor = System.Drawing.Color.CornflowerBlue;
-            this.BtnHelp.Location = new System.Drawing.Point(673, 11);
+            this.BtnHelp.Location = new System.Drawing.Point(673, 8);
             this.BtnHelp.Name = "BtnHelp";
-            this.BtnHelp.Size = new System.Drawing.Size(93, 23);
+            this.BtnHelp.Size = new System.Drawing.Size(93, 28);
             this.BtnHelp.TabIndex = 0;
             this.BtnHelp.Text = "Справка";
             this.BtnHelp.UseVisualStyleBackColor = false;
@@ -153,7 +155,7 @@ namespace MassK
             // 
             this.BtnAdd.BackColor = System.Drawing.Color.Transparent;
             this.BtnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.BtnAdd.Font = new System.Drawing.Font("Verdana", 12F);
             this.BtnAdd.ForeColor = System.Drawing.Color.Black;
             this.BtnAdd.Location = new System.Drawing.Point(5, 53);
             this.BtnAdd.Name = "BtnAdd";
@@ -167,7 +169,7 @@ namespace MassK
             // 
             this.BtnImport.BackColor = System.Drawing.Color.Transparent;
             this.BtnImport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnImport.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.BtnImport.Font = new System.Drawing.Font("Verdana", 12F);
             this.BtnImport.ForeColor = System.Drawing.Color.Black;
             this.BtnImport.Location = new System.Drawing.Point(118, 53);
             this.BtnImport.Name = "BtnImport";
@@ -181,7 +183,7 @@ namespace MassK
             // 
             this.BtnDelete.BackColor = System.Drawing.Color.Transparent;
             this.BtnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.BtnDelete.Font = new System.Drawing.Font("Verdana", 12F);
             this.BtnDelete.ForeColor = System.Drawing.Color.Black;
             this.BtnDelete.Location = new System.Drawing.Point(273, 53);
             this.BtnDelete.Name = "BtnDelete";
@@ -195,7 +197,7 @@ namespace MassK
             // 
             this.BtnLogo.BackColor = System.Drawing.Color.Transparent;
             this.BtnLogo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnLogo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.BtnLogo.Font = new System.Drawing.Font("Verdana", 12F);
             this.BtnLogo.ForeColor = System.Drawing.Color.Black;
             this.BtnLogo.Location = new System.Drawing.Point(387, 53);
             this.BtnLogo.Name = "BtnLogo";
@@ -210,11 +212,11 @@ namespace MassK
             this.BtnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnSave.BackColor = System.Drawing.Color.Transparent;
             this.BtnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.BtnSave.Font = new System.Drawing.Font("Verdana", 12F);
             this.BtnSave.ForeColor = System.Drawing.Color.Black;
-            this.BtnSave.Location = new System.Drawing.Point(666, 582);
+            this.BtnSave.Location = new System.Drawing.Point(641, 584);
             this.BtnSave.Name = "BtnSave";
-            this.BtnSave.Size = new System.Drawing.Size(102, 30);
+            this.BtnSave.Size = new System.Drawing.Size(131, 30);
             this.BtnSave.TabIndex = 14;
             this.BtnSave.Text = "Сохранить";
             this.BtnSave.UseVisualStyleBackColor = false;
@@ -230,14 +232,14 @@ namespace MassK
             this.dataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGrid.Location = new System.Drawing.Point(4, 91);
             this.dataGrid.Name = "dataGrid";
-            this.dataGrid.Size = new System.Drawing.Size(777, 445);
+            this.dataGrid.Size = new System.Drawing.Size(777, 432);
             this.dataGrid.TabIndex = 0;
             // 
             // FormPictureDirectory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 615);
+            this.ClientSize = new System.Drawing.Size(784, 621);
             this.Controls.Add(this.BtnLogo);
             this.Controls.Add(this.BtnSave);
             this.Controls.Add(this.BtnDelete);

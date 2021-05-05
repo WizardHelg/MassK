@@ -51,40 +51,44 @@ namespace MassK
             // 
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.panel2.BackColor = System.Drawing.Color.RoyalBlue;
             this.panel2.Controls.Add(this.checkBox1);
             this.panel2.Controls.Add(this.BtnApply);
             this.panel2.Controls.Add(this.comboBox1);
             this.panel2.Controls.Add(this.textBox1);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.label2);
-            this.panel2.Location = new System.Drawing.Point(3, 384);
+            this.panel2.Font = new System.Drawing.Font("Verdana", 12F);
+            this.panel2.Location = new System.Drawing.Point(0, 547);
+            this.panel2.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(861, 82);
+            this.panel2.Size = new System.Drawing.Size(729, 104);
             this.panel2.TabIndex = 15;
             // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkBox1.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.checkBox1.ForeColor = System.Drawing.Color.White;
-            this.checkBox1.Location = new System.Drawing.Point(15, 52);
+            this.checkBox1.Location = new System.Drawing.Point(25, 69);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(265, 20);
+            this.checkBox1.Size = new System.Drawing.Size(294, 22);
             this.checkBox1.TabIndex = 4;
             this.checkBox1.Text = "Показать не выбранные товары";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // BtnApply
             // 
-            this.BtnApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnApply.BackColor = System.Drawing.Color.White;
             this.BtnApply.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.BtnApply.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.BtnApply.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.BtnApply.ForeColor = System.Drawing.Color.CornflowerBlue;
-            this.BtnApply.Location = new System.Drawing.Point(734, 41);
+            this.BtnApply.Location = new System.Drawing.Point(554, 61);
+            this.BtnApply.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.BtnApply.Name = "BtnApply";
-            this.BtnApply.Size = new System.Drawing.Size(118, 30);
+            this.BtnApply.Size = new System.Drawing.Size(162, 30);
             this.BtnApply.TabIndex = 0;
             this.BtnApply.Text = "Применить";
             this.BtnApply.UseVisualStyleBackColor = false;
@@ -92,45 +96,51 @@ namespace MassK
             // 
             // comboBox1
             // 
-            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox1.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(691, 11);
+            this.comboBox1.Location = new System.Drawing.Point(448, 17);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(161, 21);
+            this.comboBox1.Size = new System.Drawing.Size(266, 26);
             this.comboBox1.TabIndex = 3;
             // 
             // textBox1
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBox1.Location = new System.Drawing.Point(121, 11);
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox1.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox1.Location = new System.Drawing.Point(135, 17);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(195, 20);
+            this.textBox1.Size = new System.Drawing.Size(219, 27);
             this.textBox1.TabIndex = 2;
             // 
             // label3
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label3.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label3.Location = new System.Drawing.Point(628, 13);
+            this.label3.Location = new System.Drawing.Point(374, 20);
+            this.label3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(57, 16);
+            this.label3.Size = new System.Drawing.Size(64, 18);
             this.label3.TabIndex = 1;
             this.label3.Text = "в поле";
             this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label2
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
             this.label2.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label2.Location = new System.Drawing.Point(11, 13);
+            this.label2.Location = new System.Drawing.Point(18, 20);
+            this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(102, 16);
+            this.label2.Size = new System.Drawing.Size(110, 18);
             this.label2.TabIndex = 1;
             this.label2.Text = "Найти товар";
             this.label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -140,11 +150,12 @@ namespace MassK
             this.BtnHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnHelp.BackColor = System.Drawing.Color.White;
             this.BtnHelp.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.BtnHelp.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.BtnHelp.Font = new System.Drawing.Font("Verdana", 12F);
             this.BtnHelp.ForeColor = System.Drawing.Color.CornflowerBlue;
-            this.BtnHelp.Location = new System.Drawing.Point(748, 11);
+            this.BtnHelp.Location = new System.Drawing.Point(584, 14);
+            this.BtnHelp.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.BtnHelp.Name = "BtnHelp";
-            this.BtnHelp.Size = new System.Drawing.Size(93, 23);
+            this.BtnHelp.Size = new System.Drawing.Size(129, 30);
             this.BtnHelp.TabIndex = 0;
             this.BtnHelp.Text = "Справка";
             this.BtnHelp.UseVisualStyleBackColor = false;
@@ -153,12 +164,13 @@ namespace MassK
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.panel1.BackColor = System.Drawing.Color.RoyalBlue;
             this.panel1.Controls.Add(this.LbTitle);
             this.panel1.Controls.Add(this.BtnHelp);
-            this.panel1.Location = new System.Drawing.Point(3, 3);
+            this.panel1.Location = new System.Drawing.Point(1, 1);
+            this.panel1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(861, 42);
+            this.panel1.Size = new System.Drawing.Size(728, 55);
             this.panel1.TabIndex = 14;
             // 
             // LbTitle
@@ -167,11 +179,12 @@ namespace MassK
             | System.Windows.Forms.AnchorStyles.Right)));
             this.LbTitle.AutoEllipsis = true;
             this.LbTitle.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.LbTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.LbTitle.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Bold);
             this.LbTitle.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.LbTitle.Location = new System.Drawing.Point(26, 9);
+            this.LbTitle.Location = new System.Drawing.Point(13, 13);
+            this.LbTitle.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.LbTitle.Name = "LbTitle";
-            this.LbTitle.Size = new System.Drawing.Size(712, 23);
+            this.LbTitle.Size = new System.Drawing.Size(561, 32);
             this.LbTitle.TabIndex = 1;
             this.LbTitle.Text = "Выбор товаров для клавиатуры";
             this.LbTitle.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -189,21 +202,24 @@ namespace MassK
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGrid.Location = new System.Drawing.Point(1, 48);
+            this.dataGrid.Location = new System.Drawing.Point(2, 57);
+            this.dataGrid.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.dataGrid.Name = "dataGrid";
-            this.dataGrid.Size = new System.Drawing.Size(861, 330);
+            this.dataGrid.Size = new System.Drawing.Size(727, 489);
             this.dataGrid.TabIndex = 12;
             // 
             // FormProductDirectory
             // 
             this.AcceptButton = this.BtnApply;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(868, 469);
+            this.ClientSize = new System.Drawing.Size(730, 652);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dataGrid);
+            this.Font = new System.Drawing.Font("Verdana", 12F);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Name = "FormProductDirectory";
             this.Text = "Справочник товаров";
             this.Load += new System.EventHandler(this.FormProductDirectory_Load);
