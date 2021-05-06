@@ -17,8 +17,11 @@ namespace MassK
         public static string RootPath { get; set; } = Application.StartupPath;
         public static string LangPath { get; set; } = Path.Combine(RootPath, "Lang");
         public static string ImagePath { get; set; } = Path.Combine(RootPath, "Images");
-        public static string RusImagePath { get; set; } = Path.Combine(ImagePath, "Картинки RUS_290421");
-        public static string EngImagePath { get; set; } = Path.Combine(ImagePath, "Картинки RUS_290421");
+        public static string ProgrammPictures { get; set; } = Path.Combine(ImagePath, "ProgrammPictures");
+        public static string UserPictures { get; set; } = Path.Combine(ImagePath, "UserPictures");
+        public static string LogoPath { get; set; } = Path.Combine(ImagePath, "Logo");
+        public static string RusImagePath { get; set; } = Path.Combine(ProgrammPictures, "RUS");
+        public static string EngImagePath { get; set; } = Path.Combine(ProgrammPictures, "ENG");
         public static string DefaultImagesPath { 
             get
             {

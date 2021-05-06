@@ -131,6 +131,7 @@ namespace MassK.UI.Forms
             this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Name = "FormSetProductNumber";
             this.Text = "Выбрать способ установки номера товара";
+            this.Load += new System.EventHandler(this.FormSetProductNumber_Load);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 

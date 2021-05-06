@@ -35,7 +35,7 @@ namespace MassK.Data
         private List<KeyboardItem> GetProducts(ListObject listObject)
         {
             List<KeyboardItem> products = new List<KeyboardItem>();
-            List<ImageItem> images = ImageManager.LoadPictures();
+            List<ImageItem> images = ImageManager.GetImages();
 
             foreach (Excel.ListRow row in listObject.ListRows)
             {

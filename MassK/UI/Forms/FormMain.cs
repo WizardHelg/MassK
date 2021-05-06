@@ -39,10 +39,12 @@ namespace MassK
             panel1.BackColor = StyleUI.FrameBlueColor;
             panel2.BackColor = StyleUI.FrameBlueColor;
 
+            dataGrid.DataError += DataGrid_DataError;
+            LangPack.Load(SettingManager.LangPath);
+
             string cur_lang = settings.Lang;
             FillLangs(_langPack);
 
-            LangPack.Load(SettingManager.LangPath);
             SetLang(cur_lang);
 
             dataGrid.RowHeadersVisible = false;
@@ -50,8 +52,7 @@ namespace MassK
             _categories = SettingManager.Load<ProductCategory>();
             if (_categories == null) _categories = new List<ProductCategory>();
 
-            _images = ImageManager.LoadPictures();
-
+            _images = ImageManager.GetImages();
 
             SetDataGrid();
             dataGrid.RowCount = 10;
@@ -64,6 +65,10 @@ namespace MassK
             CBoxFields.SelectedIndex = 0;
         }
 
+        private void DataGrid_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+
+        }
 
         private void SetLang(string cur_lang)
         {
@@ -174,8 +179,8 @@ namespace MassK
             //customDataGrid.Columns[5].Name = "Картинка";
             //customDataGrid.Columns[6].Name = "№";
             //customDataGrid.Columns[7].Name = "Категория";
-
         }
+
 
 
 
@@ -209,24 +214,37 @@ namespace MassK
         /// <param name="e"></param>
         private void номераТоваровToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FormSetProductNumber form = new FormSetProductNumber();
+            FormSetProductNumber form = new FormSetProductNumber() { ProductNumber = (ProductNumber)settings.TypeProductNumber };
             if (form.ShowDialog() == DialogResult.OK)
             {
-                //form.ProductNumber
+                settings.TypeProductNumber = (byte)form.ProductNumber;
+                settings.Save();
+                BlockImages();
             }
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-
-
         }
 
+        private void BlockImages()
+        {    
+            if (settings.TypeProductNumber == (byte)ProductNumber.PLU)
+            {
+                dataGrid.Columns[6].CellTemplate.Style.BackColor = StyleUI.LightGrayColor;
+                dataGrid.Columns[6].ReadOnly = true;
+            }
+            else
+            {
+                dataGrid.Columns[6].CellTemplate.Style.BackColor = Color.White;
+                dataGrid.Columns[6].ReadOnly = false;
+            }
+            dataGrid.Update();
+        }
 
         private void SetDataGrid()
         {
             dataGrid.Columns.Clear();
-            //dataGrid.Rows.Clear();
             dataGrid.DataError += CustomDataGrid_DataError;
             dataGrid.ShowCellErrors = false;
             dataGrid.Columns.Add("id", "ID");
@@ -246,7 +264,9 @@ namespace MassK
             DataGridViewComboBoxColumn cboxColumn = new DataGridViewComboBoxColumn()
             {
                 Name = "group",
-                HeaderText = "Категория"
+                HeaderText = "Категория",
+                DisplayStyle = DataGridViewComboBoxDisplayStyle.ComboBox,
+                FlatStyle = FlatStyle.Flat               
             };
             foreach (ProductCategory category in _categories)
             {
@@ -255,10 +275,13 @@ namespace MassK
 
             dataGrid.Columns.Add(cboxColumn);
             dataGrid.RowTemplate.MinimumHeight = 50;
-            // customDataGrid.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGrid.Columns[0].ReadOnly = true;
+            dataGrid.Columns[0].CellTemplate.Style.BackColor = StyleUI.LightGrayColor;
+
             dataGrid.Columns[1].ReadOnly = true;
+            dataGrid.Columns[1].CellTemplate.Style.BackColor = StyleUI.LightGrayColor;
             dataGrid.Columns[2].ReadOnly = true;
+            dataGrid.Columns[2].CellTemplate.Style.BackColor = StyleUI.LightGrayColor;
 
             dataGrid.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGrid.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
@@ -268,6 +291,7 @@ namespace MassK
             dataGrid.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGrid.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGrid.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            BlockImages();
         }
 
 
@@ -327,11 +351,6 @@ namespace MassK
             {
 
             }
-        }
-
-        private void dataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
 
         private void сохранитьПроектВПКToolStripMenuItem_Click(object sender, EventArgs e)
@@ -399,6 +418,16 @@ namespace MassK
         }
 
         private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void ButtonUnloadToWeighing_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
         {
 
         }

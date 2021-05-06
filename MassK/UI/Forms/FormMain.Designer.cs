@@ -223,6 +223,7 @@ namespace MassK
             this.button4.TabIndex = 9;
             this.button4.Text = "Записать на USB";
             this.button4.UseVisualStyleBackColor = false;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // ButtonUnloadToWeighing
             // 
@@ -238,6 +239,7 @@ namespace MassK
             this.ButtonUnloadToWeighing.TabIndex = 9;
             this.ButtonUnloadToWeighing.Text = "Выгрузить в весы";
             this.ButtonUnloadToWeighing.UseVisualStyleBackColor = false;
+            this.ButtonUnloadToWeighing.Click += new System.EventHandler(this.ButtonUnloadToWeighing_Click);
             // 
             // toolStrip1
             // 

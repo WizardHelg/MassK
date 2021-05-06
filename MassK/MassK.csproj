@@ -81,6 +81,7 @@
     <Compile Include="BL\Product.cs" />
     <Compile Include="BL\WeighingMachine.cs" />
     <Compile Include="Data\DeviceManager.cs" />
+    <Compile Include="Data\PictureDictionary.cs" />
     <Compile Include="Data\USBConnectionsChecker.cs" />
     <Compile Include="Settings\SettingManager.cs" />
     <Compile Include="Data\XL\ExcelLoader.cs" />
