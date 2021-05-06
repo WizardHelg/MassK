@@ -231,15 +231,17 @@ namespace MassK
         {    
             if (settings.TypeProductNumber == (byte)ProductNumber.PLU)
             {
-                dataGrid.Columns[6].CellTemplate.Style.BackColor = StyleUI.LightGrayColor;
+                dataGrid.Columns[6].InheritedStyle.BackColor = StyleUI.LightGrayColor;
+                // dataGrid.Columns[6].CellTemplate.Style.BackColor = StyleUI.LightGrayColor;
                 dataGrid.Columns[6].ReadOnly = true;
             }
             else
             {
-                dataGrid.Columns[6].CellTemplate.Style.BackColor = Color.White;
+                dataGrid.Columns[6].InheritedStyle.BackColor = Color.White;
                 dataGrid.Columns[6].ReadOnly = false;
             }
-            dataGrid.Update();
+            //dataGrid.Update();
+            dataGrid.Invalidate();
         }
 
         private void SetDataGrid()
@@ -428,6 +430,23 @@ namespace MassK
         }
 
         private void button4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void загрузитьДанныеСUSBFlashToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+            string usbRootPath = UsbDisk.FindUsbPath();
+              
+
+            }
+            catch (Exception) { }
+
+        }
+
+        private void MenuSettings_Click(object sender, EventArgs e)
         {
 
         }

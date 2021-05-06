@@ -43,7 +43,7 @@ namespace MassK.UI.Forms
             //dataGrid.DataSource = images;
             foreach (ImageItem item in images)
             {
-                dataGrid.Rows.Add(item.Id, item.Group, item.Name, item.Path, item.Picture);
+                dataGrid.Rows.Add(item.Id, item.Group, item.Name,  item.Picture);
             }
         }
 
@@ -52,7 +52,7 @@ namespace MassK.UI.Forms
             dataGrid.Columns.Add("id", "ID");
             dataGrid.Columns.Add("group", "Группа картинок");
             dataGrid.Columns.Add("name", "Наименование картинки");
-            dataGrid.Columns.Add("path", "Путь");
+           // dataGrid.Columns.Add("path", "Путь");
             DataGridViewImageColumn imageColumn = new DataGridViewImageColumn(false)
             {
                 Name = "picture",
@@ -61,12 +61,12 @@ namespace MassK.UI.Forms
             dataGrid.Columns.Add(imageColumn);
             imageColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
             dataGrid.RowHeadersVisible = false;
-            dataGrid.RowTemplate.MinimumHeight = 50;
+            dataGrid.RowTemplate.MinimumHeight = 70;
             dataGrid.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
             dataGrid.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-            dataGrid.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-            dataGrid.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGrid.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            ///dataGrid.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+            dataGrid.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGrid.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
         }
 
         private void BtnSave_Click(object sender, EventArgs e)

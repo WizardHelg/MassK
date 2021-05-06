@@ -282,6 +282,7 @@ namespace MassK
             this.загрузитьДанныеСUSBFlashToolStripMenuItem.Name = "загрузитьДанныеСUSBFlashToolStripMenuItem";
             this.загрузитьДанныеСUSBFlashToolStripMenuItem.Size = new System.Drawing.Size(330, 22);
             this.загрузитьДанныеСUSBFlashToolStripMenuItem.Text = "Загрузить данные с USB-Flash";
+            this.загрузитьДанныеСUSBFlashToolStripMenuItem.Click += new System.EventHandler(this.загрузитьДанныеСUSBFlashToolStripMenuItem_Click);
             // 
             // сохранитьПроектВПКToolStripMenuItem
             // 
@@ -310,6 +311,7 @@ namespace MassK
             this.MenuSettings.Name = "MenuSettings";
             this.MenuSettings.Size = new System.Drawing.Size(124, 45);
             this.MenuSettings.Text = "Настройка";
+            this.MenuSettings.Click += new System.EventHandler(this.MenuSettings_Click);
             // 
             // таблицаВесовToolStripMenuItem
             // 

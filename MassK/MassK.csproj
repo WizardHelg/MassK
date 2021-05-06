@@ -83,6 +83,7 @@
     <Compile Include="Data\DeviceManager.cs" />
     <Compile Include="Data\PictureDictionary.cs" />
     <Compile Include="Data\USBConnectionsChecker.cs" />
+    <Compile Include="Data\UsbDisk.cs" />
     <Compile Include="Settings\SettingManager.cs" />
     <Compile Include="Data\XL\ExcelLoader.cs" />
     <Compile Include="Data\XL\XlBook.cs" />
