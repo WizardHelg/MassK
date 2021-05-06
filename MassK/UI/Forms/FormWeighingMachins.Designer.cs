@@ -175,7 +175,7 @@ namespace MassK
             this.BtnCheckConnection.TabIndex = 18;
             this.BtnCheckConnection.Text = "Проверить связь";
             this.BtnCheckConnection.UseVisualStyleBackColor = false;
-            this.BtnCheckConnection.Click += new System.EventHandler(this.BtnCheckConnection_Click);
+         
             // 
             // BtnDelete
             // 

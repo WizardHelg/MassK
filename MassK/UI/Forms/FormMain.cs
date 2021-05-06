@@ -40,14 +40,14 @@ namespace MassK
             panel1.BackColor = StyleUI.FrameBlueColor;
             panel2.BackColor = StyleUI.FrameBlueColor;
 
-         //   dataGrid.DataError += DataGrid_DataError;
-
-          //  LangPack.Load(SettingManager.LangPath);
-
-           // string cur_lang = settings.Lang;
+            //   dataGrid.DataError += DataGrid_DataError;
+            //  LangPack.Load(SettingManager.LangPath);
+            // string cur_lang = settings.Lang;
+          //  ProjectMandger.LoadLangPack();
             FillLangs();
+          
 
-            SetLang();
+
 
             dataGrid.RowHeadersVisible = false;
 
@@ -73,24 +73,19 @@ namespace MassK
         }
 
         private void SetLang()
-        {
-            if (!string.IsNullOrEmpty(LangPack.GetLangNames().Find(x => x == ProjectMandger.CurrentLang)))
-                LangPack.SetLang(ProjectMandger.CurrentLang);
-            else
-                ProjectMandger.CurrentLang = LangPack.SetCurrentCultureLang();
-
-            if (LangPack.Lang != null)
-                LangPack.Lang.SetText(this);
+        {           
+            ProjectMandger.SetCurrentLang();
+            ProjectMandger.LangPack.SetText(this);          
         }
 
         private void FillLangs()
         {
             CbxLang.Items.Clear();
-            foreach (string lang in LangPack.GetLangNames())
+            foreach (string lang in ProjectMandger.LangPaksList)
             {
                 CbxLang.Items.Add(lang);
             }
-            CbxLang.SelectedItem = ProjectMandger.CurrentLang;
+            CbxLang.Text = ProjectMandger.CurrentLang;
         }
 
         private void FormMain_Load(object sender, EventArgs e)
@@ -132,12 +127,13 @@ namespace MassK
         private void CbxLang_SelectedIndexChanged(object sender, EventArgs e)
         {
             string curLang = CbxLang.Items[CbxLang.SelectedIndex].ToString();
-            string findLang = LangPack.GetLangNames().Find(x => x == curLang);
-            if (!string.IsNullOrEmpty(findLang))
-            {
-                ProjectMandger.CurrentLang = findLang;
-                SetLang();                
-            }
+            ProjectMandger.CurrentLang = curLang;
+            SetLang();                
+
+           // string findLang = ProjectMandger.LangPaksList.Find(x => x == curLang);
+           // if (!string.IsNullOrEmpty(findLang))
+           // {
+            //}
         }
 
 

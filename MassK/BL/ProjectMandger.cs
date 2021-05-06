@@ -25,10 +25,34 @@ namespace MassK.BL
         {
             get
             {
-                LangPacks.LangPack.Load(SettingManager.LangPath);
+                if (LangPacks.LangPack.Lang == null)
+                {
+                    LoadLangPack();
+                    LangPacks.LangPack.SetLang(CurrentLang);
+                }
                 return LangPacks.LangPack.Lang;
             }
         }
+        public static void LoadLangPack()
+        {
+            LangPacks.LangPack.Load(SettingManager.LangPath);
+
+        }
+
+
+        public static List<string> LangPaksList
+        {
+            get
+            {
+                if (_LangPaksList is null)
+                {
+                    LoadLangPack();
+                    _LangPaksList = LangPacks.LangPack.GetLangNames();
+                }
+                return _LangPaksList;
+            }
+        }
+        static List<string> _LangPaksList;
 
         /// <summary>
         /// Выбранный язык 
@@ -36,11 +60,21 @@ namespace MassK.BL
         public static string CurrentLang
         {
             get => settings.Lang;
-            set { settings.Lang = value; settings.Save(); }
+            set
+            {
+                settings.Lang = value;
+                settings.Save();
+            }
         }
 
+        internal static void SetCurrentLang()
+        {
+            if (string.IsNullOrEmpty(LangPaksList.Find(x => x == CurrentLang)))
+                CurrentLang = LangPacks.LangPack.SetCurrentCultureLang();
+            LangPacks.LangPack.SetLang(ProjectMandger.CurrentLang);
 
-        //private static LangPacks.LangPack _LangPack;
+        }
+
 
         public static List<KeyboardItem> LoadFromUsb()
         {
@@ -60,6 +94,9 @@ namespace MassK.BL
             }
             throw new BException("Проект отсутствует");
         }
+
+
+
         public static List<KeyboardItem> LoadFromProject()
         {
             OpenFileDialog ofd = new OpenFileDialog()

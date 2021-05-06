@@ -93,13 +93,7 @@ namespace MassK
 
         }
 
-        private void BtnCheckConnection_Click(object sender, EventArgs e)
-        {
-            // new DeviceManager().FindDevices();
-            USBConnectionsChecker uch = new USBConnectionsChecker();
-            uch.DeviceConnected += Uch_DeviceConnected;
-            uch.DeviceDisconnected += Uch_DeviceDisconnected;
-        }
+       
 
         private void Uch_DeviceDisconnected(object sender, EventArgs e)
         {

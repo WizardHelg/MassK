@@ -53,6 +53,7 @@ namespace MassK.LangPacks
         /// </summary>
         /// <returns></returns>
         public static List<string> GetLangNames() => _lang_packs.Keys.ToList();
+      
 
         /// <summary>
         /// Установить языковой пакет в соответствии с культурой установленной в системе
