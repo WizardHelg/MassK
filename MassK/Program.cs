@@ -1,5 +1,7 @@
-﻿using System;
+﻿using MassK.LangPacks;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -16,7 +18,10 @@ namespace MassK
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            FormMain formMain = new FormMain();
+            Application.Run(formMain);
+            //Application.Run(new Data.TestDataForm());
         }
     }
 }
