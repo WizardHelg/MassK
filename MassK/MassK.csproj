@@ -80,10 +80,13 @@
     <Compile Include="BL\ProductCategory.cs" />
     <Compile Include="BL\Product.cs" />
     <Compile Include="BL\WeighingMachine.cs" />
-    <Compile Include="Data\DeviceManager.cs" />
-    <Compile Include="Data\PictureDictionary.cs" />
-    <Compile Include="Data\USBConnectionsChecker.cs" />
-    <Compile Include="Data\UsbDisk.cs" />
+    <Compile Include="Data\MKConverter.cs" />
+    <Compile Include="Data\TestDataForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Data\TestDataForm.Designer.cs">
+      <DependentUpon>TestDataForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Settings\SettingManager.cs" />
     <Compile Include="Data\XL\ExcelLoader.cs" />
     <Compile Include="Data\XL\XlBook.cs" />
@@ -145,6 +148,9 @@
     </Compile>
     <Compile Include="UI\LangPacks\LangPack.cs" />
     <Compile Include="UI\StyleUI.cs" />
+    <EmbeddedResource Include="Data\TestDataForm.resx">
+      <DependentUpon>TestDataForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\FormAddWeighingMachine.resx">
       <DependentUpon>FormAddWeighingMachine.cs</DependentUpon>
     </EmbeddedResource>

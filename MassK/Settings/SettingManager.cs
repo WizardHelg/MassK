@@ -156,9 +156,9 @@ namespace MassK
                 {
                     if (prop.PropertyType != typeof(Image) )
                     {
-                    element.Add(new XElement(
-                        prop.Name,
-                        prop.GetValue(item)?.ToString()??""));
+                        element.Add(new XElement(
+                            prop.Name,
+                            prop.GetValue(item)?.ToString()??""));
                     }
                 }
 
