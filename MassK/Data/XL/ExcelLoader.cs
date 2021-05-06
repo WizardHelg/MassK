@@ -67,7 +67,7 @@ namespace MassK.Data
                         ID = int.TryParse(idText, out int id) ? id : 0,
                         Code = row.Range[1, 2].Value?.ToString() ?? "",
                         Name = row.Range[1, 3].Value?.ToString() ?? "",
-                        PictureID = row.Range[1, 4].Value?.ToString() ?? "",
+                        PictureID = int.TryParse(row.Range[1, 4].Value?.ToString() ?? "", out int res) ? res : 0,
                         PictureName = row.Range[1, 5].Value?.ToString() ?? "",
                         Picture = picture,
                         Number = int.TryParse(row.Range[1, 7].Value?.ToString() ?? "", out int num) ? num : 0,

@@ -33,7 +33,7 @@ namespace MassK.BL
         /// ID картинки
         /// </summary>
         [DisplayName("ID - картинки")]
-        public string PictureID { get; set; }
+        public int PictureID { get; set; }
 
         /// <summary>
         ///  Изображение
@@ -59,6 +59,8 @@ namespace MassK.BL
         [DisplayName("Категория")]
         public string Category { get; set;}
 
+
+        public int CategoryID { get; set; }
 
         public string ImagePath { get; set; }
     }

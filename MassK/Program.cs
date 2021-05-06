@@ -18,9 +18,10 @@ namespace MassK
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-                    
-            FormMain formMain = new FormMain();
-            Application.Run(formMain);
+
+            //FormMain formMain = new FormMain();
+            //Application.Run(formMain);
+            Application.Run(new Data.TestDataForm());
         }
     }
 }
