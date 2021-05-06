@@ -59,7 +59,6 @@ namespace MassK.BL
         [DisplayName("Категория")]
         public string Category { get; set;}
 
-
         public int CategoryID { get; set; }
 
         public string ImagePath { get; set; }

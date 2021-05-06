@@ -57,7 +57,7 @@ namespace MassK.LangPacks
         /// <summary>
         /// Установить языковой пакет в соответствии с культурой установленной в системе
         /// </summary>
-        public static void SetCurrentCultureLang()
+        public static string SetCurrentCultureLang()
         {
             CultureInfo ci = CultureInfo.CurrentUICulture;
             string lang_name = ci.NativeName
@@ -65,6 +65,7 @@ namespace MassK.LangPacks
             lang_name = $"{lang_name.Substring(0, 1).ToUpper()}{lang_name.Substring(1, lang_name.Length - 1)}";
             _lang_packs.TryGetValue(lang_name, out LangPack lang_pack);
            Lang = lang_pack;
+            return lang_name;
         }
 
         /// <summary>

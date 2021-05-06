@@ -57,6 +57,7 @@ namespace MassK
             this.CbxLang = new System.Windows.Forms.ToolStripComboBox();
             this.MenuDescription = new System.Windows.Forms.ToolStripButton();
             this.dataGrid = new MassK.UI.Controls.CustomDataGrid();
+            this.CBoxCode = new System.Windows.Forms.ToolStripComboBox();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -249,7 +250,8 @@ namespace MassK
             this.MenuFile,
             this.MenuSettings,
             this.CbxLang,
-            this.MenuDescription});
+            this.MenuDescription,
+            this.CBoxCode});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
@@ -276,6 +278,7 @@ namespace MassK
             this.загрузитьДанныеИзВесовToolStripMenuItem.Name = "загрузитьДанныеИзВесовToolStripMenuItem";
             this.загрузитьДанныеИзВесовToolStripMenuItem.Size = new System.Drawing.Size(330, 22);
             this.загрузитьДанныеИзВесовToolStripMenuItem.Text = "Загрузить данные из весов ";
+            this.загрузитьДанныеИзВесовToolStripMenuItem.Click += new System.EventHandler(this.загрузитьДанныеИзВесовToolStripMenuItem_Click);
             // 
             // загрузитьДанныеСUSBFlashToolStripMenuItem
             // 
@@ -374,6 +377,15 @@ namespace MassK
             this.dataGrid.TabIndex = 5;
             this.dataGrid.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGrid_CellContentDoubleClick);
             // 
+            // CBoxCode
+            // 
+            this.CBoxCode.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.CBoxCode.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.CBoxCode.Name = "CBoxCode";
+            this.CBoxCode.Size = new System.Drawing.Size(121, 48);
+            this.CBoxCode.SelectedIndexChanged += new System.EventHandler(this.CbxLang_SelectedIndexChanged);
+            this.CBoxCode.Click += new System.EventHandler(this.CbxLang_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
@@ -431,6 +443,7 @@ namespace MassK
         private System.Windows.Forms.ToolStripMenuItem номераТоваровToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem категорииТоваровToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem библиотекаКартинокToolStripMenuItem;
+        private System.Windows.Forms.ToolStripComboBox CBoxCode;
     }
 }
 

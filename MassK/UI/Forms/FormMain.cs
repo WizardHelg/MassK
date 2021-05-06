@@ -15,8 +15,9 @@ namespace MassK
 {
     public partial class FormMain : Form
     {
-        private LangPack _langPack;
+        //  private LangPack _langPack;
         readonly Properties.Settings settings = Properties.Settings.Default;
+        //private ProjectMandger _projectMandger;
 
         List<ProductCategory> _categories;
         List<KeyboardItem> _KeyboardItems;
@@ -39,13 +40,14 @@ namespace MassK
             panel1.BackColor = StyleUI.FrameBlueColor;
             panel2.BackColor = StyleUI.FrameBlueColor;
 
-            dataGrid.DataError += DataGrid_DataError;
-            LangPack.Load(SettingManager.LangPath);
+         //   dataGrid.DataError += DataGrid_DataError;
 
-            string cur_lang = settings.Lang;
-            FillLangs(_langPack);
+          //  LangPack.Load(SettingManager.LangPath);
 
-            SetLang(cur_lang);
+           // string cur_lang = settings.Lang;
+            FillLangs();
+
+            SetLang();
 
             dataGrid.RowHeadersVisible = false;
 
@@ -70,27 +72,25 @@ namespace MassK
 
         }
 
-        private void SetLang(string cur_lang)
+        private void SetLang()
         {
-            if (!string.IsNullOrEmpty(LangPack.GetLangNames().Find(x => x == cur_lang)))
-                LangPack.SetLang(cur_lang);
+            if (!string.IsNullOrEmpty(LangPack.GetLangNames().Find(x => x == ProjectMandger.CurrentLang)))
+                LangPack.SetLang(ProjectMandger.CurrentLang);
             else
-                LangPack.SetCurrentCultureLang();
+                ProjectMandger.CurrentLang = LangPack.SetCurrentCultureLang();
 
-            _langPack = LangPack.Lang;
-            if (_langPack != null)
-            {
-                _langPack.SetText(this);
-            }
+            if (LangPack.Lang != null)
+                LangPack.Lang.SetText(this);
         }
 
-        private void FillLangs(LangPack langPack)
+        private void FillLangs()
         {
             CbxLang.Items.Clear();
             foreach (string lang in LangPack.GetLangNames())
             {
                 CbxLang.Items.Add(lang);
             }
+            CbxLang.SelectedItem = ProjectMandger.CurrentLang;
         }
 
         private void FormMain_Load(object sender, EventArgs e)
@@ -105,12 +105,12 @@ namespace MassK
 
         private void BtnPictureDirectory_Click(object sender, EventArgs e)
         {
-            new FormPictureDirectory(_langPack).Show();
+            new FormPictureDirectory(ProjectMandger.LangPack).Show();
         }
 
         private void BtnWeighingMachins_Click(object sender, EventArgs e)
         {
-            FormWeighingMachins formWeighingMachins = new FormWeighingMachins(_langPack);
+            FormWeighingMachins formWeighingMachins = new FormWeighingMachins(ProjectMandger.LangPack);
 
             List<WeighingMachine> weighingMachines = SettingManager.Load<WeighingMachine>();
             if (weighingMachines != null)
@@ -135,9 +135,8 @@ namespace MassK
             string findLang = LangPack.GetLangNames().Find(x => x == curLang);
             if (!string.IsNullOrEmpty(findLang))
             {
-                settings.Lang = findLang;
-                settings.Save();
-                SetLang(findLang);
+                ProjectMandger.CurrentLang = findLang;
+                SetLang();                
             }
         }
 
@@ -217,8 +216,8 @@ namespace MassK
             FormSetProductNumber form = new FormSetProductNumber() { ProductNumber = (ProductNumber)settings.TypeProductNumber };
             if (form.ShowDialog() == DialogResult.OK)
             {
-                settings.TypeProductNumber = (byte)form.ProductNumber;
-                settings.Save();
+              //  settings.TypeProductNumber = (byte)form.ProductNumber;
+              //  settings.Save();
                 BlockImages();
             }
         }
@@ -228,7 +227,7 @@ namespace MassK
         }
 
         private void BlockImages()
-        {    
+        {
             if (settings.TypeProductNumber == (byte)ProductNumber.PLU)
             {
                 dataGrid.Columns[6].InheritedStyle.BackColor = StyleUI.LightGrayColor;
@@ -268,7 +267,7 @@ namespace MassK
                 Name = "group",
                 HeaderText = "Категория",
                 DisplayStyle = DataGridViewComboBoxDisplayStyle.ComboBox,
-                FlatStyle = FlatStyle.Flat               
+                FlatStyle = FlatStyle.Flat
             };
             foreach (ProductCategory category in _categories)
             {
@@ -348,7 +347,7 @@ namespace MassK
         private void ChangeProduct(int rowIndex = -1)
         {
             if (rowIndex == -1) rowIndex = dataGrid.RowCount;
-            FormProductDirectory form = new FormProductDirectory(_langPack);
+            FormProductDirectory form = new FormProductDirectory(ProjectMandger.LangPack);
             if (form.ShowDialog() == DialogResult.OK)
             {
 
@@ -358,24 +357,24 @@ namespace MassK
         private void сохранитьПроектВПКToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-            SaveFileDialog sfd = new SaveFileDialog()
-            {
-                InitialDirectory = SettingManager.SettingPath,
-                Filter = "XML|*.xml"
-            };
-            try
-            {
-                if (sfd.ShowDialog() == DialogResult.OK)
-                {
+            //SaveFileDialog sfd = new SaveFileDialog()
+            //{
+            //    InitialDirectory = SettingManager.SettingPath,
+            //    Filter = "XML|*.xml"
+            //};
+            //try
+            //{
+            //    if (sfd.ShowDialog() == DialogResult.OK)
+            //    {
 
-                    SettingManager.Save<KeyboardItem>(_KeyboardItems, sfd.FileName);
-                    MessageBox.Show(sfd.FileName, "Проект Сохранен", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            //        SettingManager.Save<KeyboardItem>(_KeyboardItems, sfd.FileName);
+            //        MessageBox.Show(sfd.FileName, "Проект Сохранен", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //}
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -385,34 +384,16 @@ namespace MassK
 
         private void загрузитьПроектИзПКToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog()
-            {
-                InitialDirectory = SettingManager.SettingPath,
-                Multiselect = false,
-                Filter = "XML|*.xml"
-            };
-
-            if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                _KeyboardItems = SettingManager.Load(ofd.FileName);
-                GetImages(_KeyboardItems);
-                SetDataGrid();
-                FillDataGrid(_KeyboardItems);
-                MessageBox.Show(ofd.FileName, "Проект загружен", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+          
         }
 
-        private void GetImages(List<KeyboardItem> keyboardItems)
+        private void SetKeyboardItems(List<KeyboardItem> keyboardItems)
         {
-            foreach (KeyboardItem itm in keyboardItems)
-            {
-                if (string.IsNullOrEmpty(itm.ImagePath)) continue;
-                if (File.Exists(itm.ImagePath))
-                {
-                    itm.Picture = new Bitmap(itm.ImagePath);
-                }
-            }
+            ProjectMandger.GetImages(_KeyboardItems);
+            SetDataGrid();
+            FillDataGrid(_KeyboardItems);
         }
+      
 
         private void CbxLang_Click(object sender, EventArgs e)
         {
@@ -436,17 +417,16 @@ namespace MassK
 
         private void загрузитьДанныеСUSBFlashToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
-            {
-            string usbRootPath = UsbDisk.FindUsbPath();
-              
-
-            }
-            catch (Exception) { }
-
+            _KeyboardItems = ProjectMandger.LoadFromUsb();
+            SetKeyboardItems(_KeyboardItems);
         }
 
         private void MenuSettings_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void загрузитьДанныеИзВесовToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }
