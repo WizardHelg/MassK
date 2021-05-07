@@ -4,13 +4,9 @@ using MassK.LangPacks;
 using MassK.UI;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MassK
@@ -27,8 +23,7 @@ namespace MassK
             panel1.BackColor = StyleUI.FrameBlueColor;
             panel2.BackColor = StyleUI.FrameBlueColor;
             _images = ImageManager.GetImages();
-            SetDataGrid();
-            
+            SetDataGrid();            
             //dataGrid.DataError += DataGrid_DataError;
         }
         private void SetData()
@@ -70,7 +65,7 @@ namespace MassK
             imageColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
             dataGrid.RowHeadersVisible = false;
             dataGrid.RowTemplate.MinimumHeight = 70;
-            dataGrid.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+            dataGrid.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGrid.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGrid.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
         }
@@ -117,14 +112,14 @@ namespace MassK
         }
         private string ImageFilter()
         {
-            string filter = "Файлы изображений";
+            //string filter = "Файлы изображений";
             string extentions = "";
            foreach(string extention in ImageManager.ImageExtentions)
             {                
-                extentions += $"*{extention}, ";
+                extentions += $"*{extention};";
             }
-            extentions = extentions.Remove(extentions.Length - 2, 2);
-             filter += $"({extentions}) | {extentions}";
+            extentions = extentions.Remove(extentions.Length - 1, 1);
+            string filter = $"Файлы изображений|{extentions}|All files (*.*)|*.*";
             return filter;
         }
 
@@ -136,8 +131,9 @@ namespace MassK
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 string file = ofd.FileName;
-                string newItm = ImageManager.ImportUserPicture(file, SettingManager.UserPictures);
+                string newItm = ImageManager.ImportLogo(file, SettingManager.LogoPath);
 
+                /// Удалить из списка старый лого
                ImageItem imageItem = _images.Find(x => x.Group == "Логотип");
                 if (imageItem == null) _images.Remove(imageItem);
 
@@ -148,26 +144,27 @@ namespace MassK
         }
         
 
-        private void BtnImport_Click(object sender, EventArgs e)
-        {
-            Ookii.Dialogs.WinForms.VistaFolderBrowserDialog ofd = new Ookii.Dialogs.WinForms.VistaFolderBrowserDialog();
-            if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                string folder = ofd.SelectedPath;
-                string[] files = Directory.GetFiles(folder);
-                foreach (string file in files)
-                {
-                    FileInfo fi = new FileInfo(file);
-                    string extention = fi.Extension.ToLower();
-                    if (!ImageManager.ImageExtentions.Contains(extention)) continue;
-                    string newItm = ImageManager.ImportUserPicture(file, SettingManager.UserPictures);
-                    int idNewItm = ImageManager.GetFreeId(_images);
-                    _images.Add(new ImageItem() { Path = newItm, Id = idNewItm });
-                }
-                SettingManager.Save(_images);
-                SetData();
-            }
-        }
+        // Загрузка из папки
+        //private void BtnImport_Click(object sender, EventArgs e)
+        //{
+        //    Ookii.Dialogs.WinForms.VistaFolderBrowserDialog ofd = new Ookii.Dialogs.WinForms.VistaFolderBrowserDialog();
+        //    if (ofd.ShowDialog() == DialogResult.OK)
+        //    {
+        //        string folder = ofd.SelectedPath;
+        //        string[] files = Directory.GetFiles(folder);
+        //        foreach (string file in files)
+        //        {
+        //            FileInfo fi = new FileInfo(file);
+        //            string extention = fi.Extension.ToLower();
+        //            if (!ImageManager.ImageExtentions.Contains(extention)) continue;
+        //            string newItm = ImageManager.ImportUserPicture(file, SettingManager.UserPictures);
+        //            int idNewItm = ImageManager.GetFreeId(_images);
+        //            _images.Add(new ImageItem() { Path = newItm, Id = idNewItm });
+        //        }
+        //        SettingManager.Save(_images);
+        //        SetData();
+        //    }
+        //}
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
@@ -217,13 +214,5 @@ namespace MassK
             SetData();
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        //private void DataGrid_DataError(object sender, DataGridViewDataErrorEventArgs e)
-        //{
-        //}
     }
 }

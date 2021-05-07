@@ -9,13 +9,11 @@ using System.Threading.Tasks;
 
 namespace MassK.Data
 {
-    class UsbDisk
+    class UsbDirectory
     {
-      //  public static List<string> GetUSBS(get;set;)
-        
         public static string FindUsbPath()
         {
-            foreach(string root in GetDiskList())
+            foreach(string root in GetUsbList())
             {
                 Debug.WriteLine(root);
                 foreach (string file in Directory.GetFiles(root)) 
@@ -27,10 +25,16 @@ namespace MassK.Data
                     }
                 }
             }
-            throw new BException("USB с файлом \"scales.prj\" не найден");
+            throw new BException("USB с файлом \"scales.prj\"  не найден");
         }
+        
 
-        public static List<string> GetDiskList()
+        /// <summary>
+        /// Получает список USB дисков
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>Перенеси куда тебе будет удобно. Можно и просто удалить</remarks>
+        public static List<string> GetUsbList()
         {
             {
                 List<string> buffer = new List<string>();

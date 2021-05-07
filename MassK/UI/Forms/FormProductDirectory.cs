@@ -37,20 +37,20 @@ namespace MassK
             {
                 Products = new List<Product>()
                 {
-                    new Product(){ProductID = 12, Code= "155", PLU = "33", ProducеName = "Абрикосы", Selected = false  },
-                    new Product(){ProductID = 12, Code= "15", PLU = "313", ProducеName = "Апельсин", Selected = false  },
-                    new Product(){ProductID = 12, Code= "55", PLU = "123", ProducеName = "Кабачки", Selected = false  },
-                    new Product(){ProductID = 12, Code= "5", PLU = "3", ProducеName = "Перец", Selected = false  },
-                    new Product(){ProductID = 12, Code= "544", PLU = "2", ProducеName = "Вишня", Selected = false  },
-                    new Product(){ProductID = 12, Code= "5235", PLU = "4", ProducеName = "Ежевика", Selected = false  },
-                    new Product(){ProductID = 12, Code= "533", PLU = "67", ProducеName = "Малина", Selected = false  },
-                    new Product(){ProductID = 12, Code= "5313", PLU = "671", ProducеName = "Капуста", Selected = false  },
-                    new Product(){ProductID = 12, Code= "5343", PLU = "633", ProducеName = "Груша", Selected = false  },
-                    new Product(){ProductID = 12, Code= "5333", PLU = "17", ProducеName = "Огурцы", Selected = false  },
-                    
+                    new Product(){ProductID = 2, Code= "155", PLU = "33",   ProducеName = "Абрикосы", Selected = false  },
+                    new Product(){ProductID = 112, Code= "15", PLU = "313", ProducеName = "Апельсин", Selected = true   },
+                    new Product(){ProductID = 122, Code= "55", PLU = "123", ProducеName = "Кабачки",  Selected = false  },
+                    new Product(){ProductID = 124, Code= "5", PLU = "3",    ProducеName = "Перец",    Selected = false  },
+                    new Product(){ProductID = 126, Code= "544", PLU = "2",  ProducеName = "Вишня",    Selected = true   },
+                    new Product(){ProductID = 135, Code= "5235", PLU = "4", ProducеName = "Ежевика",  Selected = false  },
+                    new Product(){ProductID = 121, Code= "533", PLU = "67", ProducеName = "Малина",   Selected = false  },
+                    new Product(){ProductID = 17, Code= "5313", PLU = "671", ProducеName = "Капуста", Selected = false  },
+                    new Product(){ProductID = 154, Code= "5343", PLU = "633", ProducеName = "Груша",  Selected = false  },
+                    new Product(){ProductID = 47, Code= "5333", PLU = "17", ProducеName = "Огурцы",   Selected = false  },
                 };
-
             }
+                    
+
             dataGrid.DataSource = Products;
             dataGrid.RowHeadersVisible = false;
             dataGrid.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;

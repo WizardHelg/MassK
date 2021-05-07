@@ -19,8 +19,15 @@ namespace MassK.BL
             string save_path = Path.Combine(savePath, $"{newName}.png");
            return ImportPicture(sourcePath, save_path);
         }
+        internal static string ImportLogo(string sourcePath, string savePath)
+        {
+            string newName = $"{0}_UserPictures_{Path.GetFileNameWithoutExtension(sourcePath)}";
+            string save_path = Path.Combine(savePath, $"{newName}.png");
+            return ImportPicture(sourcePath, save_path);
+        }
 
-            public static string ImportPicture(string sourcePath, string save_path)
+
+        public static string ImportPicture(string sourcePath, string save_path)
         {           
             Bitmap s_bitmap = new Bitmap(sourcePath);
 
@@ -102,31 +109,33 @@ namespace MassK.BL
             images = LoadPictures(); 
             return images;
         }
-            // string[] files = Directory.GetFiles(SettingManager.ImagePath);
-            //foreach (string file in files)
-            //{
-            //    FileInfo fi = new FileInfo(file);
-            //    string extention = fi.Extension.ToLower();
-            //    if (extention != ".png") continue;
 
-            //    Image picture = new Bitmap(file);
+       
+        // string[] files = Directory.GetFiles(SettingManager.ImagePath);
+        //foreach (string file in files)
+        //{
+        //    FileInfo fi = new FileInfo(file);
+        //    string extention = fi.Extension.ToLower();
+        //    if (extention != ".png") continue;
 
-            //    ImageItem item = images.Find(x => x.Path == file) ?? default;
-            //    if (item is null)
-            //    {
-            //        item = new ImageItem()
-            //        {
-            //            Id = ImageManager.GetFreeId(images),
-            //            Name = Path.GetFileNameWithoutExtension(file),
-            //            Path = file,
-            //            Picture = picture
-            //        };
-            //        images.Add(item);
-            //    }
-            //    else
-            //    {
-            //        item.Picture = picture;
-            //    }
-            //}
+        //    Image picture = new Bitmap(file);
+
+        //    ImageItem item = images.Find(x => x.Path == file) ?? default;
+        //    if (item is null)
+        //    {
+        //        item = new ImageItem()
+        //        {
+        //            Id = ImageManager.GetFreeId(images),
+        //            Name = Path.GetFileNameWithoutExtension(file),
+        //            Path = file,
+        //            Picture = picture
+        //        };
+        //        images.Add(item);
+        //    }
+        //    else
+        //    {
+        //        item.Picture = picture;
+        //    }
+        //}
     }
 }
