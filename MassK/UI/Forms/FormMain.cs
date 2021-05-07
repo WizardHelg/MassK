@@ -6,6 +6,7 @@ using MassK.UI;
 using MassK.UI.Forms;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -13,69 +14,41 @@ using System.Windows.Forms;
 
 namespace MassK
 {
+    /// <summary>
+    ///  Форма редактор клавиатуры
+    /// </summary>
     public partial class FormMain : Form
     {
-        //  private LangPack _langPack;
         readonly Properties.Settings settings = Properties.Settings.Default;
-        //private ProjectMandger _projectMandger;
-
-        List<ProductCategory> _categories;
-        List<KeyboardItem> _KeyboardItems;
-        List<ImageItem> _images;
-
-        private static Dictionary<string, string> Fields = new Dictionary<string, string>()
-        {
-            {"Наименование товара","Name" },
-            {"ID - товара","ID" },
-            {"Code - товара","Code" },
-            {"ID - картинки","PictureID" },
-            {"№","Number" },
-            {"Категория","Category" },
-        };
-
 
         public FormMain()
         {
             InitializeComponent();
-            panel1.BackColor = StyleUI.FrameBlueColor;
-            panel2.BackColor = StyleUI.FrameBlueColor;
-
-            //   dataGrid.DataError += DataGrid_DataError;
-            //  LangPack.Load(SettingManager.LangPath);
-            // string cur_lang = settings.Lang;
-          //  ProjectMandger.LoadLangPack();
+            SetStyle();
             FillLangs();
-          
-
-
-
+            FillCodePage();
             dataGrid.RowHeadersVisible = false;
-
-            _categories = SettingManager.Load<ProductCategory>();
-            if (_categories == null) _categories = new List<ProductCategory>();
-
-            _images = ImageManager.GetImages();
-
             SetDataGrid();
-            dataGrid.RowCount = 10;
-            dataGrid.ColumnCount = 8;
-
-            foreach (string field in Fields.Keys)
-            {
-                CBoxFields.Items.Add(field);
-            }
-            CBoxFields.SelectedIndex = 0;
+            FillFields();
         }
 
-        private void DataGrid_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        private void FillCodePage()
         {
+            foreach ((string name, int codePage) codePage in ProjectMandger.CodePages)
+                CBoxCode.Items.Add(codePage.name);
+            CBoxCode.Text = ProjectMandger.CodePageName;
+        }
 
+        private void SetStyle()
+        {
+            panel1.BackColor = StyleUI.FrameBlueColor;
+            panel2.BackColor = StyleUI.FrameBlueColor;
         }
 
         private void SetLang()
-        {           
+        {
             ProjectMandger.SetCurrentLang();
-            ProjectMandger.LangPack.SetText(this);          
+            ProjectMandger.LangPack.SetText(this);
         }
 
         private void FillLangs()
@@ -90,7 +63,7 @@ namespace MassK
 
         private void FormMain_Load(object sender, EventArgs e)
         {
-
+            SetEnabledControls(false);
         }
 
         private void BtnProducts_Click(object sender, EventArgs e)
@@ -128,23 +101,23 @@ namespace MassK
         {
             string curLang = CbxLang.Items[CbxLang.SelectedIndex].ToString();
             ProjectMandger.CurrentLang = curLang;
-            SetLang();                
-
-           // string findLang = ProjectMandger.LangPaksList.Find(x => x == curLang);
-           // if (!string.IsNullOrEmpty(findLang))
-           // {
-            //}
+            SetLang();
         }
-
-
 
         private void FillDataGrid(List<KeyboardItem> products)
         {
-            foreach (KeyboardItem product in products)
-            {
-                DataGridViewRow row = dataGrid.Rows[dataGrid.Rows.Add()];
-                FillRow(product, row);
-            }
+            dataGrid.Columns[0].DataPropertyName = "ID";
+            dataGrid.Columns[1].DataPropertyName = "Code";
+            dataGrid.Columns[2].DataPropertyName = "Name";
+            dataGrid.Columns[3].DataPropertyName = "PictureID";
+            dataGrid.Columns[4].DataPropertyName = "PictureName";
+            dataGrid.Columns[5].DataPropertyName = "Picture";
+            dataGrid.Columns[6].DataPropertyName = "Number";
+            dataGrid.Columns[7].DataPropertyName = "Category";
+            dataGrid.DataSource = products;
+
+            dataGrid.Columns[8].Visible = false;
+            dataGrid.Columns[9].Visible = false;
         }
 
         private void FillRow(KeyboardItem product, DataGridViewRow row)
@@ -159,36 +132,7 @@ namespace MassK
             row.Cells[7].Value = product.Category;
         }
 
-        private void CustomDataGrid_DataError(object sender, DataGridViewDataErrorEventArgs e)
-        {
-            e.Cancel = true;
-        }
-
-        public void SetHeaderNames()
-        {
-            //customDataGrid.Columns[0].Name = "ID";
-            //customDataGrid.Columns[1].Name = "Code - товара";
-            //customDataGrid.Columns[2].Name = "Наименование товара";
-            //customDataGrid.Columns[3].Name = "ID - картинки";
-            //customDataGrid.Columns[4].Name = "Имя картинки";
-            //customDataGrid.Columns[5].Name = "Картинка";
-            //customDataGrid.Columns[6].Name = "№";
-            //customDataGrid.Columns[7].Name = "Категория";
-        }
-
-
-
-
-        private void загрузитьИзExcelToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            dataGrid.Columns.Clear();
-
-            Loader loader = new ExcelLoader();
-            loader.Load();
-            _KeyboardItems = loader.KeyboardItems;
-            SetDataGrid();
-            FillDataGrid(_KeyboardItems);
-        }
+ 
 
 
         private void категорииТоваровToolStripMenuItem_Click(object sender, EventArgs e)
@@ -212,22 +156,18 @@ namespace MassK
             FormSetProductNumber form = new FormSetProductNumber() { ProductNumber = (ProductNumber)settings.TypeProductNumber };
             if (form.ShowDialog() == DialogResult.OK)
             {
-              //  settings.TypeProductNumber = (byte)form.ProductNumber;
-              //  settings.Save();
+                settings.TypeProductNumber = (byte)form.ProductNumber;
+                settings.Save();
                 BlockImages();
             }
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-        }
 
         private void BlockImages()
         {
             if (settings.TypeProductNumber == (byte)ProductNumber.PLU)
             {
                 dataGrid.Columns[6].InheritedStyle.BackColor = StyleUI.LightGrayColor;
-                // dataGrid.Columns[6].CellTemplate.Style.BackColor = StyleUI.LightGrayColor;
                 dataGrid.Columns[6].ReadOnly = true;
             }
             else
@@ -235,14 +175,12 @@ namespace MassK
                 dataGrid.Columns[6].InheritedStyle.BackColor = Color.White;
                 dataGrid.Columns[6].ReadOnly = false;
             }
-            //dataGrid.Update();
-            dataGrid.Invalidate();
         }
 
         private void SetDataGrid()
         {
             dataGrid.Columns.Clear();
-            dataGrid.DataError += CustomDataGrid_DataError;
+            ///  dataGrid.DataError += CustomDataGrid_DataError;
             dataGrid.ShowCellErrors = false;
             dataGrid.Columns.Add("id", "ID");
             dataGrid.Columns.Add("code", "Code - товара");
@@ -265,7 +203,7 @@ namespace MassK
                 DisplayStyle = DataGridViewComboBoxDisplayStyle.ComboBox,
                 FlatStyle = FlatStyle.Flat
             };
-            foreach (ProductCategory category in _categories)
+            foreach (ProductCategory category in ProjectMandger.ProductCategories)
             {
                 cboxColumn.Items.Add(category.Category);
             }
@@ -279,6 +217,9 @@ namespace MassK
             dataGrid.Columns[1].CellTemplate.Style.BackColor = StyleUI.LightGrayColor;
             dataGrid.Columns[2].ReadOnly = true;
             dataGrid.Columns[2].CellTemplate.Style.BackColor = StyleUI.LightGrayColor;
+            dataGrid.Columns[3].ReadOnly = true;
+            dataGrid.Columns[4].ReadOnly = true;
+            dataGrid.Columns[5].ReadOnly = true;
 
             dataGrid.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGrid.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
@@ -302,7 +243,7 @@ namespace MassK
 
         private void ChangeImage(int rowIndex)
         {
-            FormChangeImage form = new FormChangeImage(_images);
+            FormChangeImage form = new FormChangeImage();
             if (form.ShowDialog() == DialogResult.OK)
             {
                 if (form.SelectedImage != null)
@@ -315,16 +256,16 @@ namespace MassK
                         {
                             if (int.TryParse(idKeyboardItm, out int idFind))
                             {
-                                KeyboardItem keyboardItem = _KeyboardItems.First(x => x.ID == idFind);
+                                KeyboardItem keyboardItem = ProjectMandger.KeyboardItems.First(x => x.ID == idFind);
                                 if (keyboardItem != null)
                                 {
                                     keyboardItem.ImagePath = form.SelectedImage.Path;
                                     keyboardItem.PictureName = form.SelectedImage.Name;
+                                    keyboardItem.PictureID = form.SelectedImage.Id;
                                     keyboardItem.Picture = form.SelectedImage.Picture;
                                     SetDataGrid();
-                                    FillDataGrid(_KeyboardItems);
+                                    FillDataGrid(ProjectMandger.KeyboardItems);
                                 }
-
                             }
                         }
                     }
@@ -350,81 +291,183 @@ namespace MassK
             }
         }
 
+        /// <summary>
+        ///  Установить активность элементов
+        /// </summary>
+        /// <param name="enabled"></param>
+        private void SetEnabledControls(bool enabled)
+        {
+            BtnUnloadToWeighing.Enabled = enabled;
+            BtnSaveToUsb.Enabled = enabled;
+            BtnProducts.Enabled = enabled;
+            CBoxFields.Enabled = enabled;
+            сохранитьПроектВПКToolStripMenuItem.Enabled = enabled;
+            TboxFilter.Enabled  = enabled;
+            ChkBoxShowProducts.Enabled = enabled;
+        }
+
         private void сохранитьПроектВПКToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
-            //SaveFileDialog sfd = new SaveFileDialog()
-            //{
-            //    InitialDirectory = SettingManager.SettingPath,
-            //    Filter = "XML|*.xml"
-            //};
-            //try
-            //{
-            //    if (sfd.ShowDialog() == DialogResult.OK)
-            //    {
-
-            //        SettingManager.Save<KeyboardItem>(_KeyboardItems, sfd.FileName);
-            //        MessageBox.Show(sfd.FileName, "Проект Сохранен", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //}
+            try
+            {
+                ProjectMandger.SaveToLocal();
+            }
+            catch (Exception ex) 
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }            
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
 
         private void загрузитьПроектИзПКToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+           if ( ProjectMandger.LoadLocalProject())
+            {
+                SetKeyboardItems();
+            }
+        }
+
+        private void SetKeyboardItems()
+        {
+            SetEnabledControls(true);
+            ProjectMandger.GetImages(ProjectMandger.KeyboardItems);
+            SetDataGrid();
+            FillDataGrid(ProjectMandger.KeyboardItems);
+        }
+        private void BtnUnloadToWeighing_Click(object sender, EventArgs e)
         {
           
         }
 
-        private void SetKeyboardItems(List<KeyboardItem> keyboardItems)
-        {
-            ProjectMandger.GetImages(_KeyboardItems);
-            SetDataGrid();
-            FillDataGrid(_KeyboardItems);
-        }
-      
-
-        private void CbxLang_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void ButtonUnloadToWeighing_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void загрузитьДанныеСUSBFlashToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _KeyboardItems = ProjectMandger.LoadFromUsb();
-            SetKeyboardItems(_KeyboardItems);
-        }
-
-        private void MenuSettings_Click(object sender, EventArgs e)
-        {
-
+            try
+            {
+                ProjectMandger.KeyboardItems = ProjectMandger.LoadFromUsb();
+                SetEnabledControls(false);
+                SetKeyboardItems();                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Не удалось загрусить данные с USB.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void загрузитьДанныеИзВесовToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }
+
+        
+        private void CBoxCode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ProjectMandger.CodePageName = CBoxCode.Text;
+        }
+
+
+        private void BtnSaveToUsb_Click(object sender, EventArgs e)
+        {
+            ProjectMandger.SaveToUsb();
+        }
+
+        #region  Справка 
+        private void BtnHelp_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void MenuDescription_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+        #endregion
+
+        #region Фильтрация DataGrid
+    
+
+
+        Dictionary<string, int> fields;
+        private Dictionary<string, int> GetFields()
+        {
+            if (fields is null)
+            {
+                fields = new Dictionary<string, int>();
+                foreach (DataGridViewColumn column in dataGrid.Columns)
+                {
+                    fields.Add(column.HeaderText, fields.Count);
+                }
+            }
+            return fields;
+        }
+
+        private void FillFields()
+        {
+            fields = GetFields();
+            foreach (string field in fields.Keys)
+            {
+                CBoxFields.Items.Add(field);
+            }
+            CBoxFields.SelectedIndex = 0;
+        }
+
+        private void TboxFilter_TextChanged(object sender, EventArgs e)
+        {
+
+            //string selectedField = CBoxFields.Text;
+            //string rowFilter = string.Format("[{0}] = '{1}'", selectedField, TboxFilter.Text) ;
+            //DataTable table =(DataTable) dataGrid.DataSource;
+            // table.DefaultView.RowFilter = rowFilter;
+        }
+
+        #endregion
     }
 }
+
+//private void загрузитьИзExcelToolStripMenuItem_Click(object sender, EventArgs e)
+//{
+//    dataGrid.Columns.Clear();
+
+//    SetDataGrid();
+//    FillDataGrid(ProjectMandger.KeyboardItems);
+//}
+
+//private static Dictionary<string, string> Fields = new Dictionary<string, string>()
+//{
+//    {"Наименование товара", "Name" },
+//    {"ID - товара",     "ID" },
+//    {"Code - товара",   "Code" },
+//    {"ID - картинки",   "PictureID" },
+//    {"№",               "Number" },
+//    {"Категория",       "Category" },
+//};
+
+//private static Dictionary<string, int> Fields = new Dictionary<string, int>()
+//{
+//    {"ID - товара",         0},
+//    {"Наименование товара", 1 },
+//    {"Code - товара",       2 },
+//    {"ID - картинки",       3},
+//    {"Наименование картинки", 4},
+//    {"№",                   7},
+//    {"Категория",           8}
+//};
+
+//SaveFileDialog sfd = new SaveFileDialog()
+//{
+//    InitialDirectory = SettingManager.SettingPath,
+//    Filter = "XML|*.xml"
+//};
+//try
+//{
+//    if (sfd.ShowDialog() == DialogResult.OK)
+//    {
+//        SettingManager.Save<KeyboardItem>(_KeyboardItems, sfd.FileName);
+//        MessageBox.Show(sfd.FileName, "Проект Сохранен", MessageBoxButtons.OK, MessageBoxIcon.Information);
+//    }
+//}
+//catch (Exception ex)
+//{
+//    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Information);
+//}

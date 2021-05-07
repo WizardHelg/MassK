@@ -94,20 +94,7 @@ namespace MassK.Data
             return buffer.Values.ToList();
         }
 
-        /// <summary>
-        /// Получает список USB дисков
-        /// </summary>
-        /// <returns></returns>
-        /// <remarks>Перенеси куда тебе будет удобно. Можно и просто удалить</remarks>
-        public static List<string> GetUSBS()
-        {
-            List<string> buffer = new List<string>();
-            foreach(DriveInfo info in DriveInfo.GetDrives())
-                if (info.DriveType == DriveType.Removable)
-                    buffer.Add(info.Name);
-
-            return buffer.Count > 0 ? buffer : null;
-        }
+      
 
         /// <summary>
         /// Загружает файл клавиатуры

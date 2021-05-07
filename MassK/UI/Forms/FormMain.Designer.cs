@@ -34,15 +34,15 @@ namespace MassK
             this.panel2 = new System.Windows.Forms.Panel();
             this.ChkBoxShowProducts = new System.Windows.Forms.CheckBox();
             this.CBoxFields = new System.Windows.Forms.ComboBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.TboxFilter = new System.Windows.Forms.TextBox();
             this.LbField = new System.Windows.Forms.Label();
             this.LbFindProduct = new System.Windows.Forms.Label();
             this.BtnHelp = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.LbTitleMain = new System.Windows.Forms.Label();
             this.dataGridViewImageColumn4 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.button4 = new System.Windows.Forms.Button();
-            this.ButtonUnloadToWeighing = new System.Windows.Forms.Button();
+            this.BtnSaveToUsb = new System.Windows.Forms.Button();
+            this.BtnUnloadToWeighing = new System.Windows.Forms.Button();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.MenuFile = new System.Windows.Forms.ToolStripDropDownButton();
             this.загрузитьДанныеИзВесовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,8 +56,8 @@ namespace MassK
             this.библиотекаКартинокToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CbxLang = new System.Windows.Forms.ToolStripComboBox();
             this.MenuDescription = new System.Windows.Forms.ToolStripButton();
-            this.dataGrid = new MassK.UI.Controls.CustomDataGrid();
             this.CBoxCode = new System.Windows.Forms.ToolStripComboBox();
+            this.dataGrid = new MassK.UI.Controls.CustomDataGrid();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -86,7 +86,7 @@ namespace MassK
             this.panel2.BackColor = System.Drawing.Color.RoyalBlue;
             this.panel2.Controls.Add(this.ChkBoxShowProducts);
             this.panel2.Controls.Add(this.CBoxFields);
-            this.panel2.Controls.Add(this.textBox1);
+            this.panel2.Controls.Add(this.TboxFilter);
             this.panel2.Controls.Add(this.LbField);
             this.panel2.Controls.Add(this.LbFindProduct);
             this.panel2.Location = new System.Drawing.Point(3, 567);
@@ -94,7 +94,6 @@ namespace MassK
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1040, 58);
             this.panel2.TabIndex = 11;
-            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
             // ChkBoxShowProducts
             // 
@@ -120,15 +119,15 @@ namespace MassK
             this.CBoxFields.Size = new System.Drawing.Size(213, 26);
             this.CBoxFields.TabIndex = 3;
             // 
-            // textBox1
+            // TboxFilter
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(441, 17);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(273, 27);
-            this.textBox1.TabIndex = 2;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.TboxFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.TboxFilter.Location = new System.Drawing.Point(441, 17);
+            this.TboxFilter.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.TboxFilter.Name = "TboxFilter";
+            this.TboxFilter.Size = new System.Drawing.Size(273, 27);
+            this.TboxFilter.TabIndex = 2;
+            this.TboxFilter.TextChanged += new System.EventHandler(this.TboxFilter_TextChanged);
             // 
             // LbField
             // 
@@ -167,13 +166,14 @@ namespace MassK
             this.BtnHelp.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.BtnHelp.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.BtnHelp.ForeColor = System.Drawing.Color.CornflowerBlue;
-            this.BtnHelp.Location = new System.Drawing.Point(895, 10);
+            this.BtnHelp.Location = new System.Drawing.Point(916, 14);
             this.BtnHelp.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.BtnHelp.Name = "BtnHelp";
-            this.BtnHelp.Size = new System.Drawing.Size(111, 40);
+            this.BtnHelp.Size = new System.Drawing.Size(111, 30);
             this.BtnHelp.TabIndex = 0;
             this.BtnHelp.Text = "Справка";
             this.BtnHelp.UseVisualStyleBackColor = false;
+            this.BtnHelp.Click += new System.EventHandler(this.BtnHelp_Click);
             // 
             // panel1
             // 
@@ -187,7 +187,6 @@ namespace MassK
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1040, 58);
             this.panel1.TabIndex = 10;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // LbTitleMain
             // 
@@ -210,37 +209,37 @@ namespace MassK
             this.dataGridViewImageColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.dataGridViewImageColumn4.Name = "dataGridViewImageColumn4";
             // 
-            // button4
+            // BtnSaveToUsb
             // 
-            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.BackColor = System.Drawing.Color.Transparent;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Font = new System.Drawing.Font("Verdana", 12F);
-            this.button4.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.button4.Location = new System.Drawing.Point(832, 630);
-            this.button4.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(198, 31);
-            this.button4.TabIndex = 9;
-            this.button4.Text = "Записать на USB";
-            this.button4.UseVisualStyleBackColor = false;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.BtnSaveToUsb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnSaveToUsb.BackColor = System.Drawing.Color.Transparent;
+            this.BtnSaveToUsb.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnSaveToUsb.Font = new System.Drawing.Font("Verdana", 12F);
+            this.BtnSaveToUsb.ForeColor = System.Drawing.Color.RoyalBlue;
+            this.BtnSaveToUsb.Location = new System.Drawing.Point(832, 630);
+            this.BtnSaveToUsb.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.BtnSaveToUsb.Name = "BtnSaveToUsb";
+            this.BtnSaveToUsb.Size = new System.Drawing.Size(198, 31);
+            this.BtnSaveToUsb.TabIndex = 9;
+            this.BtnSaveToUsb.Text = "Записать на USB";
+            this.BtnSaveToUsb.UseVisualStyleBackColor = false;
+            this.BtnSaveToUsb.Click += new System.EventHandler(this.BtnSaveToUsb_Click);
             // 
-            // ButtonUnloadToWeighing
+            // BtnUnloadToWeighing
             // 
-            this.ButtonUnloadToWeighing.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.ButtonUnloadToWeighing.BackColor = System.Drawing.Color.Transparent;
-            this.ButtonUnloadToWeighing.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ButtonUnloadToWeighing.Font = new System.Drawing.Font("Verdana", 12F);
-            this.ButtonUnloadToWeighing.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.ButtonUnloadToWeighing.Location = new System.Drawing.Point(624, 630);
-            this.ButtonUnloadToWeighing.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.ButtonUnloadToWeighing.Name = "ButtonUnloadToWeighing";
-            this.ButtonUnloadToWeighing.Size = new System.Drawing.Size(198, 31);
-            this.ButtonUnloadToWeighing.TabIndex = 9;
-            this.ButtonUnloadToWeighing.Text = "Выгрузить в весы";
-            this.ButtonUnloadToWeighing.UseVisualStyleBackColor = false;
-            this.ButtonUnloadToWeighing.Click += new System.EventHandler(this.ButtonUnloadToWeighing_Click);
+            this.BtnUnloadToWeighing.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnUnloadToWeighing.BackColor = System.Drawing.Color.Transparent;
+            this.BtnUnloadToWeighing.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnUnloadToWeighing.Font = new System.Drawing.Font("Verdana", 12F);
+            this.BtnUnloadToWeighing.ForeColor = System.Drawing.Color.RoyalBlue;
+            this.BtnUnloadToWeighing.Location = new System.Drawing.Point(624, 630);
+            this.BtnUnloadToWeighing.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.BtnUnloadToWeighing.Name = "BtnUnloadToWeighing";
+            this.BtnUnloadToWeighing.Size = new System.Drawing.Size(198, 31);
+            this.BtnUnloadToWeighing.TabIndex = 9;
+            this.BtnUnloadToWeighing.Text = "Выгрузить в весы";
+            this.BtnUnloadToWeighing.UseVisualStyleBackColor = false;
+            this.BtnUnloadToWeighing.Click += new System.EventHandler(this.BtnUnloadToWeighing_Click);
             // 
             // toolStrip1
             // 
@@ -314,7 +313,6 @@ namespace MassK
             this.MenuSettings.Name = "MenuSettings";
             this.MenuSettings.Size = new System.Drawing.Size(124, 45);
             this.MenuSettings.Text = "Настройка";
-            this.MenuSettings.Click += new System.EventHandler(this.MenuSettings_Click);
             // 
             // таблицаВесовToolStripMenuItem
             // 
@@ -347,11 +345,11 @@ namespace MassK
             // CbxLang
             // 
             this.CbxLang.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.CbxLang.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.CbxLang.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.CbxLang.Name = "CbxLang";
-            this.CbxLang.Size = new System.Drawing.Size(121, 48);
+            this.CbxLang.Size = new System.Drawing.Size(170, 48);
             this.CbxLang.SelectedIndexChanged += new System.EventHandler(this.CbxLang_SelectedIndexChanged);
-            this.CbxLang.Click += new System.EventHandler(this.CbxLang_Click);
             // 
             // MenuDescription
             // 
@@ -361,6 +359,16 @@ namespace MassK
             this.MenuDescription.Name = "MenuDescription";
             this.MenuDescription.Size = new System.Drawing.Size(110, 45);
             this.MenuDescription.Text = "Описание";
+            this.MenuDescription.Click += new System.EventHandler(this.MenuDescription_Click);
+            // 
+            // CBoxCode
+            // 
+            this.CBoxCode.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.CBoxCode.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.CBoxCode.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.CBoxCode.Name = "CBoxCode";
+            this.CBoxCode.Size = new System.Drawing.Size(380, 48);
+            this.CBoxCode.SelectedIndexChanged += new System.EventHandler(this.CBoxCode_SelectedIndexChanged);
             // 
             // dataGrid
             // 
@@ -377,15 +385,6 @@ namespace MassK
             this.dataGrid.TabIndex = 5;
             this.dataGrid.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGrid_CellContentDoubleClick);
             // 
-            // CBoxCode
-            // 
-            this.CBoxCode.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.CBoxCode.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.CBoxCode.Name = "CBoxCode";
-            this.CBoxCode.Size = new System.Drawing.Size(121, 48);
-            this.CBoxCode.SelectedIndexChanged += new System.EventHandler(this.CbxLang_SelectedIndexChanged);
-            this.CBoxCode.Click += new System.EventHandler(this.CbxLang_Click);
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
@@ -396,8 +395,8 @@ namespace MassK
             this.Controls.Add(this.dataGrid);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.ButtonUnloadToWeighing);
-            this.Controls.Add(this.button4);
+            this.Controls.Add(this.BtnUnloadToWeighing);
+            this.Controls.Add(this.BtnSaveToUsb);
             this.Font = new System.Drawing.Font("Verdana", 12F);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -421,15 +420,15 @@ namespace MassK
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.CheckBox ChkBoxShowProducts;
         private System.Windows.Forms.ComboBox CBoxFields;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox TboxFilter;
         private System.Windows.Forms.Label LbField;
         private System.Windows.Forms.Label LbFindProduct;
         private System.Windows.Forms.Button BtnHelp;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label LbTitleMain;
         private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn4;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button ButtonUnloadToWeighing;
+        private System.Windows.Forms.Button BtnSaveToUsb;
+        private System.Windows.Forms.Button BtnUnloadToWeighing;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripDropDownButton MenuFile;
         private System.Windows.Forms.ToolStripDropDownButton MenuSettings;

@@ -33,12 +33,12 @@ namespace MassK.BL
                 return LangPacks.LangPack.Lang;
             }
         }
+
+
         public static void LoadLangPack()
         {
             LangPacks.LangPack.Load(SettingManager.LangPath);
-
         }
-
 
         public static List<string> LangPaksList
         {
@@ -67,12 +67,97 @@ namespace MassK.BL
             }
         }
 
+        public static List<ProductCategory> ProductCategories
+        {
+            get
+            {
+                if (_ProductCategories is null)
+                {
+                    _ProductCategories = SettingManager.Load<ProductCategory>();
+                    if (_ProductCategories == null) _ProductCategories = new List<ProductCategory>();
+
+
+                }
+                return _ProductCategories;
+            }
+            set
+            {
+                _ProductCategories = value;
+            }
+        }
+        static List<ProductCategory> _ProductCategories;
+
+        public static List<ImageItem> Images
+        {
+            get
+            {
+                if (_Images is null)
+                {
+                    _Images = ImageManager.GetImages();
+                }
+                return _Images;
+            }
+            set
+            {
+                _Images = value;
+            }
+        }
+        static List<ImageItem> _Images;
+        
+
+
+        public static List<(string name, int codePage)> CodePages
+        {
+            get => MKConverter.GetCodePages();
+        }
+        public static string CodePageName
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_CodePageName))
+                {
+                    _CodePageName = settings.CodePageName;
+                    if (string.IsNullOrEmpty(_CodePageName))
+                    {
+                        _CodePage = Encoding.Default.CodePage;
+                        _CodePageName = CodePages.Find(x => x.codePage == Encoding.Default.CodePage).name;
+                        if (string.IsNullOrEmpty(_CodePageName))
+                        {
+                            _CodePageName = "";
+                        }
+                    }
+                }
+                return _CodePageName;
+            }
+            set
+            {
+                _CodePageName = value;
+                _CodePage = CodePages.Find(x => x.name == _CodePageName).codePage;
+                settings.CodePageName = _CodePageName;
+                settings.Save();
+            }
+        }
+        static string _CodePageName;
+        static int _CodePage = 0;
+
+
+       public static List<KeyboardItem> KeyboardItems
+        {
+            get
+            {
+                if (_KeyboardItems is null) _KeyboardItems = new List<KeyboardItem>();
+                return _KeyboardItems;
+            }
+            set => _KeyboardItems = value;
+        }
+        static List<KeyboardItem> _KeyboardItems;
+
+
         internal static void SetCurrentLang()
         {
             if (string.IsNullOrEmpty(LangPaksList.Find(x => x == CurrentLang)))
                 CurrentLang = LangPacks.LangPack.SetCurrentCultureLang();
-            LangPacks.LangPack.SetLang(ProjectMandger.CurrentLang);
-
+            LangPacks.LangPack.SetLang(CurrentLang);
         }
 
 
@@ -80,13 +165,12 @@ namespace MassK.BL
         {
             try
             {
-                string usbRootPath = UsbDisk.FindUsbPath();
-                string file = Path.Combine(usbRootPath, $"01PC0000000000.dat");
+                string usbRootPath = UsbDirectory.FindUsbPath();
+                string file = Path.Combine(usbRootPath, $"05PC0000000000.dat");
 
-                List<KeyboardItem> keyboardItems = MKConverter.KBFromDat(file, 0);
-                // SetKeyboardItems(_KeyboardItems);
+                List<KeyboardItem> keyboardItems = MKConverter.KBFromDat(file, _CodePage);
                 MessageBox.Show(file, "Проект загружен", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return keyboardItems;
+                 return keyboardItems;
             }
             catch (Exception ex)
             {
@@ -95,51 +179,10 @@ namespace MassK.BL
             throw new BException("Проект отсутствует");
         }
 
-
-
-        public static List<KeyboardItem> LoadFromProject()
-        {
-            OpenFileDialog ofd = new OpenFileDialog()
-            {
-                InitialDirectory = SettingManager.SettingPath,
-                Multiselect = false,
-                Filter = "XML|*.xml"
-            };
-
-            if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                List<KeyboardItem> keyboardItems = SettingManager.Load(ofd.FileName);
-                // SetKeyboardItems(keyboardItems);
-                MessageBox.Show(ofd.FileName, "Проект загружен", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return keyboardItems;
-            }
-            throw new BException("Проект отсутствует");
-        }
-
-        ///
-        private static void SaveProject(List<KeyboardItem> keyboardItems)
-        {
-
-            SaveFileDialog sfd = new SaveFileDialog()
-            {
-                InitialDirectory = SettingManager.SettingPath,
-                Filter = "XML|*.xml"
-            };
-            try
-            {
-                if (sfd.ShowDialog() == DialogResult.OK)
-                {
-
-                    SettingManager.Save<KeyboardItem>(keyboardItems, sfd.FileName);
-                    MessageBox.Show(sfd.FileName, "Проект Сохранен", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="keyboardItems"></param>
         public static void GetImages(List<KeyboardItem> keyboardItems)
         {
             foreach (KeyboardItem itm in keyboardItems)
@@ -151,6 +194,93 @@ namespace MassK.BL
                 }
             }
         }
+
+        /// <summary>
+        ///  Сохранить в Usb
+        /// </summary>
+        internal static void SaveToUsb()
+        {
+           if ( KeyboardItems.Count != 0)
+            {
+                string usbRootPath = UsbDirectory.FindUsbPath();
+                string logo = Images.Find(x => x.Id == 0)?.Path ??"";
+                MKConverter.KBToDat(KeyboardItems, usbRootPath, logo , _CodePage);
+                MessageBox.Show("Успешно", "Проект сохранен", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Элементы клавиатуры отсутствуют", "Не удалось сохранить проект", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        internal static bool LoadLocalProject()
+        {
+             KeyboardItems = SettingManager.Load<KeyboardItem>();
+            return KeyboardItems.Count != 0;
+        }
+
+        public static bool Get()
+        {
+          //  MKConverter.ProdPLUFromDat(files[0], files[4]);
+            return true;
+        }
+
+        /// <summary>
+        /// Сохранить проект в XML
+        /// </summary>
+        internal static void SaveToLocal()
+        {
+            SettingManager.Save(KeyboardItems);
+
+        }
+    }
+}
+
+
+ //public static List<KeyboardItem> LoadFromProject()
+        //{
+        //    OpenFileDialog ofd = new OpenFileDialog()
+        //    {
+        //        InitialDirectory = SettingManager.SettingPath,
+        //        Multiselect = false,
+        //        Filter = "XML|*.xml"
+        //    };
+
+        //    if (ofd.ShowDialog() == DialogResult.OK)
+        //    {
+        //        List<KeyboardItem> keyboardItems = SettingManager.Load(ofd.FileName);
+        //        // SetKeyboardItems(keyboardItems);
+        //        MessageBox.Show(ofd.FileName, "Проект загружен", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //        return keyboardItems;
+        //    }
+        //    throw new BException("Проект отсутствует");
+        //}
+
+        ///
+        //private static void SaveProject(List<KeyboardItem> keyboardItems)
+        //{
+
+        //    SaveFileDialog sfd = new SaveFileDialog()
+        //    {
+        //        InitialDirectory = SettingManager.SettingPath,
+        //        Filter = "XML|*.xml"
+        //    };
+        //    try
+        //    {
+        //        if (sfd.ShowDialog() == DialogResult.OK)
+        //        {
+
+        //            SettingManager.Save<KeyboardItem>(keyboardItems, sfd.FileName);
+        //            MessageBox.Show(sfd.FileName, "Проект Сохранен", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //    }
+        //}
+
+
 
 
         //public static void ChangeImage(int rowIndex)
@@ -184,6 +314,3 @@ namespace MassK.BL
         //        }
         //    }
         //}
-
-    }
-}

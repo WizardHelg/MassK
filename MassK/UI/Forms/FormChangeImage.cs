@@ -13,7 +13,7 @@ namespace MassK.UI.Forms
 {
     public partial class FormChangeImage : Form
     {
-        private List<ImageItem> images;
+       // private List<ImageItem> images;
         public ImageItem SelectedImage { get; private set; }
 
         public FormChangeImage()
@@ -23,25 +23,26 @@ namespace MassK.UI.Forms
             panel2.BackColor = StyleUI.FrameBlueColor;
         }
 
-        public FormChangeImage(List<ImageItem> images)
-        {
-            InitializeComponent();
-            panel1.BackColor = StyleUI.FrameBlueColor;
-            panel2.BackColor = StyleUI.FrameBlueColor;
-            this.images = images;
-        }
+        //public FormChangeImage(List<ImageItem> images)
+        //public FormChangeImage()
+        //{
+        //    InitializeComponent();
+        //    panel1.BackColor = StyleUI.FrameBlueColor;
+        //    panel2.BackColor = StyleUI.FrameBlueColor;
+        //   // this.images = images;
+        //}
 
         private void FormChangeImage_Load(object sender, EventArgs e)
         {
             SetDataGrid();
-            FillDataGrid(this.images);
+            FillDataGrid();
         }
 
-        private void FillDataGrid(List<ImageItem> images)
+        private void FillDataGrid()
         {
             dataGrid.DataSource = null;
             //dataGrid.DataSource = images;
-            foreach (ImageItem item in images)
+            foreach (ImageItem item in ProjectMandger.Images)
             {
                 dataGrid.Rows.Add(item.Id, item.Group, item.Name,  item.Picture);
             }
@@ -76,7 +77,7 @@ namespace MassK.UI.Forms
                 string idText = dataGrid.Rows[dataGrid.SelectedCells[0].RowIndex].Cells[0].Value?.ToString() ?? "";
                 if (int.TryParse(idText, out int id))
                 {
-                    SelectedImage = images.First(x => x.Id == id);
+                    SelectedImage = ProjectMandger.Images.First(x => x.Id == id);
                 }
             }
             DialogResult = DialogResult.OK;

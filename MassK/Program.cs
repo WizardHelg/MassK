@@ -20,8 +20,7 @@ namespace MassK
             Application.SetCompatibleTextRenderingDefault(false);
 
             FormMain formMain = new FormMain();
-            Application.Run(formMain);
-            //Application.Run(new Data.TestDataForm());
+            Application.Run(formMain);           
         }
     }
 }
