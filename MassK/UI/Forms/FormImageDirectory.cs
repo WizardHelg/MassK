@@ -23,13 +23,13 @@ namespace MassK
             panel1.BackColor = StyleUI.FrameBlueColor;
             panel2.BackColor = StyleUI.FrameBlueColor;
             _images = ImageManager.GetImages();
-            SetDataGrid();            
-            //dataGrid.DataError += DataGrid_DataError;
+            SetDataGrid();
         }
         private void SetData()
         {
             FillDataGrid(_images);
         }
+
         private void FormPictureDirectory_Load(object sender, EventArgs e)
         {
             SetData();
@@ -42,7 +42,6 @@ namespace MassK
 
         private void SetDataGrid()
         {
-          //  List<ProductCategory> imagesCategories = SettingManager.Load<ProductCategory>();
             dataGrid.Columns.Add("id", "ID");
             DataGridViewComboBoxColumn cboxColumn = new DataGridViewComboBoxColumn()
             {
@@ -106,13 +105,8 @@ namespace MassK
             }
         }
 
-        private void BtnExport_Click(object sender, EventArgs e)
-        {
-
-        }
         private string ImageFilter()
         {
-            //string filter = "Файлы изображений";
             string extentions = "";
            foreach(string extention in ImageManager.ImageExtentions)
             {                
@@ -142,29 +136,6 @@ namespace MassK
                 SettingManager.Save(_images);
             }
         }
-        
-
-        // Загрузка из папки
-        //private void BtnImport_Click(object sender, EventArgs e)
-        //{
-        //    Ookii.Dialogs.WinForms.VistaFolderBrowserDialog ofd = new Ookii.Dialogs.WinForms.VistaFolderBrowserDialog();
-        //    if (ofd.ShowDialog() == DialogResult.OK)
-        //    {
-        //        string folder = ofd.SelectedPath;
-        //        string[] files = Directory.GetFiles(folder);
-        //        foreach (string file in files)
-        //        {
-        //            FileInfo fi = new FileInfo(file);
-        //            string extention = fi.Extension.ToLower();
-        //            if (!ImageManager.ImageExtentions.Contains(extention)) continue;
-        //            string newItm = ImageManager.ImportUserPicture(file, SettingManager.UserPictures);
-        //            int idNewItm = ImageManager.GetFreeId(_images);
-        //            _images.Add(new ImageItem() { Path = newItm, Id = idNewItm });
-        //        }
-        //        SettingManager.Save(_images);
-        //        SetData();
-        //    }
-        //}
 
         private void BtnSave_Click(object sender, EventArgs e)
         {

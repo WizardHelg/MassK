@@ -4,6 +4,7 @@ using MassK.Data;
 using MassK.LangPacks;
 using MassK.UI;
 using MassK.UI.Forms;
+using Microsoft.Office.Interop.Excel;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -24,12 +25,17 @@ namespace MassK
         public FormMain()
         {
             InitializeComponent();
+            ProjectMandger.UpdateKeyboardItems += ProjectMandger_UpdateKeyboardItems;
             SetStyle();
             FillLangs();
             FillCodePage();
-            dataGrid.RowHeadersVisible = false;
             SetDataGrid();
             FillFields();
+        }
+
+        private void ProjectMandger_UpdateKeyboardItems()
+        {
+
         }
 
         private void FillCodePage()
@@ -104,8 +110,8 @@ namespace MassK
             SetLang();
         }
 
-        private void FillDataGrid(List<KeyboardItem> products)
-        {
+        private void SetSorceDataGrid(List<KeyboardItem> products)
+        {            
             dataGrid.Columns[0].DataPropertyName = "ID";
             dataGrid.Columns[1].DataPropertyName = "Code";
             dataGrid.Columns[2].DataPropertyName = "Name";
@@ -114,26 +120,13 @@ namespace MassK
             dataGrid.Columns[5].DataPropertyName = "Picture";
             dataGrid.Columns[6].DataPropertyName = "Number";
             dataGrid.Columns[7].DataPropertyName = "Category";
-            dataGrid.DataSource = products;
+            dataGrid.Columns[8].DataPropertyName = "CategoryID";
+            dataGrid.Columns[9].DataPropertyName = "ImagePath";
 
+            dataGrid.DataSource = products;
             dataGrid.Columns[8].Visible = false;
             dataGrid.Columns[9].Visible = false;
         }
-
-        private void FillRow(KeyboardItem product, DataGridViewRow row)
-        {
-            row.Cells[0].Value = product.ID;
-            row.Cells[1].Value = product.Code;
-            row.Cells[2].Value = product.Name;
-            row.Cells[3].Value = product.PictureID;
-            row.Cells[4].Value = product.PictureName;
-            row.Cells[5].Value = product.Picture;
-            row.Cells[6].Value = product.Number;
-            row.Cells[7].Value = product.Category;
-        }
-
- 
-
 
         private void категорииТоваровToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -162,7 +155,6 @@ namespace MassK
             }
         }
 
-
         private void BlockImages()
         {
             if (settings.TypeProductNumber == (byte)ProductNumber.PLU)
@@ -179,8 +171,8 @@ namespace MassK
 
         private void SetDataGrid()
         {
+            dataGrid.RowHeadersVisible = false;
             dataGrid.Columns.Clear();
-            ///  dataGrid.DataError += CustomDataGrid_DataError;
             dataGrid.ShowCellErrors = false;
             dataGrid.Columns.Add("id", "ID");
             dataGrid.Columns.Add("code", "Code - товара");
@@ -203,6 +195,8 @@ namespace MassK
                 DisplayStyle = DataGridViewComboBoxDisplayStyle.ComboBox,
                 FlatStyle = FlatStyle.Flat
             };
+           
+
             foreach (ProductCategory category in ProjectMandger.ProductCategories)
             {
                 cboxColumn.Items.Add(category.Category);
@@ -229,8 +223,12 @@ namespace MassK
             dataGrid.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGrid.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGrid.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
+            dataGrid.Columns.Add("CategoryID", "CategoryID");
+            dataGrid.Columns.Add("ImagePath", "ImagePath");
             BlockImages();
         }
+           
 
 
         private void dataGrid_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -264,7 +262,7 @@ namespace MassK
                                     keyboardItem.PictureID = form.SelectedImage.Id;
                                     keyboardItem.Picture = form.SelectedImage.Picture;
                                     SetDataGrid();
-                                    FillDataGrid(ProjectMandger.KeyboardItems);
+                                    SetSorceDataGrid(ProjectMandger.KeyboardItems);
                                 }
                             }
                         }
@@ -302,7 +300,7 @@ namespace MassK
             BtnProducts.Enabled = enabled;
             CBoxFields.Enabled = enabled;
             сохранитьПроектВПКToolStripMenuItem.Enabled = enabled;
-            TboxFilter.Enabled  = enabled;
+            TboxFilter.Enabled = enabled;
             ChkBoxShowProducts.Enabled = enabled;
         }
 
@@ -312,16 +310,16 @@ namespace MassK
             {
                 ProjectMandger.SaveToLocal();
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }            
+            }
         }
 
 
         private void загрузитьПроектИзПКToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           if ( ProjectMandger.LoadLocalProject())
+            if (ProjectMandger.LoadLocalProject())
             {
                 SetKeyboardItems();
             }
@@ -332,13 +330,14 @@ namespace MassK
             SetEnabledControls(true);
             ProjectMandger.GetImages(ProjectMandger.KeyboardItems);
             SetDataGrid();
-            FillDataGrid(ProjectMandger.KeyboardItems);
-        }
-        private void BtnUnloadToWeighing_Click(object sender, EventArgs e)
-        {
           
+            SetSorceDataGrid(ProjectMandger.KeyboardItems);
         }
 
+        private void BtnUnloadToWeighing_Click(object sender, EventArgs e)
+        {
+
+        }
 
         private void загрузитьДанныеСUSBFlashToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -346,7 +345,7 @@ namespace MassK
             {
                 ProjectMandger.KeyboardItems = ProjectMandger.LoadFromUsb();
                 SetEnabledControls(false);
-                SetKeyboardItems();                
+                SetKeyboardItems();
             }
             catch (Exception ex)
             {
@@ -359,7 +358,7 @@ namespace MassK
 
         }
 
-        
+
         private void CBoxCode_SelectedIndexChanged(object sender, EventArgs e)
         {
             ProjectMandger.CodePageName = CBoxCode.Text;
@@ -385,7 +384,7 @@ namespace MassK
         #endregion
 
         #region Фильтрация DataGrid
-    
+
 
 
         Dictionary<string, int> fields;
@@ -414,60 +413,77 @@ namespace MassK
 
         private void TboxFilter_TextChanged(object sender, EventArgs e)
         {
+            string selectedField = CBoxFields.Text;
+            List<KeyboardItem> filterItems = default;
+            if (fields[selectedField] == 0)
+            {
+              filterItems = ProjectMandger.KeyboardItems.Where(x=>x.ID.ToString().IndexOf(TboxFilter.Text,0,StringComparison.InvariantCultureIgnoreCase) >= 0 ).ToList();
+            }
+            else if (fields[selectedField] == 1)
+            {
+                filterItems = ProjectMandger.KeyboardItems.Where(x => x.Code.IndexOf(TboxFilter.Text, 0, StringComparison.InvariantCultureIgnoreCase) >= 0).ToList();
+            }
+            else if (fields[selectedField] == 2)
+            {
+                filterItems = ProjectMandger.KeyboardItems.Where(x => x.PictureName.IndexOf(TboxFilter.Text, 0, StringComparison.InvariantCultureIgnoreCase) >= 0).ToList();
+            }
+            else if (fields[selectedField] == 3)
+            {
+                filterItems = ProjectMandger.KeyboardItems.Where(x => x.PictureID.ToString().IndexOf(TboxFilter.Text, 0, StringComparison.InvariantCultureIgnoreCase) >= 0).ToList();
+            }
+            else if (fields[selectedField] == 4)
+            {
+                filterItems = ProjectMandger.KeyboardItems.Where(x => x.PictureName.IndexOf(TboxFilter.Text, 0, StringComparison.InvariantCultureIgnoreCase) >= 0).ToList();
+            }
+            else if (fields[selectedField] == 6)
+            {
+                filterItems = ProjectMandger.KeyboardItems.Where(x => x.Number.ToString().IndexOf(TboxFilter.Text, 0, StringComparison.InvariantCultureIgnoreCase) >= 0).ToList();
+            }
+            else if (fields[selectedField] == 7)
+            {
+                filterItems = ProjectMandger.KeyboardItems.Where(x => x.Category.IndexOf(TboxFilter.Text, 0, StringComparison.InvariantCultureIgnoreCase) >= 0).ToList();
+            }
 
-            //string selectedField = CBoxFields.Text;
-            //string rowFilter = string.Format("[{0}] = '{1}'", selectedField, TboxFilter.Text) ;
-            //DataTable table =(DataTable) dataGrid.DataSource;
-            // table.DefaultView.RowFilter = rowFilter;
+            if ((filterItems?.Count??0) != 0)
+            {
+                SetSorceDataGrid(filterItems);
+            }
+            else if (string.IsNullOrEmpty(TboxFilter.Text) )
+            {
+                SetSorceDataGrid(ProjectMandger.KeyboardItems);
+            }           
         }
-
+              
         #endregion
     }
 }
 
-//private void загрузитьИзExcelToolStripMenuItem_Click(object sender, EventArgs e)
+//private void FillRow(KeyboardItem product, DataGridViewRow row)
 //{
-//    dataGrid.Columns.Clear();
-
-//    SetDataGrid();
-//    FillDataGrid(ProjectMandger.KeyboardItems);
+//    row.Cells[0].Value = product.ID;
+//    row.Cells[1].Value = product.Code;
+//    row.Cells[2].Value = product.Name;
+//    row.Cells[3].Value = product.PictureID;
+//    row.Cells[4].Value = product.PictureName;
+//    row.Cells[5].Value = product.Picture;
+//    row.Cells[6].Value = product.Number;
+//    row.Cells[7].Value = product.Category;
 //}
 
-//private static Dictionary<string, string> Fields = new Dictionary<string, string>()
-//{
-//    {"Наименование товара", "Name" },
-//    {"ID - товара",     "ID" },
-//    {"Code - товара",   "Code" },
-//    {"ID - картинки",   "PictureID" },
-//    {"№",               "Number" },
-//    {"Категория",       "Category" },
-//};
 
-//private static Dictionary<string, int> Fields = new Dictionary<string, int>()
+//private void FillDataGrid()
 //{
-//    {"ID - товара",         0},
-//    {"Наименование товара", 1 },
-//    {"Code - товара",       2 },
-//    {"ID - картинки",       3},
-//    {"Наименование картинки", 4},
-//    {"№",                   7},
-//    {"Категория",           8}
-//};
+//    dataGrid.Columns[0].DataPropertyName = "ID";
+//    dataGrid.Columns[1].DataPropertyName = "Code";
+//    dataGrid.Columns[2].DataPropertyName = "Name";
+//    dataGrid.Columns[3].DataPropertyName = "PictureID";
+//    dataGrid.Columns[4].DataPropertyName = "PictureName";
+//    dataGrid.Columns[5].DataPropertyName = "Picture";
+//    dataGrid.Columns[6].DataPropertyName = "Number";
+//    dataGrid.Columns[7].DataPropertyName = "Category";
+//    dataGrid.Columns[8].DataPropertyName = "CategoryID";
+//    dataGrid.Columns[9].DataPropertyName = "ImagePath";
 
-//SaveFileDialog sfd = new SaveFileDialog()
-//{
-//    InitialDirectory = SettingManager.SettingPath,
-//    Filter = "XML|*.xml"
-//};
-//try
-//{
-//    if (sfd.ShowDialog() == DialogResult.OK)
-//    {
-//        SettingManager.Save<KeyboardItem>(_KeyboardItems, sfd.FileName);
-//        MessageBox.Show(sfd.FileName, "Проект Сохранен", MessageBoxButtons.OK, MessageBoxIcon.Information);
-//    }
-//}
-//catch (Exception ex)
-//{
-//    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Information);
+//    dataGrid.Columns[8].Visible = false;
+//    dataGrid.Columns[9].Visible = false;
 //}
