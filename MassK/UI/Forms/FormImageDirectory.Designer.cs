@@ -142,7 +142,6 @@ namespace MassK
             this.label1.TabIndex = 1;
             this.label1.Text = "Библиотека картинок";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // BtnHelp
             // 

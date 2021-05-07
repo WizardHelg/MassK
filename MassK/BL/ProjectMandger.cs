@@ -1,13 +1,10 @@
 ﻿using MassK.Data;
 using MassK.Exceptions;
-using MassK.UI.Forms;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MassK.BL
@@ -15,8 +12,8 @@ namespace MassK.BL
     class ProjectMandger
     {
         public static readonly Properties.Settings settings = Properties.Settings.Default;
-
-        public EventHandler Update;
+        public delegate void Update();
+        public static event Update UpdateKeyboardItems;
 
         /// <summary>
         /// Класс 
@@ -151,6 +148,17 @@ namespace MassK.BL
             set => _KeyboardItems = value;
         }
         static List<KeyboardItem> _KeyboardItems;
+
+        public static List<Product> Products
+        {
+            get
+            {
+                if (_Products is null) _Products = new List<Product>();
+                return _Products;
+            }
+            set => _Products = value;
+        }
+        static List<Product> _Products;
 
 
         internal static void SetCurrentLang()

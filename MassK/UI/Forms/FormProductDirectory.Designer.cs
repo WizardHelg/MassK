@@ -33,8 +33,8 @@ namespace MassK
             this.panel2 = new System.Windows.Forms.Panel();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.BtnApply = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.CBoxFields = new System.Windows.Forms.ComboBox();
+            this.TboxFilter = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.BtnHelp = new System.Windows.Forms.Button();
@@ -54,8 +54,8 @@ namespace MassK
             this.panel2.BackColor = System.Drawing.Color.RoyalBlue;
             this.panel2.Controls.Add(this.checkBox1);
             this.panel2.Controls.Add(this.BtnApply);
-            this.panel2.Controls.Add(this.comboBox1);
-            this.panel2.Controls.Add(this.textBox1);
+            this.panel2.Controls.Add(this.CBoxFields);
+            this.panel2.Controls.Add(this.TboxFilter);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Font = new System.Drawing.Font("Verdana", 12F);
@@ -94,27 +94,28 @@ namespace MassK
             this.BtnApply.UseVisualStyleBackColor = false;
             this.BtnApply.Click += new System.EventHandler(this.BtnApply_Click);
             // 
-            // comboBox1
+            // CBoxFields
             // 
-            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox1.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(448, 17);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(266, 26);
-            this.comboBox1.TabIndex = 3;
+            this.CBoxFields.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.CBoxFields.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.CBoxFields.FormattingEnabled = true;
+            this.CBoxFields.Location = new System.Drawing.Point(505, 17);
+            this.CBoxFields.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.CBoxFields.Name = "CBoxFields";
+            this.CBoxFields.Size = new System.Drawing.Size(209, 26);
+            this.CBoxFields.TabIndex = 3;
             // 
-            // textBox1
+            // TboxFilter
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.TboxFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox1.Location = new System.Drawing.Point(135, 17);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(219, 27);
-            this.textBox1.TabIndex = 2;
+            this.TboxFilter.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.TboxFilter.Location = new System.Drawing.Point(129, 17);
+            this.TboxFilter.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.TboxFilter.Name = "TboxFilter";
+            this.TboxFilter.Size = new System.Drawing.Size(277, 27);
+            this.TboxFilter.TabIndex = 2;
+            this.TboxFilter.TextChanged += new System.EventHandler(this.TboxFilter_TextChanged);
             // 
             // label3
             // 
@@ -123,7 +124,7 @@ namespace MassK
             this.label3.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.label3.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label3.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label3.Location = new System.Drawing.Point(374, 20);
+            this.label3.Location = new System.Drawing.Point(431, 20);
             this.label3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(64, 18);
@@ -137,7 +138,7 @@ namespace MassK
             this.label2.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.label2.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label2.Location = new System.Drawing.Point(18, 20);
+            this.label2.Location = new System.Drawing.Point(12, 20);
             this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(110, 18);
@@ -236,8 +237,8 @@ namespace MassK
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Button BtnApply;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.ComboBox CBoxFields;
+        private System.Windows.Forms.TextBox TboxFilter;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button BtnHelp;
