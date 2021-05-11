@@ -190,17 +190,19 @@ namespace MassK
             dataGrid.Columns.Add("number", "№");
             DataGridViewComboBoxColumn cboxColumn = new DataGridViewComboBoxColumn()
             {
-                Name = "group",
+                Name = "Category",
                 HeaderText = "Категория",
                 DisplayStyle = DataGridViewComboBoxDisplayStyle.ComboBox,
                 FlatStyle = FlatStyle.Flat
             };
-           
 
-            foreach (ProductCategory category in ProjectMandger.ProductCategories)
-            {
-                cboxColumn.Items.Add(category.Category);
-            }
+             List<string> categories = ProjectMandger.KeyboardItems.Select(x => x.Category).Distinct().ToList();
+           // ProjectMandger.ProductCategories = ProjectMandger.KeyboardItems.Select(x => x.Category).Distinct().ToList();
+            cboxColumn.DataSource = categories;
+            //foreach (ProductCategory category in ProjectMandger.ProductCategories)
+            //{
+            //    cboxColumn.Items.Add(category.Category);
+            //}
 
             dataGrid.Columns.Add(cboxColumn);
             dataGrid.RowTemplate.MinimumHeight = 50;
@@ -225,7 +227,11 @@ namespace MassK
             dataGrid.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
             dataGrid.Columns.Add("CategoryID", "CategoryID");
+            dataGrid.Columns[8].DataPropertyName = "CategoryID";
+            dataGrid.Columns[8].Visible = false;
             dataGrid.Columns.Add("ImagePath", "ImagePath");
+            dataGrid.Columns[9].DataPropertyName = "ImagePath";
+            dataGrid.Columns[9].Visible = false;
             BlockImages();
         }
            
@@ -272,10 +278,16 @@ namespace MassK
         }
         private void ChangeCategories()
         {
+            List<string> categoryNames = ProjectMandger.KeyboardItems.Select(x => x.Category).Distinct().ToList();
             FormCategoryProducts form = new FormCategoryProducts();
+            foreach (string name in categoryNames)
+                form.Categories.Add(new ProductCategory() { ID = categoryNames.IndexOf(name), Category = name });
+
             if (form.ShowDialog() == DialogResult.OK)
             {
-
+                DataGridViewComboBoxColumn col =(DataGridViewComboBoxColumn) dataGrid.Columns["Category"];
+                col.DataSource = form.Categories.Select(x => x.Category).ToArray();
+                SettingManager.Save(form.Categories);
             }
         }
 
@@ -285,7 +297,7 @@ namespace MassK
             FormProductDirectory form = new FormProductDirectory(ProjectMandger.LangPack);
             if (form.ShowDialog() == DialogResult.OK)
             {
-
+                SetSorceDataGrid(ProjectMandger.KeyboardItems);
             }
         }
 

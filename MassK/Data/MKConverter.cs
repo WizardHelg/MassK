@@ -61,7 +61,7 @@ namespace MassK.Data
                         {
                             ProductID = (int)id,
                             Code = code,
-                            ProducеName = name
+                            ProductName = name
                         });
                     }
 
