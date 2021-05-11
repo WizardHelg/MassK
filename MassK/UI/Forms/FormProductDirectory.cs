@@ -58,7 +58,20 @@ namespace MassK
 
         private void BtnApply_Click(object sender, EventArgs e)
         {
-
+            foreach(Product product in ProjectMandger.Products)
+            {
+                if (product.Selected)
+                {
+                    ProjectMandger.KeyboardItems.Add(new KeyboardItem()
+                    {
+                        Name = product.ProductName,
+                        ID = product.ProductID,
+                        Code=product.Code,
+                        Number = product.Number
+                    });
+                }
+            }
+            Close();
         }
 
         private void SetSorceDataGrid(List<Product> products)
@@ -75,26 +88,26 @@ namespace MassK
             {
                 ProjectMandger.Products = new List<Product>()
                 {
-                    new Product(){ProductID = 2, Code= "155", PLU = "33",   ProducеName = "Абрикосы", Selected = false  },
-                    new Product(){ProductID = 112, Code= "15", PLU = "313", ProducеName = "Апельсин", Selected = true   },
-                    new Product(){ProductID = 122, Code= "55", PLU = "123", ProducеName = "Кабачки",  Selected = false  },
-                    new Product(){ProductID = 124, Code= "5", PLU = "3",    ProducеName = "Перец",    Selected = false  },
-                    new Product(){ProductID = 126, Code= "544", PLU = "2",  ProducеName = "Вишня",    Selected = true   },
-                    new Product(){ProductID = 135, Code= "5235", PLU = "4", ProducеName = "Ежевика",  Selected = false  },
-                    new Product(){ProductID = 121, Code= "533", PLU = "67", ProducеName = "Малина",   Selected = false  },
-                    new Product(){ProductID = 17, Code= "5313", PLU = "671", ProducеName = "Капуста", Selected = false  },
-                    new Product(){ProductID = 154, Code= "5343", PLU = "633", ProducеName = "Груша",  Selected = false  },
-                    new Product(){ProductID = 47, Code= "5333", PLU = "17", ProducеName = "Огурцы",   Selected = false  },
-                     new Product(){ProductID = 2, Code= "155", PLU = "33",   ProducеName = "Абрикосы", Selected = false  },
-                    new Product(){ProductID = 112, Code= "15", PLU = "313", ProducеName = "Апельсин", Selected = true   },
-                    new Product(){ProductID = 122, Code= "55", PLU = "123", ProducеName = "Кабачки",  Selected = false  },
-                    new Product(){ProductID = 124, Code= "5", PLU = "3",    ProducеName = "Перец",    Selected = false  },
-                    new Product(){ProductID = 126, Code= "544", PLU = "2",  ProducеName = "Вишня",    Selected = true   },
-                    new Product(){ProductID = 135, Code= "5235", PLU = "4", ProducеName = "Ежевика",  Selected = false  },
-                    new Product(){ProductID = 121, Code= "533", PLU = "67", ProducеName = "Малина",   Selected = false  },
-                    new Product(){ProductID = 17, Code= "5313", PLU = "671", ProducеName = "Капуста", Selected = false  },
-                    new Product(){ProductID = 154, Code= "5343", PLU = "633", ProducеName = "Груша",  Selected = false  },
-                    new Product(){ProductID = 47, Code= "5333", PLU = "17", ProducеName = "Огурцы",   Selected = false  }
+                    new Product(){ProductID = 2, Code= "155", PLU = "33",   ProductName = "Абрикосы", Selected = false  },
+                    new Product(){ProductID = 112, Code= "15", PLU = "313", ProductName = "Апельсин", Selected = true   },
+                    new Product(){ProductID = 122, Code= "55", PLU = "123", ProductName = "Кабачки",  Selected = false  },
+                    new Product(){ProductID = 124, Code= "5", PLU = "3",    ProductName = "Перец",    Selected = false  },
+                    new Product(){ProductID = 126, Code= "544", PLU = "2",  ProductName = "Вишня",    Selected = true   },
+                    new Product(){ProductID = 135, Code= "5235", PLU = "4", ProductName = "Ежевика",  Selected = false  },
+                    new Product(){ProductID = 121, Code= "533", PLU = "67", ProductName = "Малина",   Selected = false  },
+                    new Product(){ProductID = 17, Code= "5313", PLU = "671", ProductName = "Капуста", Selected = false  },
+                    new Product(){ProductID = 154, Code= "5343", PLU = "633", ProductName = "Груша",  Selected = false  },
+                    new Product(){ProductID = 47, Code= "5333", PLU = "17", ProductName = "Огурцы",   Selected = false  },
+                     new Product(){ProductID = 2, Code= "155", PLU = "33",   ProductName = "Абрикосы", Selected = false  },
+                    new Product(){ProductID = 112, Code= "15", PLU = "313", ProductName = "Апельсин", Selected = true   },
+                    new Product(){ProductID = 122, Code= "55", PLU = "123", ProductName = "Кабачки",  Selected = false  },
+                    new Product(){ProductID = 124, Code= "5", PLU = "3",    ProductName = "Перец",    Selected = false  },
+                    new Product(){ProductID = 126, Code= "544", PLU = "2",  ProductName = "Вишня",    Selected = true   },
+                    new Product(){ProductID = 135, Code= "5235", PLU = "4", ProductName = "Ежевика",  Selected = false  },
+                    new Product(){ProductID = 121, Code= "533", PLU = "67", ProductName = "Малина",   Selected = false  },
+                    new Product(){ProductID = 17, Code= "5313", PLU = "671", ProductName = "Капуста", Selected = false  },
+                    new Product(){ProductID = 154, Code= "5343", PLU = "633", ProductName = "Груша",  Selected = false  },
+                    new Product(){ProductID = 47, Code= "5333", PLU = "17", ProductName = "Огурцы",   Selected = false  }
                 };
             }
 
@@ -155,7 +168,7 @@ namespace MassK
             }
             else if (fields[selectedField] == 3)
             {
-                filterItems = ProjectMandger.Products.Where(x => x.ProducеName.ToString().IndexOf(TboxFilter.Text, 0, StringComparison.InvariantCultureIgnoreCase) >= 0).ToList();
+                filterItems = ProjectMandger.Products.Where(x => x.ProductName.ToString().IndexOf(TboxFilter.Text, 0, StringComparison.InvariantCultureIgnoreCase) >= 0).ToList();
             }
 
 
