@@ -54,13 +54,11 @@
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Ookii.Dialogs.WinForms, Version=1.0.0.0, Culture=neutral, PublicKeyToken=66aa232afad40158, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ookii.Dialogs.WinForms.1.2.0\lib\net45\Ookii.Dialogs.WinForms.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -78,18 +76,20 @@
     <Compile Include="BL\KeyboardItem.cs" />
     <Compile Include="BL\ProductCategory.cs" />
     <Compile Include="BL\Product.cs" />
+    <Compile Include="BL\ProjectMandger.cs" />
     <Compile Include="BL\WeighingMachine.cs" />
     <Compile Include="Data\MKConverter.cs" />
+    <Compile Include="Data\PictureDictionary.cs" />
     <Compile Include="Data\TestDataForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Data\TestDataForm.Designer.cs">
       <DependentUpon>TestDataForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Data\UsbDirectory.cs" />
     <Compile Include="Settings\SettingManager.cs" />
-    <Compile Include="Data\XL\ExcelHelper.cs" />
     <Compile Include="Data\XL\ExcelLoader.cs" />
-    <Compile Include="Data\XL\xlBook.cs" />
+    <Compile Include="Data\XL\XlBook.cs" />
     <Compile Include="Data\Loader.cs" />
     <Compile Include="Exceptions\BException.cs" />
     <Compile Include="Exceptions\ErrorMessageClass.cs" />
@@ -185,7 +185,6 @@
     <EmbeddedResource Include="UI\Forms\FormWeighingMachins.resx">
       <DependentUpon>FormWeighingMachins.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

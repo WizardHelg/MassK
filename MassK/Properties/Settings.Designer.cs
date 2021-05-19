@@ -34,5 +34,29 @@ namespace MassK.Properties {
                 this["Lang"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public byte TypeProductNumber {
+            get {
+                return ((byte)(this["TypeProductNumber"]));
+            }
+            set {
+                this["TypeProductNumber"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CodePageName {
+            get {
+                return ((string)(this["CodePageName"]));
+            }
+            set {
+                this["CodePageName"] = value;
+            }
+        }
     }
 }

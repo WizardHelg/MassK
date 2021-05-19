@@ -47,43 +47,55 @@ namespace MassK
             // 
             // CBoxConnectionType
             // 
+            this.CBoxConnectionType.Font = new System.Drawing.Font("Verdana", 12F);
             this.CBoxConnectionType.FormattingEnabled = true;
-            this.CBoxConnectionType.Location = new System.Drawing.Point(9, 35);
+            this.CBoxConnectionType.Location = new System.Drawing.Point(15, 38);
+            this.CBoxConnectionType.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.CBoxConnectionType.Name = "CBoxConnectionType";
-            this.CBoxConnectionType.Size = new System.Drawing.Size(159, 21);
+            this.CBoxConnectionType.Size = new System.Drawing.Size(160, 26);
             this.CBoxConnectionType.TabIndex = 0;
             // 
             // TBoxPort
             // 
-            this.TBoxPort.Location = new System.Drawing.Point(391, 36);
+            this.TBoxPort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.TBoxPort.Font = new System.Drawing.Font("Verdana", 12F);
+            this.TBoxPort.Location = new System.Drawing.Point(482, 37);
+            this.TBoxPort.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.TBoxPort.Name = "TBoxPort";
-            this.TBoxPort.Size = new System.Drawing.Size(143, 20);
+            this.TBoxPort.Size = new System.Drawing.Size(133, 27);
             this.TBoxPort.TabIndex = 2;
             // 
             // lbTypeConnection
             // 
             this.lbTypeConnection.AutoSize = true;
-            this.lbTypeConnection.Location = new System.Drawing.Point(12, 15);
+            this.lbTypeConnection.Font = new System.Drawing.Font("Verdana", 12F);
+            this.lbTypeConnection.Location = new System.Drawing.Point(20, 14);
+            this.lbTypeConnection.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lbTypeConnection.Name = "lbTypeConnection";
-            this.lbTypeConnection.Size = new System.Drawing.Size(89, 13);
+            this.lbTypeConnection.Size = new System.Drawing.Size(143, 18);
             this.lbTypeConnection.TabIndex = 2;
             this.lbTypeConnection.Text = "Тип соединения";
             // 
             // lbIpAddress
             // 
             this.lbIpAddress.AutoSize = true;
-            this.lbIpAddress.Location = new System.Drawing.Point(188, 15);
+            this.lbIpAddress.Font = new System.Drawing.Font("Verdana", 12F);
+            this.lbIpAddress.Location = new System.Drawing.Point(193, 13);
+            this.lbIpAddress.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lbIpAddress.Name = "lbIpAddress";
-            this.lbIpAddress.Size = new System.Drawing.Size(50, 13);
+            this.lbIpAddress.Size = new System.Drawing.Size(81, 18);
             this.lbIpAddress.TabIndex = 2;
             this.lbIpAddress.Text = "IP-адрес";
             // 
             // lbPort
             // 
+            this.lbPort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbPort.AutoSize = true;
-            this.lbPort.Location = new System.Drawing.Point(393, 15);
+            this.lbPort.Font = new System.Drawing.Font("Verdana", 12F);
+            this.lbPort.Location = new System.Drawing.Point(490, 13);
+            this.lbPort.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lbPort.Name = "lbPort";
-            this.lbPort.Size = new System.Drawing.Size(32, 13);
+            this.lbPort.Size = new System.Drawing.Size(47, 18);
             this.lbPort.TabIndex = 2;
             this.lbPort.Text = "Порт";
             // 
@@ -91,17 +103,21 @@ namespace MassK
             // 
             this.TBoxName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.TBoxName.Location = new System.Drawing.Point(9, 86);
+            this.TBoxName.Font = new System.Drawing.Font("Verdana", 12F);
+            this.TBoxName.Location = new System.Drawing.Point(15, 117);
+            this.TBoxName.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.TBoxName.Name = "TBoxName";
-            this.TBoxName.Size = new System.Drawing.Size(525, 20);
+            this.TBoxName.Size = new System.Drawing.Size(601, 27);
             this.TBoxName.TabIndex = 3;
             // 
             // lbWeighingMachineName
             // 
             this.lbWeighingMachineName.AutoSize = true;
-            this.lbWeighingMachineName.Location = new System.Drawing.Point(12, 67);
+            this.lbWeighingMachineName.Font = new System.Drawing.Font("Verdana", 12F);
+            this.lbWeighingMachineName.Location = new System.Drawing.Point(20, 90);
+            this.lbWeighingMachineName.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lbWeighingMachineName.Name = "lbWeighingMachineName";
-            this.lbWeighingMachineName.Size = new System.Drawing.Size(176, 13);
+            this.lbWeighingMachineName.Size = new System.Drawing.Size(289, 18);
             this.lbWeighingMachineName.TabIndex = 2;
             this.lbWeighingMachineName.Text = "Название весов (необязательно)";
             // 
@@ -109,9 +125,11 @@ namespace MassK
             // 
             this.BtnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.BtnCancel.Location = new System.Drawing.Point(483, 136);
+            this.BtnCancel.Font = new System.Drawing.Font("Verdana", 12F);
+            this.BtnCancel.Location = new System.Drawing.Point(503, 184);
+            this.BtnCancel.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.BtnCancel.Name = "BtnCancel";
-            this.BtnCancel.Size = new System.Drawing.Size(75, 23);
+            this.BtnCancel.Size = new System.Drawing.Size(140, 34);
             this.BtnCancel.TabIndex = 5;
             this.BtnCancel.Text = "Отменить";
             this.BtnCancel.UseVisualStyleBackColor = true;
@@ -120,9 +138,11 @@ namespace MassK
             // BtnSave
             // 
             this.BtnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnSave.Location = new System.Drawing.Point(398, 136);
+            this.BtnSave.Font = new System.Drawing.Font("Verdana", 12F);
+            this.BtnSave.Location = new System.Drawing.Point(339, 184);
+            this.BtnSave.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.BtnSave.Name = "BtnSave";
-            this.BtnSave.Size = new System.Drawing.Size(75, 23);
+            this.BtnSave.Size = new System.Drawing.Size(154, 34);
             this.BtnSave.TabIndex = 4;
             this.BtnSave.Text = "Сохранить";
             this.BtnSave.UseVisualStyleBackColor = true;
@@ -131,9 +151,11 @@ namespace MassK
             // BtnHelp
             // 
             this.BtnHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.BtnHelp.Location = new System.Drawing.Point(13, 136);
+            this.BtnHelp.Font = new System.Drawing.Font("Verdana", 12F);
+            this.BtnHelp.Location = new System.Drawing.Point(10, 184);
+            this.BtnHelp.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.BtnHelp.Name = "BtnHelp";
-            this.BtnHelp.Size = new System.Drawing.Size(75, 23);
+            this.BtnHelp.Size = new System.Drawing.Size(124, 34);
             this.BtnHelp.TabIndex = 6;
             this.BtnHelp.Text = "Справка";
             this.BtnHelp.UseVisualStyleBackColor = true;
@@ -151,32 +173,39 @@ namespace MassK
             this.panel1.Controls.Add(this.lbTypeConnection);
             this.panel1.Controls.Add(this.lbIpAddress);
             this.panel1.Controls.Add(this.lbWeighingMachineName);
-            this.panel1.Location = new System.Drawing.Point(6, 9);
+            this.panel1.Font = new System.Drawing.Font("Verdana", 12F);
+            this.panel1.Location = new System.Drawing.Point(10, 12);
+            this.panel1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(552, 121);
+            this.panel1.Size = new System.Drawing.Size(633, 164);
             this.panel1.TabIndex = 4;
             // 
             // TBoxIp
             // 
-            this.TBoxIp.Location = new System.Drawing.Point(188, 36);
+            this.TBoxIp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TBoxIp.Font = new System.Drawing.Font("Verdana", 12F);
+            this.TBoxIp.Location = new System.Drawing.Point(185, 37);
+            this.TBoxIp.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.TBoxIp.Name = "TBoxIp";
-            this.TBoxIp.Size = new System.Drawing.Size(180, 20);
+            this.TBoxIp.Size = new System.Drawing.Size(285, 27);
             this.TBoxIp.TabIndex = 4;
             // 
             // FormAddWeighingMachine
             // 
             this.AcceptButton = this.BtnSave;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.BtnCancel;
-            this.ClientSize = new System.Drawing.Size(564, 165);
+            this.ClientSize = new System.Drawing.Size(653, 226);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.BtnHelp);
             this.Controls.Add(this.BtnSave);
             this.Controls.Add(this.BtnCancel);
+            this.Font = new System.Drawing.Font("Verdana", 12F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(580, 200);
+            this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Name = "FormAddWeighingMachine";
             this.Text = "Добавить весы";
             this.Load += new System.EventHandler(this.FormAddWeighingMachine_Load);

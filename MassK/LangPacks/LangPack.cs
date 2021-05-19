@@ -43,9 +43,8 @@ namespace MassK.LangPacks
             {
                 XDocument x_doc = XDocument.Load(file.FullName);
                 if(x_doc.Root.Element("Name") is XElement element && !_lang_packs.ContainsKey(element.Value))
-                _lang_packs.Add(element.Value, new LangPack(x_doc));
+                    _lang_packs.Add(element.Value, new LangPack(x_doc));
             }
-
         }
 
         /// <summary>
@@ -53,20 +52,18 @@ namespace MassK.LangPacks
         /// </summary>
         /// <returns></returns>
         public static List<string> GetLangNames() => _lang_packs.Keys.ToList();
-      
 
         /// <summary>
         /// Установить языковой пакет в соответствии с культурой установленной в системе
         /// </summary>
-        public static string SetCurrentCultureLang()
+        public static void SetCurrentCultureLang()
         {
             CultureInfo ci = CultureInfo.CurrentUICulture;
-            string lang_name = ci.NativeName
-                                 .Split(new char[] { ' ' }, 2, StringSplitOptions.RemoveEmptyEntries)[0];
-            lang_name = $"{lang_name.Substring(0, 1).ToUpper()}{lang_name.Substring(1, lang_name.Length - 1)}";
+            string lang_name = ci.EnglishName
+                                 .Split(new char[] { ' ' }, 2, StringSplitOptions.RemoveEmptyEntries)[0]
+                                 .ToLower();
             _lang_packs.TryGetValue(lang_name, out LangPack lang_pack);
            Lang = lang_pack;
-            return lang_name;
         }
 
         /// <summary>
@@ -114,11 +111,8 @@ namespace MassK.LangPacks
 
             foreach(Control control in root.Controls)
             {
-                if (control.Name != "")
-                {
                 buffer.Add(control);
                 buffer.AddRange(GetControls(control));
-                }
             }
 
             return buffer;

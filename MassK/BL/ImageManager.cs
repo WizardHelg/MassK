@@ -5,21 +5,34 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
 using System.Drawing.Imaging;
+using MassK.Data;
 
 namespace MassK.BL
 {
     static class ImageManager
     {
-        public static string[] ImageExtentions = new string[] { ".bmp", ".png", ".tiff", ".img", ".gif", ".", ".", ".", ".", ".", ".jpg", ".jpeg" };
+        public static string[] ImageExtentions = new string[] { ".bmp", ".png", ".tiff", ".img", ".gif", ".jpe", ".jfif", ".jpg", ".jpeg" };
 
-        public static string ImportPicture(string sourcePath)
+        public static string ImportUserPicture(string sourcePath, string savePath)
+        {            
+            string newName = $"{99999}_UserPictures_{Path.GetFileNameWithoutExtension(sourcePath)}";
+            string save_path = Path.Combine(savePath, $"{newName}.png");
+           return ImportPicture(sourcePath, save_path);
+        }
+        internal static string ImportLogo(string sourcePath, string savePath)
         {
-            
-            string save_path = Path.Combine(SettingManager.ImagePath, $"{Path.GetFileNameWithoutExtension(sourcePath)}.png");
+            string newName = $"{0}_UserPictures_{Path.GetFileNameWithoutExtension(sourcePath)}";
+            string save_path = Path.Combine(savePath, $"{newName}.png");
+            return ImportPicture(sourcePath, save_path);
+        }
+
+
+        public static string ImportPicture(string sourcePath, string save_path)
+        {           
             Bitmap s_bitmap = new Bitmap(sourcePath);
 
             float k = Math.Min(320 / (float)s_bitmap.Width, 240 / (float)s_bitmap.Height);
-            
+
             SizeF t_size = new SizeF
             {
                 Width = s_bitmap.Width * k,
@@ -37,7 +50,7 @@ namespace MassK.BL
             };
 
             Bitmap t_bitmap = new Bitmap(320, 240, PixelFormat.Format32bppArgb);
-            using(Graphics g = Graphics.FromImage(t_bitmap))
+            using (Graphics g = Graphics.FromImage(t_bitmap))
             {
                 g.Clear(Color.Transparent);
                 g.CompositingQuality = CompositingQuality.HighQuality;
@@ -51,7 +64,7 @@ namespace MassK.BL
             {
                 t_bitmap.Save(save_path, ImageFormat.Png);
             }
-            catch  { save_path = ""; };
+            catch { save_path = ""; };
             return save_path;
         }
 
@@ -64,43 +77,36 @@ namespace MassK.BL
         public static List<ImageItem> LoadPictures()
         {
             List<ImageItem> images = SettingManager.Load<ImageItem>();
-            if (images is null) images = new List<ImageItem>();
+            if (images is null)  images = new List<ImageItem>();
 
-            foreach (ImageItem   item in images)
-            {
-            if (!string.IsNullOrEmpty(item.Path) )
+            foreach (ImageItem item in images)
+            {              
+                if (!string.IsNullOrEmpty(item.Path))
                 {
                     if (File.Exists(item.Path))
-                     item.Picture = new Bitmap(item.Path);
+                    {
+                        FileInfo fi = new FileInfo(item.Path);
+                        item.Picture = new Bitmap(item.Path);
+                        string[] filename = Path.GetFileNameWithoutExtension(fi.Name).Split('_');
+                        int.TryParse(filename[0], out int id);
+                        item.Id = id;
+                        item.Group = (filename.Length >= 2) ? filename[1] : "";
+                        item.Name = (filename.Length >= 3) ? filename[2] : "";
+                    }
                 }
             }
+            return images;
+        }
 
-            // string[] files = Directory.GetFiles(SettingManager.ImagePath);
-            //foreach (string file in files)
-            //{
-            //    FileInfo fi = new FileInfo(file);
-            //    string extention = fi.Extension.ToLower();
-            //    if (extention != ".png") continue;
-
-            //    Image picture = new Bitmap(file);
-
-            //    ImageItem item = images.Find(x => x.Path == file) ?? default;
-            //    if (item is null)
-            //    {
-            //        item = new ImageItem()
-            //        {
-            //            Id = ImageManager.GetFreeId(images),
-            //            Name = Path.GetFileNameWithoutExtension(file),
-            //            Path = file,
-            //            Picture = picture
-            //        };
-            //        images.Add(item);
-            //    }
-            //    else
-            //    {
-            //        item.Picture = picture;
-            //    }
-            //}
+        public static List<ImageItem> GetImages()
+        {
+            List<ImageItem> images = SettingManager.Load<ImageItem>();
+            if (images is null)
+            {                
+                images =  PictureDictionary.GetAllImages();
+                SettingManager.Save(images);
+            }
+            images = LoadPictures(); 
             return images;
         }
     }

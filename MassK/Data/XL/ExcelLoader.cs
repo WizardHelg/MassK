@@ -26,8 +26,8 @@ namespace MassK.Data
             { return; } //throw new BException("File not found"); }
             else
             {
-                XL.xlBook book = new XL.xlBook(fd.FileName);
-                Products = GetProducts(book.GetListObj("Products"));
+                XL.XlBook book = new XL.XlBook(fd.FileName);
+                KeyboardItems = GetProducts(book.GetListObj("Products"));
                 book.Close();
             }
         }
@@ -35,7 +35,7 @@ namespace MassK.Data
         private List<KeyboardItem> GetProducts(ListObject listObject)
         {
             List<KeyboardItem> products = new List<KeyboardItem>();
-            List<ImageItem> images = ImageManager.LoadPictures();
+            List<ImageItem> images = ImageManager.GetImages();
 
             foreach (Excel.ListRow row in listObject.ListRows)
             {

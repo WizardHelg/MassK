@@ -46,7 +46,7 @@ namespace MassK.Data
             //};
 
             //MKConverter.KBToDat(keyboard, usbs[0], null);
-            MKConverter.KBFromDat(@"D:\64PC0000000000.dat");
+            MKConverter.KBFromDat(@"F:\64PC0000000000.dat");
 
             //var files = Directory.GetFiles(@"D:\");
 

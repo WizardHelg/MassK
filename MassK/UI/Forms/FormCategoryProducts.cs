@@ -14,22 +14,35 @@ namespace MassK
 {
     public partial class FormCategoryProducts : Form
     {
-        internal List<ProductCategory> Categories { get; set; }
+        internal List<ProductCategory> Categories 
+        {
+            get
+            {
+                if (_Categories is null)
+                {
+                    _Categories = new List<ProductCategory>();
+                }
+                return _Categories;
+            }
+            set => _Categories = value; }
+        List<ProductCategory> _Categories;
 
         public FormCategoryProducts()
         {
             InitializeComponent();
+            DialogResult = DialogResult.No;
             dataGrid.RowHeadersVisible = false;
             dataGrid.DataError += DataGrid_DataError;
-            panel1.BackColor = StyleUI.FrameColor;
-            panel2.BackColor = StyleUI.FrameColor;           
+            panel1.BackColor = StyleUI.FrameBlueColor;
+            panel2.BackColor = StyleUI.FrameBlueColor;
+            SetColumns();
         }
 
-        private void DataGrid_DataError(object sender, DataGridViewDataErrorEventArgs e)
-        {
-            MessageBox.Show(e.Exception.Message, "Ошибка таблицы", MessageBoxButtons.OK, MessageBoxIcon.Error);
-         //   e.Cancel = true; 
-        }
+        //private void DataGrid_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        //{
+        //    MessageBox.Show(e.Exception.Message, "Ошибка таблицы", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        // //   e.Cancel = true; 
+        //}
 
         private void BtnAdd_Click(object sender, EventArgs e)
         {
@@ -39,11 +52,22 @@ namespace MassK
             Categories.Add(new ProductCategory() { ID = ++id, Category = "" });
             SetDataSource();
         }
+         private void SetColumns()
+        {
+            dataGrid.Columns.Add("ID", "Id");
+            dataGrid.Columns[0].DataPropertyName = "ID";
+            dataGrid.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGrid.Columns.Add("Name", "Название");
+            dataGrid.Columns[1].DataPropertyName = "Category";
+            dataGrid.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+        }
+
 
         private void SetDataSource()
         {
-            dataGrid.DataSource = null;
+           dataGrid.DataSource = null;
             dataGrid.DataSource = Categories;
+            dataGrid.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGrid.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
         }
 
@@ -64,7 +88,7 @@ namespace MassK
         {
             if (dataGrid.SelectedCells.Count> 0)
             {
-             int id =(int) dataGrid.Rows[dataGrid.SelectedCells[0].RowIndex].Cells[0].Value  ;
+             int id =(int) dataGrid.Rows[dataGrid.SelectedCells[0].RowIndex].Cells[0].Value ;
                 Categories.RemoveAll(x => x.ID == id);
                 SetDataSource();
             }

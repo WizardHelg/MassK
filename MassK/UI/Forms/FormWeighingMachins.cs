@@ -1,10 +1,12 @@
 ﻿using MassK.BL;
+using MassK.Data;
 using MassK.LangPacks;
 using MassK.UI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -25,8 +27,8 @@ namespace MassK
             _langPack = langPack;
             langPack.SetText(this);
             InitializeComponent();
-            panel1.BackColor = StyleUI.FrameColor;
-            panel2.BackColor = StyleUI.FrameColor;
+            panel1.BackColor = StyleUI.FrameBlueColor;
+            panel2.BackColor = StyleUI.FrameBlueColor;
             WeighingMachines = new List<WeighingMachine>();
             dataGrid.RowHeadersVisible = false;
             dataGrid.DataError += DataGrid_DataError;
@@ -62,7 +64,7 @@ namespace MassK
                 WeighingMachines.Add(
                     new WeighingMachine()
                     {
-                        Name = formAddWeighingMachine.Name,
+                        Name = formAddWeighingMachine.NameMachine,
                         IP = $"{formAddWeighingMachine.IpAddress}:{formAddWeighingMachine.Port}",
                         Number = ++number
                     });
@@ -91,9 +93,16 @@ namespace MassK
 
         }
 
-        private void BtnCheckConnection_Click(object sender, EventArgs e)
-        {
+       
 
+        private void Uch_DeviceDisconnected(object sender, EventArgs e)
+        {
+            Debug.WriteLine("DeviceDisconnected");
+        }
+
+        private void Uch_DeviceConnected(object sender, EventArgs e)
+        {
+            Debug.WriteLine("DeviceConnected");
         }
 
         private void ChkBox_CheckedChanged(object sender, EventArgs e)

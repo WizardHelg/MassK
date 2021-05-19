@@ -4,16 +4,18 @@ using Excel = Microsoft.Office.Interop.Excel;
 
 namespace MassK.Data.XL
 {
-    class xlBook
+    class XlBook
     {
         public Excel.Workbook WBook { get; set; }
         public Excel.Application XlApp { get; set; }
 
 
-        public xlBook(string filname)
+        public XlBook(string filname)
         {
-            XlApp = new Excel.Application();
-            XlApp.Visible = true;
+            XlApp = new Excel.Application
+            {
+                Visible = true
+            };
             WBook = XlApp.Workbooks.Open(Filename: filname, UpdateLinks: false);
         }
 

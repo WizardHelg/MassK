@@ -31,7 +31,7 @@ namespace MassK.BL
         /// ID картинки
         /// </summary>
         [DisplayName("Наименование товара")]
-        public string ProducеName { get; set; }
+        public string ProductName { get; set; }
         
         /// <summary>
         /// № товара 

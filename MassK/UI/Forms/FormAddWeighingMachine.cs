@@ -14,15 +14,13 @@ namespace MassK
     public partial class FormAddWeighingMachine : Form
     {
         public string Connection { get; internal set; }
-        public string Name { get; internal set; }
+        public string NameMachine { get; internal set; }
         public string Port { get; internal set; }
         public string IpAddress { get; internal set; }
 
 
-        LangPack _langPack;
         public FormAddWeighingMachine(LangPack langPack)
         {
-            _langPack = langPack;
             InitializeComponent();
             langPack.SetText(this);
             TBoxIp.Mask = @"###\.###\.###\.###";
@@ -34,14 +32,10 @@ namespace MassK
             Connection = CBoxConnectionType.Text;
             IpAddress = TBoxIp.Text;
             Port = TBoxPort.Text;
-            Name = TBoxName.Text;
+            NameMachine = TBoxName.Text;
 
             DialogResult = DialogResult.OK;
             Close();
-        }
-
-        private void BtnCancel_Click(object sender, EventArgs e)
-        {
         }
 
         private void FormAddWeighingMachine_Load(object sender, EventArgs e)
@@ -49,6 +43,10 @@ namespace MassK
             CBoxConnectionType.Items.Add("Ethernet");
             CBoxConnectionType.Items.Add("COM");
             CBoxConnectionType.SelectedIndex = 0;
+        }
+
+        private void BtnCancel_Click(object sender, EventArgs e)
+        {
         }
     }
 }
