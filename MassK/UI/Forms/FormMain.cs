@@ -21,6 +21,7 @@ namespace MassK
     public partial class FormMain : Form
     {
         readonly Properties.Settings settings = Properties.Settings.Default;
+        //bool _donl_load_project = true;
 
         public FormMain()
         {
@@ -64,6 +65,22 @@ namespace MassK
             {
                 CbxLang.Items.Add(lang);
             }
+
+            string lang_name = ProjectMandger.CurrentLang;
+            if (string.IsNullOrEmpty(lang_name))
+            {
+                lang_name = LangPacks.LangPack.SetCurrentCultureLang();
+                
+                if(LangPack.Lang != null)
+                {
+                    List<string> lang_names = LangPack.GetLangNames();
+                    if (lang_names.Contains(lang_name))
+                        ProjectMandger.CurrentLang = lang_name;
+                    else
+                        ProjectMandger.CurrentLang = lang_names.FirstOrDefault();
+                }
+            }
+
             CbxLang.Text = ProjectMandger.CurrentLang;
         }
 
@@ -355,7 +372,7 @@ namespace MassK
         {
             try
             {
-                ProjectMandger.KeyboardItems = ProjectMandger.LoadFromUsb();
+                ProjectMandger.LoadFromUsb();
                 SetEnabledControls(false);
                 SetKeyboardItems();
             }
