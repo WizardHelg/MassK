@@ -2,6 +2,8 @@
 using MassK.Exceptions;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.IO;
 using System.Text;
@@ -169,22 +171,48 @@ namespace MassK.BL
         }
 
 
-        public static List<KeyboardItem> LoadFromUsb()
+        public static void LoadFromUsb()
         {
             try
             {
+                
                 string usbRootPath = UsbDirectory.FindUsbPath();
-                string file = Path.Combine(usbRootPath, $"05PC0000000000.dat");
+                string plu_path = Path.Combine(usbRootPath, GetScaleFileName(ScaleFileNum.PLU, usbRootPath));
+                string prod_path = Path.Combine(usbRootPath, GetScaleFileName(ScaleFileNum.PROD, usbRootPath));
 
-                List<KeyboardItem> keyboardItems = MKConverter.KBFromDat(file, _CodePage);
-                MessageBox.Show(file, "Проект загружен", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                 return keyboardItems;
+                Products = MKConverter.ProdFromDat(prod_path, plu_path);
+
+                MessageBox.Show("Файлы загруженны с USB", "Проект загружен", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Не удалось найти USB с проектом", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            throw new BException("Проект отсутствует");
+            //throw new BException("Проект отсутствует");
+        }
+
+        enum ScaleFileNum
+        {
+            PROD = 1,
+            PLU = 5,
+            KB = 64
+        }
+
+        private static string GetScaleFileName(ScaleFileNum num, string rootPath)
+        {
+            int last_version = -1;
+            string file_prefix = $"{(int)num:D2}PC";
+            foreach (var file in Directory.EnumerateFiles(rootPath, $"{file_prefix}*.dat", SearchOption.TopDirectoryOnly))
+            {
+                string file_name = Path.GetFileNameWithoutExtension(file);
+                if (file_name.Length == 14 && int.TryParse(file_name.Substring(4), out int ver) && ver > last_version)
+                    last_version = ver;
+            }
+
+            if (last_version < 0)
+                throw new Exception("Часть фалов не нйдена или повреждена");
+
+            return $"{file_prefix}{last_version:D10}.dat";
         }
 
         /// <summary>

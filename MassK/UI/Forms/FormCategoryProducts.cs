@@ -32,7 +32,7 @@ namespace MassK
             InitializeComponent();
             DialogResult = DialogResult.No;
             dataGrid.RowHeadersVisible = false;
-            dataGrid.DataError += DataGrid_DataError;
+            //dataGrid.DataError += DataGrid_DataError;
             panel1.BackColor = StyleUI.FrameBlueColor;
             panel2.BackColor = StyleUI.FrameBlueColor;
             SetColumns();

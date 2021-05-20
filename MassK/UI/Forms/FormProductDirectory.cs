@@ -98,7 +98,7 @@ namespace MassK
                     new Product(){ProductID = 17, Code= "5313", PLU = "671", ProductName = "Капуста", Selected = false  },
                     new Product(){ProductID = 154, Code= "5343", PLU = "633", ProductName = "Груша",  Selected = false  },
                     new Product(){ProductID = 47, Code= "5333", PLU = "17", ProductName = "Огурцы",   Selected = false  },
-                     new Product(){ProductID = 2, Code= "155", PLU = "33",   ProductName = "Абрикосы", Selected = false  },
+                    new Product(){ProductID = 2, Code= "155", PLU = "33",   ProductName = "Абрикосы", Selected = false  },
                     new Product(){ProductID = 112, Code= "15", PLU = "313", ProductName = "Апельсин", Selected = true   },
                     new Product(){ProductID = 122, Code= "55", PLU = "123", ProductName = "Кабачки",  Selected = false  },
                     new Product(){ProductID = 124, Code= "5", PLU = "3",    ProductName = "Перец",    Selected = false  },

@@ -14,18 +14,10 @@ namespace MassK.Data
         public static string FindUsbPath()
         {
             foreach(string root in GetUsbList())
-            {
-                Debug.WriteLine(root);
-                foreach (string file in Directory.GetFiles(root)) 
-                {
-                    if (Path.GetFileName(file) == "scales.prj")
-                    {
-
+                if (File.Exists(Path.Combine(root, "scales.prj")))
                     return root;
-                    }
-                }
-            }
-            throw new BException("USB с файлом \"scales.prj\"  не найден");
+
+            throw new BException("USB с с данными весов не обнаружен");
         }
         
 
@@ -41,7 +33,7 @@ namespace MassK.Data
                 foreach (DriveInfo info in DriveInfo.GetDrives())
                     if (info.DriveType == DriveType.Removable)
                         buffer.Add(info.Name);
-                return buffer.Count > 0 ? buffer : null;
+                return buffer;
             }
         }
     }
