@@ -12,37 +12,26 @@ namespace MassK.BL
         /// <summary>
         /// ID товара
         /// </summary>
-        [DisplayName("ID - товара")]
-        public int ProductID { get; set; }
+        public int ID { get; set; }
 
         /// <summary>
         /// Код товара
         /// </summary>
-        [DisplayName("Code - товара")]
         public string Code { get; set; }
 
         /// <summary>
         /// Наименование товара
         /// </summary>
-        [DisplayName("PLU")]
         public string PLU { get; set; }
 
         /// <summary>
         /// ID картинки
         /// </summary>
-        [DisplayName("Наименование товара")]
-        public string ProductName { get; set; }
-        
-        /// <summary>
-        /// № товара 
-        /// </summary>
-        [DisplayName("№")]
-        public int Number { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// Наименование категории 
         /// </summary>
-        [DisplayName("Выбранные")]
         public bool Selected { get; set; }
 
     }

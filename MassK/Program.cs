@@ -1,10 +1,13 @@
-﻿using MassK.LangPacks;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MassK.UI.LangPacks;
+using MassK.Settings;
 
 namespace MassK
 {
@@ -18,9 +21,16 @@ namespace MassK
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
-            FormMain formMain = new FormMain();
-            Application.Run(formMain);           
+            InitServices();
+            Application.Run(new UI.Forms.FormMain());
         }
+
+        private static void InitServices()
+        {
+            SettingManager.ReadSettings();
+            LangPack.Load(SettingManager.LangPath);
+            if (!LangPack.SetLang(SettingManager.Lang))
+                SettingManager.Lang = LangPack.SetCurrentCultureLang();
+        } 
     }
 }

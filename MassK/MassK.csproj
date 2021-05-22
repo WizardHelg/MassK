@@ -79,34 +79,26 @@
     <Compile Include="BL\ProjectMandger.cs" />
     <Compile Include="BL\WeighingMachine.cs" />
     <Compile Include="Data\MKConverter.cs" />
-    <Compile Include="Data\PictureDictionary.cs" />
-    <Compile Include="Data\TestDataForm.cs">
-      <SubType>Form</SubType>
+    <Compile Include="Data\ConnectionMenager.cs" />
+    <Compile Include="PulsTimer.cs">
+      <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Data\TestDataForm.Designer.cs">
-      <DependentUpon>TestDataForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Data\UsbDirectory.cs" />
     <Compile Include="Settings\SettingManager.cs" />
-    <Compile Include="Data\XL\ExcelLoader.cs" />
-    <Compile Include="Data\XL\XlBook.cs" />
-    <Compile Include="Data\Loader.cs" />
     <Compile Include="Exceptions\BException.cs" />
-    <Compile Include="Exceptions\ErrorMessageClass.cs" />
     <Compile Include="UI\Controls\CustomDataGrid.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\Forms\FormAddWeighingMachine.cs">
+    <Compile Include="UI\Forms\FormAddScalesConnection.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Forms\FormAddWeighingMachine.Designer.cs">
-      <DependentUpon>FormAddWeighingMachine.cs</DependentUpon>
+    <Compile Include="UI\Forms\FormAddScalesConnection.Designer.cs">
+      <DependentUpon>FormAddScalesConnection.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Forms\FormCategoryProducts.cs">
+    <Compile Include="UI\Forms\FormProductCategories.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Forms\FormCategoryProducts.Designer.cs">
-      <DependentUpon>FormCategoryProducts.cs</DependentUpon>
+    <Compile Include="UI\Forms\FormProductCategories.Designer.cs">
+      <DependentUpon>FormProductCategories.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Forms\FormChangeImage.cs">
       <SubType>Form</SubType>
@@ -120,42 +112,38 @@
     <Compile Include="UI\Forms\FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Forms\FormImageDirectory.cs">
+    <Compile Include="UI\Forms\FormImages.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Forms\FormImageDirectory.Designer.cs">
-      <DependentUpon>FormImageDirectory.cs</DependentUpon>
+    <Compile Include="UI\Forms\FormImages.Designer.cs">
+      <DependentUpon>FormImages.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Forms\FormProductDirectory.cs">
+    <Compile Include="UI\Forms\FormProducts.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Forms\FormProductDirectory.Designer.cs">
-      <DependentUpon>FormProductDirectory.cs</DependentUpon>
+    <Compile Include="UI\Forms\FormProducts.Designer.cs">
+      <DependentUpon>FormProducts.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UI\Forms\FormSetProductNumber.cs">
+    <Compile Include="UI\Forms\FormProductNumeration.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Forms\FormSetProductNumber.Designer.cs">
-      <DependentUpon>FormSetProductNumber.cs</DependentUpon>
+    <Compile Include="UI\Forms\FormProductNumeration.Designer.cs">
+      <DependentUpon>FormProductNumeration.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Forms\FormWeighingMachins.cs">
+    <Compile Include="UI\Forms\FormScalesTable.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Forms\FormWeighingMachins.Designer.cs">
-      <DependentUpon>FormWeighingMachins.cs</DependentUpon>
+    <Compile Include="UI\Forms\FormScalesTable.Designer.cs">
+      <DependentUpon>FormScalesTable.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\LangPacks\LangPack.cs" />
-    <Compile Include="UI\StyleUI.cs" />
-    <EmbeddedResource Include="Data\TestDataForm.resx">
-      <DependentUpon>TestDataForm.cs</DependentUpon>
+    <EmbeddedResource Include="UI\Forms\FormAddScalesConnection.resx">
+      <DependentUpon>FormAddScalesConnection.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Forms\FormAddWeighingMachine.resx">
-      <DependentUpon>FormAddWeighingMachine.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Forms\FormCategoryProducts.resx">
-      <DependentUpon>FormCategoryProducts.cs</DependentUpon>
+    <EmbeddedResource Include="UI\Forms\FormProductCategories.resx">
+      <DependentUpon>FormProductCategories.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\FormChangeImage.resx">
       <DependentUpon>FormChangeImage.cs</DependentUpon>
@@ -163,11 +151,11 @@
     <EmbeddedResource Include="UI\Forms\FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Forms\FormImageDirectory.resx">
-      <DependentUpon>FormImageDirectory.cs</DependentUpon>
+    <EmbeddedResource Include="UI\Forms\FormImages.resx">
+      <DependentUpon>FormImages.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Forms\FormProductDirectory.resx">
-      <DependentUpon>FormProductDirectory.cs</DependentUpon>
+    <EmbeddedResource Include="UI\Forms\FormProducts.resx">
+      <DependentUpon>FormProducts.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -179,11 +167,11 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="UI\Forms\FormSetProductNumber.resx">
-      <DependentUpon>FormSetProductNumber.cs</DependentUpon>
+    <EmbeddedResource Include="UI\Forms\FormProductNumeration.resx">
+      <DependentUpon>FormProductNumeration.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Forms\FormWeighingMachins.resx">
-      <DependentUpon>FormWeighingMachins.cs</DependentUpon>
+    <EmbeddedResource Include="UI\Forms\FormScalesTable.resx">
+      <DependentUpon>FormScalesTable.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -31,13 +31,13 @@ namespace MassK.UI.Forms
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormChangeImage));
             this.panel2 = new System.Windows.Forms.Panel();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.BtnSave = new System.Windows.Forms.Button();
+            this.TboxFilter = new System.Windows.Forms.TextBox();
+            this.Find = new System.Windows.Forms.Label();
+            this.ButtonSelect = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.LbProductName = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.BtnHelp = new System.Windows.Forms.Button();
+            this.Title = new System.Windows.Forms.Label();
+            this.ButtonHelp = new System.Windows.Forms.Button();
             this.dataGrid = new MassK.UI.Controls.CustomDataGrid();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -48,66 +48,67 @@ namespace MassK.UI.Forms
             // 
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.BackColor = System.Drawing.Color.RoyalBlue;
-            this.panel2.Controls.Add(this.textBox1);
-            this.panel2.Controls.Add(this.label2);
-            this.panel2.Controls.Add(this.BtnSave);
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(109)))), ((int)(((byte)(163)))));
+            this.panel2.Controls.Add(this.TboxFilter);
+            this.panel2.Controls.Add(this.Find);
+            this.panel2.Controls.Add(this.ButtonSelect);
             this.panel2.Location = new System.Drawing.Point(3, 556);
             this.panel2.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(624, 93);
             this.panel2.TabIndex = 16;
             // 
-            // textBox1
+            // TboxFilter
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.TboxFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Font = new System.Drawing.Font("Verdana", 12F);
-            this.textBox1.Location = new System.Drawing.Point(234, 21);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(380, 27);
-            this.textBox1.TabIndex = 2;
+            this.TboxFilter.Font = new System.Drawing.Font("Verdana", 12F);
+            this.TboxFilter.Location = new System.Drawing.Point(234, 21);
+            this.TboxFilter.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.TboxFilter.Name = "TboxFilter";
+            this.TboxFilter.Size = new System.Drawing.Size(380, 27);
+            this.TboxFilter.TabIndex = 2;
+            this.TboxFilter.TextChanged += new System.EventHandler(this.TboxFilter_TextChanged);
             // 
-            // label2
+            // Find
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label2.AutoSize = true;
-            this.label2.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.label2.Font = new System.Drawing.Font("Verdana", 12F);
-            this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label2.Location = new System.Drawing.Point(11, 24);
-            this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(213, 18);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Найти по наименованию";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.Find.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.Find.AutoSize = true;
+            this.Find.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.Find.Font = new System.Drawing.Font("Verdana", 12F);
+            this.Find.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.Find.Location = new System.Drawing.Point(11, 24);
+            this.Find.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.Find.Name = "Find";
+            this.Find.Size = new System.Drawing.Size(213, 18);
+            this.Find.TabIndex = 1;
+            this.Find.Text = "Найти по наименованию";
+            this.Find.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // BtnSave
+            // ButtonSelect
             // 
-            this.BtnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnSave.BackColor = System.Drawing.Color.White;
-            this.BtnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnSave.Font = new System.Drawing.Font("Verdana", 12F);
-            this.BtnSave.ForeColor = System.Drawing.Color.Black;
-            this.BtnSave.Location = new System.Drawing.Point(478, 55);
-            this.BtnSave.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.BtnSave.Name = "BtnSave";
-            this.BtnSave.Size = new System.Drawing.Size(136, 30);
-            this.BtnSave.TabIndex = 19;
-            this.BtnSave.Text = "Выбрать";
-            this.BtnSave.UseVisualStyleBackColor = false;
-            this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
+            this.ButtonSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ButtonSelect.BackColor = System.Drawing.Color.White;
+            this.ButtonSelect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ButtonSelect.Font = new System.Drawing.Font("Verdana", 12F);
+            this.ButtonSelect.ForeColor = System.Drawing.Color.Black;
+            this.ButtonSelect.Location = new System.Drawing.Point(478, 55);
+            this.ButtonSelect.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.ButtonSelect.Name = "ButtonSelect";
+            this.ButtonSelect.Size = new System.Drawing.Size(136, 30);
+            this.ButtonSelect.TabIndex = 19;
+            this.ButtonSelect.Text = "Выбрать";
+            this.ButtonSelect.UseVisualStyleBackColor = false;
+            this.ButtonSelect.Click += new System.EventHandler(this.ButtonSelect_Click);
             // 
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.BackColor = System.Drawing.Color.RoyalBlue;
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(109)))), ((int)(((byte)(163)))));
             this.panel1.Controls.Add(this.LbProductName);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.BtnHelp);
+            this.panel1.Controls.Add(this.Title);
+            this.panel1.Controls.Add(this.ButtonHelp);
             this.panel1.Location = new System.Drawing.Point(3, 4);
             this.panel1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.panel1.Name = "panel1";
@@ -127,40 +128,40 @@ namespace MassK.UI.Forms
             this.LbProductName.Name = "LbProductName";
             this.LbProductName.Size = new System.Drawing.Size(257, 18);
             this.LbProductName.TabIndex = 1;
-            this.LbProductName.Text = "товар";
             this.LbProductName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // label1
+            // Title
             // 
-            this.label1.AutoEllipsis = true;
-            this.label1.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.label1.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label1.Location = new System.Drawing.Point(17, 21);
-            this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(196, 18);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Картинка для товара:";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.Title.AutoEllipsis = true;
+            this.Title.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.Title.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Title.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.Title.Location = new System.Drawing.Point(17, 21);
+            this.Title.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.Title.Name = "Title";
+            this.Title.Size = new System.Drawing.Size(196, 18);
+            this.Title.TabIndex = 1;
+            this.Title.Text = "Картинка для товара:";
+            this.Title.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // BtnHelp
+            // ButtonHelp
             // 
-            this.BtnHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnHelp.BackColor = System.Drawing.Color.White;
-            this.BtnHelp.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.BtnHelp.Font = new System.Drawing.Font("Verdana", 12F);
-            this.BtnHelp.ForeColor = System.Drawing.Color.CornflowerBlue;
-            this.BtnHelp.Location = new System.Drawing.Point(490, 14);
-            this.BtnHelp.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.BtnHelp.Name = "BtnHelp";
-            this.BtnHelp.Size = new System.Drawing.Size(121, 32);
-            this.BtnHelp.TabIndex = 0;
-            this.BtnHelp.Text = "Справка";
-            this.BtnHelp.UseVisualStyleBackColor = false;
+            this.ButtonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ButtonHelp.BackColor = System.Drawing.Color.White;
+            this.ButtonHelp.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.ButtonHelp.Font = new System.Drawing.Font("Verdana", 12F);
+            this.ButtonHelp.ForeColor = System.Drawing.Color.CornflowerBlue;
+            this.ButtonHelp.Location = new System.Drawing.Point(490, 14);
+            this.ButtonHelp.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.ButtonHelp.Name = "ButtonHelp";
+            this.ButtonHelp.Size = new System.Drawing.Size(121, 32);
+            this.ButtonHelp.TabIndex = 0;
+            this.ButtonHelp.Text = "Справка";
+            this.ButtonHelp.UseVisualStyleBackColor = false;
             // 
             // dataGrid
             // 
+            this.dataGrid.AllowUserToAddRows = false;
             this.dataGrid.AllowUserToDeleteRows = false;
             this.dataGrid.AllowUserToResizeRows = false;
             this.dataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -169,13 +170,16 @@ namespace MassK.UI.Forms
             this.dataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGrid.Location = new System.Drawing.Point(7, 65);
             this.dataGrid.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.dataGrid.MultiSelect = false;
             this.dataGrid.Name = "dataGrid";
             this.dataGrid.Size = new System.Drawing.Size(617, 490);
             this.dataGrid.TabIndex = 15;
+            this.dataGrid.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGrid_CellContentDoubleClick);
+            this.dataGrid.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGrid_ColumnHeaderMouseClick);
             // 
             // FormChangeImage
             // 
-            this.AcceptButton = this.BtnSave;
+            this.AcceptButton = this.ButtonSelect;
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(629, 651);
@@ -187,7 +191,6 @@ namespace MassK.UI.Forms
             this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Name = "FormChangeImage";
             this.Text = "Картинки для товаров";
-            this.Load += new System.EventHandler(this.FormChangeImage_Load);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -199,13 +202,13 @@ namespace MassK.UI.Forms
         #endregion
 
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox TboxFilter;
+        private System.Windows.Forms.Label Find;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button BtnHelp;
-        private System.Windows.Forms.Button BtnSave;
-        private Controls.CustomDataGrid dataGrid;
+        private System.Windows.Forms.Label Title;
+        private System.Windows.Forms.Button ButtonHelp;
+        private System.Windows.Forms.Button ButtonSelect;
+        private UI.Controls.CustomDataGrid dataGrid;
         private System.Windows.Forms.Label LbProductName;
     }
 }

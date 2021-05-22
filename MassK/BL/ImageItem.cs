@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 
 namespace MassK.BL
 {
@@ -9,21 +10,14 @@ namespace MassK.BL
   public  class ImageItem
     {
 
-        [DisplayName("ID")]
-        public int Id { get; set; }
+        public int ID { get; set; }
 
-        [DisplayName("Группа картинок")]
         public string Group { get; set; } = "";
 
-        [DisplayName("Наименование картинки")]
         public string Name { get; set; } = "";
 
-        [DisplayName("Путь")]
         public string Path { get; set; } = "";
 
-        [DisplayName("Картинка")]
         public Image Picture { get; set; }
-
-        public bool IsUserFile { get; set; } = false;
     }
 }

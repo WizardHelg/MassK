@@ -28,6 +28,7 @@ namespace MassK.Data
         /// <returns>Список продуктов</returns>
         public static List<Product> ProdFromDat(string prodPath, string pluPath, int CodePage = 0)
         {
+            
             Encoding encoding = CodePage > 0 ? Encoding.GetEncoding(CodePage) : Encoding.Default;
             Dictionary<uint, Product> buffer = new Dictionary<uint, Product>();
 
@@ -59,9 +60,9 @@ namespace MassK.Data
 
                         buffer.Add(id, new Product()
                         {
-                            ProductID = (int)id,
+                            ID = (int)id,
                             Code = code,
-                            ProductName = name
+                            Name = name
                         });
                     }
 
@@ -222,13 +223,5 @@ namespace MassK.Data
             if (File.Exists(last_file))
                 File.Delete(last_file);
         }
-
-        /// <summary>
-        /// Возвращает список поддерживаемых кодовых страниц
-        /// </summary>
-        /// <returns>Кортеж: Имя - номер</returns>
-        public static List<(string name, int codePage)> GetCodePages() => Encoding.GetEncodings()
-            .Select(item => (item.DisplayName, item.CodePage))
-            .ToList();
     }
 }
