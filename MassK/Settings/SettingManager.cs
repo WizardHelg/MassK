@@ -7,13 +7,12 @@ using System.IO;
 using System.Reflection;
 using MassK.BL;
 using System.Drawing;
+using System.Text;
 
-namespace MassK
+namespace MassK.Settings
 {
     static class SettingManager
     {
-        //public static string L { get; set; } = Directory.GetCurrentDirectory();
-        public static readonly Properties.Settings settings = Properties.Settings.Default;
         public static string RootPath { get; set; } = Application.StartupPath;
         public static string LangPath { get; set; } = Path.Combine(RootPath, "Lang");
         public static string ImagePath { get; set; } = Path.Combine(RootPath, "Images");
@@ -22,70 +21,136 @@ namespace MassK
         public static string LogoPath { get; set; } = Path.Combine(ImagePath, "Logo");
         public static string RusImagePath { get; set; } = Path.Combine(ProgrammPictures, "RUS");
         public static string EngImagePath { get; set; } = Path.Combine(ProgrammPictures, "ENG");
-        public static string DefaultImagesPath { 
+        public static string DefaultImagesPath => (Lang == "Русский") ? RusImagePath : EngImagePath;
+        public static string SettingPath { get; set; } = Path.Combine(RootPath, "Settings");
+
+        private static List<EncodingInfo> _encoding_infos = Encoding.GetEncodings().ToList();
+        private static EncodingInfo _code_page;
+
+        /// <summary>
+        /// Номер кодовой страницы. 0 если используется кодировка по умолчанию;
+        /// </summary>
+        public static int CodePage => _code_page?.CodePage ?? 0;
+
+        /// <summary>
+        /// Сохраненное в настройках имя кодовой страницы
+        /// </summary>
+        public static string NameCodePage
+        {
             get
             {
-                _DefaultImagesPath = (settings.Lang == "Русский")? RusImagePath : EngImagePath;
-                return _DefaultImagesPath;
+                if (_lang != "Русский")
+                    return _code_page?.Name ?? "";
+                else
+                    return _code_page?.DisplayName ?? "";
             }
             set
             {
-                _DefaultImagesPath = value;
-            } 
-        }
-       static string  _DefaultImagesPath;
+                if (_lang != "Русский")
+                    _code_page = _encoding_infos.Find(x => x.Name == value);
+                else
+                    _code_page = _encoding_infos.Find(x => x.DisplayName == value);
 
-        public static string SettingPath { get; set; } = Path.Combine(RootPath, "Settings");
+                SaveToXml("CodePage", $"{_code_page.CodePage}");
+            }
+        }
+
+        private static string _lang;
 
         /// <summary>
-        /// Загружает базовые настройки из файла BaseSetting.xml
+        /// Сохраненный в настройках язык
         /// </summary>
-        public static void LoadBase(string path = "")
+        public static string Lang
         {
-            if (path == "")
-                path = Path.Combine(Application.StartupPath, "Settings", "BaseSetting.xml");
-
-            if (!File.Exists(path))
-                return;
-
-            Type type = typeof(SettingManager);
-            XDocument x_doc = XDocument.Load(path);
-
-            foreach (var element in x_doc.Root.Elements())
+            get => _lang;
+            set
             {
-                if (type.GetProperty(element.Name.LocalName) is PropertyInfo prop)
-                    prop.SetValue(null, Convert.ChangeType(element.Value, prop.PropertyType));
+                _lang = value;
+                SaveToXml("Lang", value);
+            }
+        }
+
+        static List<ProductCategory> _categories;
+        public static List<ProductCategory> Categories
+        {
+            get
+            {
+                List<ProductCategory> buffer = new List<ProductCategory>();
+                _categories.ForEach(c => buffer.Add(c.Clone()));
+                return buffer;
+            }
+
+            set
+            {
+                _categories = value;
+                Save(_categories);
+            }
+        }
+
+        static bool _plu_numeration;
+        public static bool PLUNumeration
+        {
+            get => _plu_numeration;
+            set
+            {
+                _plu_numeration = value;
+                SaveToXml("PLUNumeration", $"{value}");
             }
         }
 
         /// <summary>
-        /// Сохраняет базовые настройки в файл BaseSetting.xml
+        /// Считать настройки
         /// </summary>
-        public static void SaveBase()
+        public static void ReadSettings()
         {
-            XElement root = new XElement("Data");
-            Type type = typeof(SettingManager);
-            List<PropertyInfo> props = (from prop in type.GetProperties()
-                                        let prop_type = prop.PropertyType
-                                        where prop_type.IsValueType || prop_type == typeof(string)
-                                        select prop).ToList();
+            var root = GetSettingXML().Root;
+            _lang = root.Element("Lang")?.Value;
 
-            foreach (var prop in props)
-                root.Add(new XElement(
-                    prop.Name,
-                    prop.GetValue(null).ToString()));
+            int.TryParse(root.Element("CodePage")?.Value, out int code_page);
+            _code_page = _encoding_infos.Find(x => x.CodePage == code_page);
 
-            XDocument x_doc = new XDocument(root);
+            bool.TryParse(root.Element("PLUNumeration")?.Value, out bool plu_num);
+            _plu_numeration = plu_num;
 
-            string path = string.IsNullOrEmpty(SettingPath) ?
-                            Path.Combine(Application.StartupPath, "Settings", "BaseSetting.xml") :
-                            SettingPath;
+            _categories = Load<ProductCategory>();
+        }
 
+        private static XDocument GetSettingXML()
+        {
+            string path = Path.Combine(SettingPath, "Setting.xml");
+            if (File.Exists(path))
+                return XDocument.Load(path);
+            else
+            {
+                XElement root = new XElement("settings",
+                    new XElement("Lang"),
+                    new XElement("CodePage"),
+                    new XElement("PLUNumeration"));
+                XDocument x_doc = new XDocument(root);
+                x_doc.Save(path);
+                return x_doc;
+            }
+        }
 
-            if (!Directory.Exists(SettingPath))
-                Directory.CreateDirectory(SettingPath);
+        private static void SaveToXml(string name, string value)
+        {
+            var x_doc = GetSettingXML();
+            if (x_doc.Root.Element(name) is XElement element)
+                element.Value = value;
 
-            x_doc.Save(Path.Combine(SettingPath, "BaseSetting.xml"));
+            x_doc.Save(Path.Combine(SettingPath, "Setting.xml"));
+        }
+
+        /// <summary>
+        /// Список кодовых страниц
+        /// </summary>
+        /// <returns></returns>
+        public static IEnumerable<string> GetCodePages()
+        {
+            if(_lang != "Русский")
+                return Encoding.GetEncodings().OrderBy(item => item.Name).Select(item => item.Name);
+            else
+                return Encoding.GetEncodings().OrderBy(item => item.DisplayName).Select(item => item.DisplayName);
         }
 
         /// <summary>
@@ -96,11 +161,15 @@ namespace MassK
         public static List<T> Load<T>() where T: class, new()
         {
             string path = Path.Combine(SettingPath, $"{typeof(T).Name}.xml");
+            List<T> buffer = new List<T>();
+
             if (!File.Exists(path))
-                return null;
+            {
+                Save(buffer);
+                return buffer;
+            }
 
             Type type = typeof(T);
-            List<T> buffer = new List<T>();
             XDocument x_doc = XDocument.Load(path);
 
             foreach (var elemet in x_doc.Root.Elements())
@@ -131,7 +200,7 @@ namespace MassK
                     buffer.Add(item);
             }
 
-            return buffer.Count > 0 ? buffer : null;
+            return buffer;
         }
 
         /// <summary>
@@ -172,81 +241,5 @@ namespace MassK
 
             x_doc.Save(Path.Combine(SettingPath, $"{type.Name}.xml"));
         }
-
-     
-        internal static void Save<T>(List<T> data, string fileName)
-        {
-            XElement root = new XElement("Data");
-            Type type = typeof(T);
-            List<PropertyInfo> props = (from prop in type.GetProperties()
-                                        let prop_type = prop.PropertyType
-                                        where prop_type.IsValueType || prop_type == typeof(string)
-                                        select prop).ToList();
-
-            foreach (T item in data)
-            {
-                XElement element = new XElement(type.Name);
-
-                foreach (var prop in props)
-                {
-                    if (prop.PropertyType != typeof(Image))
-                    {
-                        element.Add(new XElement(
-                            prop.Name,
-                            prop.GetValue(item)?.ToString() ?? ""));
-                    }
-                }
-
-                root.Add(element);
-            }
-
-            XDocument x_doc = new XDocument(root);
-
-            //if (!Directory.Exists(SettingPath))
-            //    Directory.CreateDirectory(SettingPath);
-            x_doc.Save(fileName);
-          
-        }
-
-        public static List<KeyboardItem> Load(string path)
-        {           
-            if (!File.Exists(path))
-                return null;
-
-            Type type = typeof(KeyboardItem);
-            List<KeyboardItem> buffer = new List<KeyboardItem>();
-            XDocument x_doc = XDocument.Load(path);
-
-            foreach (var elemet in x_doc.Root.Elements())
-            {
-                KeyboardItem item = new KeyboardItem();
-                foreach (var child_element in elemet.Elements())
-                {
-                    if (type.GetProperty(child_element.Name.LocalName) is PropertyInfo prop)
-                    {
-                        if (prop.PropertyType.IsValueType)
-                        {
-                            try
-                            {
-                                prop.SetValue(item, Convert.ChangeType(child_element.Value, prop.PropertyType));
-                            }
-                            catch
-                            {
-                                item = null;
-                                break;
-                            }
-                        }
-                        else
-                            prop.SetValue(item, child_element.Value);
-                    }
-                }
-
-                if (item != null)
-                    buffer.Add(item);
-            }
-
-            return buffer.Count > 0 ? buffer : null;
-        }
-
     }
 }

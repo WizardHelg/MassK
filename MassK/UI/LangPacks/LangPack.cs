@@ -6,32 +6,12 @@ using System.Xml.Linq;
 using System.IO;
 using System.Globalization;
 
-//Формат языкового пакета.
-//<Name> - обязателен, без него пакет не загрузится
-//<?xml version="1.0"?>
-//<LangPack xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-//  <Name>russian</Name>
-//  <Form1>
-//    <label1>Надписька</label1>
-//    <button1>Занрузить языки</button1>
-//	<button2>Перевод формы</button2>
-//	<button3>Еще один тест</button3>
-//  </Form1>
-//  <Messages>
-//    <Alarm>Всё, пришел всем писец!</Alarm>
-//  </Messages>
-//</LangPack>
-
-namespace MassK.LangPacks
+namespace MassK.UI.LangPacks
 {
     public class LangPack
     {
-        readonly static Dictionary<string, LangPack> _lang_packs = new Dictionary<string, LangPack>();
-
-        /// <summary>
-        /// Текущий языкыковой пакет
-        /// </summary>
-        public static LangPack Lang { get; private set; }
+        readonly static Dictionary<string, XElement> _lang_packs = new Dictionary<string, XElement>();
+        private static XElement _lang;
 
         /// <summary>
         /// Загрузить языковые пакеты
@@ -39,13 +19,12 @@ namespace MassK.LangPacks
         /// <param name="langPath">Путь к папке содержащий xml языковые пакеты</param>
         public static void Load(string langPath)
         {
-            foreach(var file in new DirectoryInfo(langPath).GetFiles("*.xml", SearchOption.TopDirectoryOnly))
+            foreach(var file in Directory.EnumerateFiles(langPath, "*.xml", SearchOption.TopDirectoryOnly))
             {
-                XDocument x_doc = XDocument.Load(file.FullName);
+                var x_doc = XDocument.Load(file);
                 if(x_doc.Root.Element("Name") is XElement element && !_lang_packs.ContainsKey(element.Value))
-                    _lang_packs.Add(element.Value, new LangPack(x_doc));
+                    _lang_packs.Add(element.Value, x_doc.Root);
             }
-
         }
 
         /// <summary>
@@ -53,74 +32,102 @@ namespace MassK.LangPacks
         /// </summary>
         /// <returns></returns>
         public static List<string> GetLangNames() => _lang_packs.Keys.ToList();
-      
+
 
         /// <summary>
         /// Установить языковой пакет в соответствии с культурой установленной в системе
         /// </summary>
+        /// <returns>Имя установленного языка</returns>
         public static string SetCurrentCultureLang()
         {
-            CultureInfo ci = CultureInfo.CurrentUICulture;
-            string lang_name = ci.NativeName
-                                 .Split(new char[] { ' ' }, 2, StringSplitOptions.RemoveEmptyEntries)[0];
+            var ci = CultureInfo.CurrentUICulture;
+            var lang_name = ci.NativeName.Split(new char[] { ' ' }, 2, StringSplitOptions.RemoveEmptyEntries)[0];
             lang_name = $"{lang_name.Substring(0, 1).ToUpper()}{lang_name.Substring(1, lang_name.Length - 1)}";
-            _lang_packs.TryGetValue(lang_name, out LangPack lang_pack);
-            Lang = lang_pack;
-            return lang_name;
+            _lang_packs.TryGetValue(lang_name, out XElement lang_pack);
+            _lang = lang_pack;
+            return _lang?.Element("Name").Value ?? "";
         }
 
         /// <summary>
         /// Установить языковой пакет по имени
         /// </summary>
         /// <param name="langName"></param>
-        public static void SetLang(string langName)
+        /// <returns>true если указанный язык есть в списке языков</returns>
+        public static bool SetLang(string langName)
         {
-            _lang_packs.TryGetValue(langName, out LangPack lang_pack);
-            Lang = lang_pack;
+            _lang_packs.TryGetValue(langName, out XElement lang_pack);
+            _lang = lang_pack;
+            return _lang != null;
         }
-
-        XDocument _x_doc;
-        private LangPack() { }
-        private LangPack(XDocument xDoc) => _x_doc = xDoc;
 
         /// <summary>
         /// Установить свойство Text контролов на форме
         /// </summary>
         /// <param name="form"></param>
-        public void SetText(Form form)
+        public static void Translate(Form form, DataGridView dgv = null, params Action[] addActions)
         {
-            if(_x_doc?.Root.Element("Texts") is XElement root)
+            if(_lang?.Element(form.GetType().Name) is XElement form_element)
+            {
                 foreach (Control control in GetControls(form))
-                    if (root.Elements().FirstOrDefault(xe => xe.Name == control.Name) is XElement element)
+                    if (form_element.Element(control.Name) is XElement element)
                         control.Text = element.Value;
+
+                if (form.Controls.ContainsKey("MenuStrip"))
+                    foreach(ToolStripItem menu_item in GetMenu(form.Controls["MenuStrip"]))
+                        if (form_element.Element(menu_item.Name) is XElement element)
+                            menu_item.Text = element.Value;
+
+                if (form_element.Element("Caption") is XElement caption)
+                    form.Text = caption.Value;
+
+                if (dgv != null)
+                    foreach (DataGridViewColumn col in dgv.Columns)
+                        if (form_element.Element($"DataGridView_{col.Name}") is XElement element)
+                            col.HeaderText = element.Value;
+
+                foreach (var action in addActions)
+                    action();
+            }
         }
 
         /// <summary>
         /// Получить текст
         /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        public string GetText(string name)
+        /// <param name="name">Имя текстовой записи</param>
+        /// <returns>Текс</returns>
+        public static string GetText(string name)
         {
-            if(_x_doc?.Root.Element("Messages") is XElement messages)
-                return messages.Element(name)?.Value;
+            if(_lang?.Element("Texts") is XElement text)
+                return text.Element(name)?.Value;
 
             return null;
         }
 
-        private List<Control> GetControls(Control root)
+        private static List<Control> GetControls(Control root)
         {
             List<Control> buffer = new List<Control>();
 
             foreach(Control control in root.Controls)
-            {
                 if (control.Name != "")
                 {
-                buffer.Add(control);
-                buffer.AddRange(GetControls(control));
+                    buffer.Add(control);
+                    buffer.AddRange(GetControls(control));
                 }
-            }
 
+            return buffer;
+        }
+
+        private static List<ToolStripItem> GetMenu(Control root)
+        {
+            var ts = root as ToolStrip;
+            var buffer = new List<ToolStripItem>();
+            foreach(ToolStripItem item in ts.Items)
+            {
+                buffer.Add(item);
+                if (item is ToolStripDropDownButton drop_button)
+                    foreach (ToolStripItem sub_item in drop_button.DropDownItems)
+                        buffer.Add(sub_item);
+            }
             return buffer;
         }
     }

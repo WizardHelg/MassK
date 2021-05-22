@@ -1,11 +1,16 @@
 ﻿using MassK.BL;
+using MassK.Data;
+using MassK.UI.LangPacks;
+using MassK.UI;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using MassK.Settings;
-using MassK.UI.LangPacks;
+
 using DGASMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode;
 using DGVTBColumn = System.Windows.Forms.DataGridViewTextBoxColumn;
 using DGVIColumn = System.Windows.Forms.DataGridViewImageColumn;
@@ -14,34 +19,23 @@ using DGVColumn = System.Windows.Forms.DataGridViewColumn;
 using ScaleFileNum = MassK.Data.ConnectionMenager.RAWFiles.ScaleFileNum;
 using System.Reflection;
 
-
 namespace MassK.UI.Forms
 {
-    public partial class FormChangeImage : Form
+    public partial class FormImages : Form
     {
-        KeyboardItem _kbItem;
         List<ImageItem> _images;
-        List<ImageItem> _buffer;
-        PulsTimer _timer = new PulsTimer();
         BindingSource _binding = new BindingSource();
 
-        internal FormChangeImage(KeyboardItem kbItem)
-        {
-            InitializeComponent();
-            _kbItem = kbItem;
-            LbProductName.Text = _kbItem.Name;
-            _timer.Interval = 500;
-        }
+        public FormImages() => InitializeComponent();
 
         protected override void OnLoad(EventArgs e)
         {
-            _images = ImageManager.LoadPictures(SettingManager.DefaultImagesPath);
-            _images.AddRange(ImageManager.LoadPictures(SettingManager.UserPictures));
+            _images = ImageManager.LoadPictures(SettingManager.UserPictures);
+            _images.AddRange(ImageManager.LoadPictures(SettingManager.LogoPath));
             SetDataGrid();
-            LangPack.Translate(this, dataGrid);
+            LangPack.Translate(this, dataGrid, FillFilter);
             dataGrid.DataSource = _binding;
-            _buffer = new List<ImageItem>(_images);
-            _binding.DataSource = _buffer;
+            _binding.DataSource = _images;
             base.OnLoad(e);
         }
 
@@ -63,10 +57,10 @@ namespace MassK.UI.Forms
                                       bool Visible)>()
             {
                 (typeof(DGVTBColumn), "ID", "ID картинки", "ID", true, DGASMode.AllCells, true),
-                (typeof(DGVTBColumn), "Group", "Группа картики", "Group", true, DGASMode.AllCells, true),
-                (typeof(DGVTBColumn), "Name", "Имя картинки", "Name", true, DGASMode.Fill, true),
+                (typeof(DGVTBColumn), "Name", "Имя картинки", "Name", false, DGASMode.Fill, true),
                 (typeof(DGVIColumn), "Picture", "Картинка", "Picture", true, DGASMode.AllCells, true),
                 (typeof(DGVTBColumn), "Path", "Path", "Path", true, DGASMode.AllCells, false),
+                (typeof(DGVTBColumn), "Group", "Group", "Group", true, DGASMode.AllCells, false)
             };
 
             foreach (var item in DGSetting)
@@ -85,8 +79,83 @@ namespace MassK.UI.Forms
             ((DGVIColumn)dataGrid.Columns["Picture"]).ImageLayout = DataGridViewImageCellLayout.Zoom;
 
 
-            foreach (var name in new[] { "ID", "Group", "Name" })
+            foreach (var name in new[] { "ID" })
                 dataGrid.Columns[name].CellTemplate.Style.BackColor = Color.LightGray;
+        }
+
+        private void FillFilter()
+        {
+            CBoxFields.Items.Clear();
+            foreach (var name in new[] { "ID", "Name", "Picture" })
+                CBoxFields.Items.Add(dataGrid.Columns[name].HeaderText);
+
+            if (CBoxFields.Items.Count > 0)
+                CBoxFields.SelectedIndex = 0;
+        }
+
+        private void ButtonAdd_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog()
+            {
+                Filter = ImageManager.ImageFilter(),
+                Multiselect = false,
+                Title = LangPack.GetText("ImportPicture")
+            };
+
+            if(dialog.ShowDialog() == DialogResult.OK)
+            {
+                int id = ImageManager.GetFreeId(_images);
+                var image_file = ImageManager.ImportPicture(dialog.FileName, SettingManager.UserPictures, id);
+                _images.Add(new ImageItem()
+                {
+                    ID = id,
+                    Group = "User",
+                    Name = image_file.Name,
+                    Path = image_file.Path,
+                    Picture = Image.FromFile(image_file.Path)
+                });
+                _binding.ResetBindings(false);
+            }
+        }
+
+
+        private void ButtonLogo_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog()
+            {
+                Filter = ImageManager.ImageFilter(),
+                Multiselect = false,
+                Title = LangPack.GetText("ImportLogo")
+            };
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                var image_file = ImageManager.ImportPicture(dialog.FileName, SettingManager.LogoPath, 0, true);
+                _images.Add(new ImageItem()
+                {
+                    ID = 0,
+                    Group = "User",
+                    Name = "Logo",
+                    Path = image_file.Path,
+                    Picture = Image.FromFile(image_file.Path)
+                });
+                _binding.ResetBindings(false);
+            }
+        }
+
+        private void ButtonDelete_Click(object sender, EventArgs e)
+        {
+            if (dataGrid.SelectedRows.Count > 0)
+            {
+                foreach (DataGridViewRow row in dataGrid.SelectedRows)
+                {
+                    var image = _images.Find(i => i.ID == (int)row.Cells["ID"].Value);
+                    File.Delete(image.Path);
+                    _images.Remove(image);
+                }
+
+                _binding.ResetBindings(false);
+            }
         }
 
         private void DataGrid_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -96,7 +165,7 @@ namespace MassK.UI.Forms
                 return;
 
             SortOrder sort_order = column.HeaderCell.SortGlyphDirection;
-            ClearSortGlyph();
+            ClearSortSortGlyph();
 
             Type type = typeof(ImageItem);
             PropertyInfo propertyInfo = type.GetProperty(column.DataPropertyName);
@@ -104,77 +173,24 @@ namespace MassK.UI.Forms
             switch (sort_order)
             {
                 case SortOrder.None:
-                    _binding.DataSource = _buffer.OrderBy(prod => propertyInfo.GetValue(prod));
+                    _binding.DataSource = _images.OrderBy(prod => propertyInfo.GetValue(prod));
                     column.HeaderCell.SortGlyphDirection = SortOrder.Ascending;
                     break;
                 case SortOrder.Ascending:
-                    _binding.DataSource = _buffer.OrderByDescending(prod => propertyInfo.GetValue(prod));
+                    _binding.DataSource = _images.OrderByDescending(prod => propertyInfo.GetValue(prod));
                     column.HeaderCell.SortGlyphDirection = SortOrder.Descending;
                     break;
                 case SortOrder.Descending:
-                    _binding.DataSource = _buffer;
+                    _binding.DataSource = _images;
                     column.HeaderCell.SortGlyphDirection = SortOrder.None;
                     break;
             }
         }
-        private void ClearSortGlyph()
+
+        private void ClearSortSortGlyph()
         {
             foreach (DGVColumn col in dataGrid.Columns)
                 col.HeaderCell.SortGlyphDirection = SortOrder.None;
-        }
-        private void TboxFilter_TextChanged(object sender, EventArgs e) => _timer.Puls(PulsAction);
-        public void PulsAction()
-        {
-            ClearSortGlyph();
-            string filter_text = TboxFilter.Text.ToLower();
-
-            if (string.IsNullOrWhiteSpace(filter_text))
-            {
-                _buffer = new List<ImageItem>(_images);
-                _binding.DataSource = _buffer;
-                return;
-            }
-
-            _buffer = new List<ImageItem>();
-            foreach (var img in _images)
-            {
-                if (img.Name.ToLower().Contains(filter_text))
-                    _buffer.Add(img);
-            }
-
-            _binding.DataSource = _buffer;
-        }
-
-
-
-        private void ButtonSelect_Click(object sender, EventArgs e)
-        {
-            if(dataGrid.SelectedRows.Count > 0)
-            {
-                DataGridViewRow row = dataGrid.SelectedRows[0];
-                int id = (int)row.Cells["ID"].Value;
-                ImageItem image = _images.Find(i => i.ID == id);
-                _kbItem.PictureID = image.ID;
-                _kbItem.PictureName = image.Name;
-                _kbItem.ImagePath = image.Path;
-                _kbItem.Picture = image.Picture;
-                DialogResult = DialogResult.OK;
-            }
-        }
-
-        private void dataGrid_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex < 0)
-                return;
-
-            DataGridViewRow row = dataGrid.Rows[e.RowIndex];
-            int id = (int)row.Cells["ID"].Value;
-            ImageItem image = _images.Find(i => i.ID == id);
-            _kbItem.PictureID = image.ID;
-            _kbItem.PictureName = image.Name;
-            _kbItem.ImagePath = image.Path;
-            _kbItem.Picture = image.Picture;
-            DialogResult = DialogResult.OK;
         }
     }
 }

@@ -6,29 +6,41 @@ using System.Drawing.Drawing2D;
 using System.IO;
 using System.Drawing.Imaging;
 using MassK.Data;
+using MassK.Settings;
+using System.Text;
 
 namespace MassK.BL
 {
     static class ImageManager
     {
-        public static string[] ImageExtentions = new string[] { ".bmp", ".png", ".tiff", ".img", ".gif", ".jpe", ".jfif", ".jpg", ".jpeg" };
+        static readonly string[] _image_extentions = new string[] { ".bmp", ".png", ".tiff", ".img", ".gif", ".jpg", ".jpeg" };
 
-        public static string ImportUserPicture(string sourcePath, string savePath)
-        {            
-            string newName = $"{99999}_UserPictures_{Path.GetFileNameWithoutExtension(sourcePath)}";
-            string save_path = Path.Combine(savePath, $"{newName}.png");
-           return ImportPicture(sourcePath, save_path);
-        }
-        internal static string ImportLogo(string sourcePath, string savePath)
+        public static string ImageFilter()
         {
-            string newName = $"{0}_UserPictures_{Path.GetFileNameWithoutExtension(sourcePath)}";
-            string save_path = Path.Combine(savePath, $"{newName}.png");
-            return ImportPicture(sourcePath, save_path);
+            StringBuilder builder = new StringBuilder();
+            foreach (string extention in _image_extentions)
+                builder.Append($"*{extention};");
+
+            builder.Remove(builder.Length - 1, 1);
+            return $"Файлы изображений|{builder}";
         }
 
+        public static (string Path, string Name) ImportPicture(string sourcePath, string save_directory, int ID, bool isLogo = false)
+        {
+            string save_path;
+            string name;
+            if (isLogo)
+            {
+                name = "Logo";
+                save_path = Path.Combine(save_directory, $"0_User_Logo{Path.GetExtension(sourcePath)}");
+            }
+            else
+            {
+                name = Path.GetFileNameWithoutExtension(sourcePath);
+                save_path = Path.Combine(save_directory, $"{ID}_User_{Path.GetFileName(sourcePath)}");
+            }
 
-        public static string ImportPicture(string sourcePath, string save_path)
-        {           
+
             Bitmap s_bitmap = new Bitmap(sourcePath);
 
             float k = Math.Min(320 / (float)s_bitmap.Width, 240 / (float)s_bitmap.Height);
@@ -65,49 +77,45 @@ namespace MassK.BL
                 t_bitmap.Save(save_path, ImageFormat.Png);
             }
             catch { save_path = ""; };
-            return save_path;
+            return (save_path, name);
         }
 
         public static int GetFreeId(List<ImageItem> list)
         {
-            int id = list.OrderByDescending(i => i.Id).FirstOrDefault()?.Id ?? 0;
+            int id = list.OrderByDescending(i => i.ID).FirstOrDefault()?.ID ?? 0;
             return id < 10_000 ? 10_000 : id + 1;
         }
 
-        public static List<ImageItem> LoadPictures()
+        public static List<ImageItem> LoadPictures(string path)
         {
-            List<ImageItem> images = SettingManager.Load<ImageItem>();
-            if (images is null)  images = new List<ImageItem>();
+            List<ImageItem> buffer = new List<ImageItem>();
 
-            foreach (ImageItem item in images)
-            {              
-                if (!string.IsNullOrEmpty(item.Path))
+            foreach(var file in Directory.GetFiles(path))
+                if (_image_extentions.Contains(Path.GetExtension(file)))
                 {
-                    if (File.Exists(item.Path))
+                    string[] data = Path.GetFileNameWithoutExtension(file).Split(new[] { '_' }, 3);
+
+                    if (data.Count() != 3)
+                        continue;
+
+                    if (int.TryParse(data[0], out int id))
                     {
-                        FileInfo fi = new FileInfo(item.Path);
-                        item.Picture = new Bitmap(item.Path);
-                        string[] filename = Path.GetFileNameWithoutExtension(fi.Name).Split('_');
-                        int.TryParse(filename[0], out int id);
-                        item.Id = id;
-                        item.Group = (filename.Length >= 2) ? filename[1] : "";
-                        item.Name = (filename.Length >= 3) ? filename[2] : "";
+                        ImageItem image = new ImageItem()
+                        {
+                            ID = id,
+                            Group = data[1],
+                            Name = data[2],
+                            Path = file
+                        };
+
+                        using(FileStream fs = new FileStream(file, FileMode.Open))
+                            image.Picture = Image.FromStream(fs);
+
+                        buffer.Add(image);
                     }
                 }
-            }
-            return images;
-        }
 
-        public static List<ImageItem> GetImages()
-        {
-            List<ImageItem> images = SettingManager.Load<ImageItem>();
-            if (images is null)
-            {                
-                images =  PictureDictionary.GetAllImages();
-                SettingManager.Save(images);
-            }
-            images = LoadPictures(); 
-            return images;
+            return buffer;
         }
     }
 }
