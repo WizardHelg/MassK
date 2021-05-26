@@ -31,5 +31,13 @@ namespace MassK.UI.Forms
             SettingManager.PLUNumeration = PLU.Checked;
             DialogResult = DialogResult.OK;
         }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+                Close();
+
+            base.OnKeyDown(e);
+        }
     }
 }

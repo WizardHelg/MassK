@@ -162,7 +162,7 @@ namespace MassK.UI.Forms
             }
         }
 
-        private void dataGrid_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0)
                 return;
@@ -175,6 +175,14 @@ namespace MassK.UI.Forms
             _kbItem.ImagePath = image.Path;
             _kbItem.Picture = image.Picture;
             DialogResult = DialogResult.OK;
+        }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+                Close();
+
+            base.OnKeyDown(e);
         }
     }
 }

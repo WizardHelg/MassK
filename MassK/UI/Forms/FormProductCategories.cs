@@ -110,5 +110,13 @@ namespace MassK.UI.Forms
             else
                 MessageBox.Show(LangPack.GetText("ProductCategoryFormWrongValues"), LangPack.GetText("MSGBoxHeader"), MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+                Close();
+
+            base.OnKeyDown(e);
+        }
     }
 }

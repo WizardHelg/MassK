@@ -56,6 +56,7 @@ namespace MassK.UI.Forms
             this.CbxLang = new System.Windows.Forms.ToolStripComboBox();
             this.MenuDescription = new System.Windows.Forms.ToolStripButton();
             this.CBoxCode = new System.Windows.Forms.ToolStripComboBox();
+            this.ButtonClearFilter = new System.Windows.Forms.Button();
             this.dataGrid = new MassK.UI.Controls.CustomDataGrid();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -106,6 +107,7 @@ namespace MassK.UI.Forms
             this.ShowProductsWithoutPicturies.TabIndex = 4;
             this.ShowProductsWithoutPicturies.Text = "Показать товары без картинок";
             this.ShowProductsWithoutPicturies.UseVisualStyleBackColor = true;
+            this.ShowProductsWithoutPicturies.CheckedChanged += new System.EventHandler(this.ShowProductsWithoutPicturies_CheckedChanged);
             // 
             // CBoxFields
             // 
@@ -364,6 +366,22 @@ namespace MassK.UI.Forms
             this.CBoxCode.SelectedIndexChanged += new System.EventHandler(this.CBoxCode_SelectedIndexChanged);
             this.CBoxCode.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CBoxCode_KeyPress);
             // 
+            // ButtonClearFilter
+            // 
+            this.ButtonClearFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ButtonClearFilter.BackColor = System.Drawing.Color.Transparent;
+            this.ButtonClearFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ButtonClearFilter.Font = new System.Drawing.Font("Verdana", 12F);
+            this.ButtonClearFilter.ForeColor = System.Drawing.Color.RoyalBlue;
+            this.ButtonClearFilter.Location = new System.Drawing.Point(3, 630);
+            this.ButtonClearFilter.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.ButtonClearFilter.Name = "ButtonClearFilter";
+            this.ButtonClearFilter.Size = new System.Drawing.Size(198, 31);
+            this.ButtonClearFilter.TabIndex = 14;
+            this.ButtonClearFilter.Text = "Сбросить фильтр";
+            this.ButtonClearFilter.UseVisualStyleBackColor = false;
+            this.ButtonClearFilter.Click += new System.EventHandler(this.ButtonClearFilter_Click);
+            // 
             // dataGrid
             // 
             this.dataGrid.AllowUserToAddRows = false;
@@ -380,7 +398,7 @@ namespace MassK.UI.Forms
             this.dataGrid.ShowCellErrors = false;
             this.dataGrid.Size = new System.Drawing.Size(1038, 423);
             this.dataGrid.TabIndex = 5;
-            this.dataGrid.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGrid_CellContentDoubleClick);
+            this.dataGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGrid_CellDoubleClick);
             this.dataGrid.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGrid_ColumnHeaderMouseClick);
             // 
             // FormMain
@@ -388,6 +406,7 @@ namespace MassK.UI.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1045, 666);
+            this.Controls.Add(this.ButtonClearFilter);
             this.Controls.Add(this.MenuStrip);
             this.Controls.Add(this.ButtonProducts);
             this.Controls.Add(this.dataGrid);
@@ -439,6 +458,7 @@ namespace MassK.UI.Forms
         private System.Windows.Forms.ToolStripMenuItem MenuSettings_ProductCategories;
         private System.Windows.Forms.ToolStripMenuItem MenuSettings_PictureLibrary;
         private System.Windows.Forms.ToolStripComboBox CBoxCode;
+        private System.Windows.Forms.Button ButtonClearFilter;
     }
 }
 

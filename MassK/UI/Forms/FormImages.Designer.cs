@@ -60,7 +60,7 @@ namespace MassK.UI.Forms
             this.panel2.Location = new System.Drawing.Point(3, 581);
             this.panel2.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(794, 64);
+            this.panel2.Size = new System.Drawing.Size(1017, 64);
             this.panel2.TabIndex = 12;
             this.panel2.Visible = false;
             // 
@@ -69,7 +69,7 @@ namespace MassK.UI.Forms
             this.CBoxFields.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.CBoxFields.Font = new System.Drawing.Font("Verdana", 12F);
             this.CBoxFields.FormattingEnabled = true;
-            this.CBoxFields.Location = new System.Drawing.Point(551, 20);
+            this.CBoxFields.Location = new System.Drawing.Point(774, 20);
             this.CBoxFields.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.CBoxFields.Name = "CBoxFields";
             this.CBoxFields.Size = new System.Drawing.Size(224, 26);
@@ -92,7 +92,7 @@ namespace MassK.UI.Forms
             this.InField.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.InField.Font = new System.Drawing.Font("Verdana", 12F);
             this.InField.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.InField.Location = new System.Drawing.Point(476, 23);
+            this.InField.Location = new System.Drawing.Point(699, 23);
             this.InField.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.InField.Name = "InField";
             this.InField.Size = new System.Drawing.Size(64, 18);
@@ -125,7 +125,7 @@ namespace MassK.UI.Forms
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(794, 58);
+            this.panel1.Size = new System.Drawing.Size(1017, 58);
             this.panel1.TabIndex = 13;
             // 
             // Title
@@ -138,7 +138,7 @@ namespace MassK.UI.Forms
             this.Title.Location = new System.Drawing.Point(17, 11);
             this.Title.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.Title.Name = "Title";
-            this.Title.Size = new System.Drawing.Size(636, 39);
+            this.Title.Size = new System.Drawing.Size(859, 39);
             this.Title.TabIndex = 1;
             this.Title.Text = "Библиотека картинок";
             this.Title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -150,7 +150,7 @@ namespace MassK.UI.Forms
             this.ButtonHelp.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.ButtonHelp.Font = new System.Drawing.Font("Verdana", 12F);
             this.ButtonHelp.ForeColor = System.Drawing.Color.CornflowerBlue;
-            this.ButtonHelp.Location = new System.Drawing.Point(675, 14);
+            this.ButtonHelp.Location = new System.Drawing.Point(898, 14);
             this.ButtonHelp.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.ButtonHelp.Name = "ButtonHelp";
             this.ButtonHelp.Size = new System.Drawing.Size(106, 30);
@@ -210,7 +210,7 @@ namespace MassK.UI.Forms
             this.ButtonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ButtonSave.Font = new System.Drawing.Font("Verdana", 12F);
             this.ButtonSave.ForeColor = System.Drawing.Color.Black;
-            this.ButtonSave.Location = new System.Drawing.Point(654, 615);
+            this.ButtonSave.Location = new System.Drawing.Point(877, 615);
             this.ButtonSave.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.ButtonSave.Name = "ButtonSave";
             this.ButtonSave.Size = new System.Drawing.Size(130, 30);
@@ -231,7 +231,7 @@ namespace MassK.UI.Forms
             this.dataGrid.Location = new System.Drawing.Point(2, 102);
             this.dataGrid.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.dataGrid.Name = "dataGrid";
-            this.dataGrid.Size = new System.Drawing.Size(795, 543);
+            this.dataGrid.Size = new System.Drawing.Size(1018, 543);
             this.dataGrid.TabIndex = 0;
             this.dataGrid.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGrid_ColumnHeaderMouseClick);
             // 
@@ -239,7 +239,7 @@ namespace MassK.UI.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(799, 650);
+            this.ClientSize = new System.Drawing.Size(1022, 650);
             this.Controls.Add(this.ButtonLogo);
             this.Controls.Add(this.ButtonSave);
             this.Controls.Add(this.ButtonDelete);
@@ -249,6 +249,7 @@ namespace MassK.UI.Forms
             this.Controls.Add(this.dataGrid);
             this.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.MinimumSize = new System.Drawing.Size(815, 633);
             this.Name = "FormImages";

@@ -201,5 +201,13 @@ namespace MassK.UI.Forms
 
             _binding.DataSource = _buffer;
         }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+                Close();
+
+            base.OnKeyDown(e);
+        }
     }
 }
