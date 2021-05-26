@@ -108,7 +108,7 @@ namespace MassK.BL
                             Path = file
                         };
 
-                        using(FileStream fs = new FileStream(file, FileMode.Open))
+                        using(FileStream fs = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.Delete))
                             image.Picture = Image.FromStream(fs);
 
                         buffer.Add(image);

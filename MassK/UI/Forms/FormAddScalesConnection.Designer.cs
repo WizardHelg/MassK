@@ -205,6 +205,7 @@ namespace MassK.UI.Forms
             this.Font = new System.Drawing.Font("Verdana", 12F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Name = "FormAddScalesConnection";
             this.Text = "Добавить весы";

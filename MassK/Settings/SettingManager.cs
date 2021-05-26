@@ -103,6 +103,16 @@ namespace MassK.Settings
         /// </summary>
         public static void ReadSettings()
         {
+            if (!Directory.Exists(UserPictures))
+                Directory.CreateDirectory(UserPictures);
+
+            if (!Directory.Exists(LogoPath))
+                Directory.CreateDirectory(LogoPath);
+
+            if (!Directory.Exists(SettingPath))
+                Directory.CreateDirectory(SettingPath);
+
+
             var root = GetSettingXML().Root;
             _lang = root.Element("Lang")?.Value;
 

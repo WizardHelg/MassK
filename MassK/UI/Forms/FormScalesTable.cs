@@ -122,5 +122,13 @@ namespace MassK.UI.Forms
             //}
             //SetData();
         }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+                Close();
+
+            base.OnKeyDown(e);
+        }
     }
 }

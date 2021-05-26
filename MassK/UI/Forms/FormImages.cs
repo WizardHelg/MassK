@@ -106,14 +106,16 @@ namespace MassK.UI.Forms
             {
                 int id = ImageManager.GetFreeId(_images);
                 var image_file = ImageManager.ImportPicture(dialog.FileName, SettingManager.UserPictures, id);
-                _images.Add(new ImageItem()
-                {
-                    ID = id,
-                    Group = "User",
-                    Name = image_file.Name,
-                    Path = image_file.Path,
-                    Picture = Image.FromFile(image_file.Path)
-                });
+                using(FileStream fs = new FileStream(image_file.Path, FileMode.Open))
+                    _images.Add(new ImageItem()
+                    {
+                        ID = id,
+                        Group = "User",
+                        Name = image_file.Name,
+                        Path = image_file.Path,
+                        Picture = Image.FromStream(fs)
+                    });
+
                 _binding.ResetBindings(false);
             }
         }
@@ -131,14 +133,15 @@ namespace MassK.UI.Forms
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 var image_file = ImageManager.ImportPicture(dialog.FileName, SettingManager.LogoPath, 0, true);
-                _images.Add(new ImageItem()
-                {
-                    ID = 0,
-                    Group = "User",
-                    Name = "Logo",
-                    Path = image_file.Path,
-                    Picture = Image.FromFile(image_file.Path)
-                });
+                using (FileStream fs = new FileStream(image_file.Path, FileMode.Open))
+                    _images.Add(new ImageItem()
+                    {
+                        ID = 0,
+                        Group = "User",
+                        Name = "Logo",
+                        Path = image_file.Path,
+                        Picture = Image.FromStream(fs)
+                    });
                 _binding.ResetBindings(false);
             }
         }
@@ -150,7 +153,14 @@ namespace MassK.UI.Forms
                 foreach (DataGridViewRow row in dataGrid.SelectedRows)
                 {
                     var image = _images.Find(i => i.ID == (int)row.Cells["ID"].Value);
-                    File.Delete(image.Path);
+                    try
+                    {
+                        File.Delete(image.Path);
+                    }
+                    catch
+                    {
+                        return;
+                    }
                     _images.Remove(image);
                 }
 
@@ -191,6 +201,14 @@ namespace MassK.UI.Forms
         {
             foreach (DGVColumn col in dataGrid.Columns)
                 col.HeaderCell.SortGlyphDirection = SortOrder.None;
+        }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+                Close();
+
+            base.OnKeyDown(e);
         }
     }
 }

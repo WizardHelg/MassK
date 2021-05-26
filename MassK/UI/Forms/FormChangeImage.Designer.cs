@@ -55,7 +55,7 @@ namespace MassK.UI.Forms
             this.panel2.Location = new System.Drawing.Point(3, 556);
             this.panel2.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(624, 93);
+            this.panel2.Size = new System.Drawing.Size(889, 93);
             this.panel2.TabIndex = 16;
             // 
             // TboxFilter
@@ -66,7 +66,7 @@ namespace MassK.UI.Forms
             this.TboxFilter.Location = new System.Drawing.Point(234, 21);
             this.TboxFilter.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.TboxFilter.Name = "TboxFilter";
-            this.TboxFilter.Size = new System.Drawing.Size(380, 27);
+            this.TboxFilter.Size = new System.Drawing.Size(645, 27);
             this.TboxFilter.TabIndex = 2;
             this.TboxFilter.TextChanged += new System.EventHandler(this.TboxFilter_TextChanged);
             // 
@@ -92,7 +92,7 @@ namespace MassK.UI.Forms
             this.ButtonSelect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ButtonSelect.Font = new System.Drawing.Font("Verdana", 12F);
             this.ButtonSelect.ForeColor = System.Drawing.Color.Black;
-            this.ButtonSelect.Location = new System.Drawing.Point(478, 55);
+            this.ButtonSelect.Location = new System.Drawing.Point(743, 55);
             this.ButtonSelect.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.ButtonSelect.Name = "ButtonSelect";
             this.ButtonSelect.Size = new System.Drawing.Size(136, 30);
@@ -112,7 +112,7 @@ namespace MassK.UI.Forms
             this.panel1.Location = new System.Drawing.Point(3, 4);
             this.panel1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(624, 58);
+            this.panel1.Size = new System.Drawing.Size(889, 58);
             this.panel1.TabIndex = 17;
             // 
             // LbProductName
@@ -126,7 +126,7 @@ namespace MassK.UI.Forms
             this.LbProductName.Location = new System.Drawing.Point(223, 21);
             this.LbProductName.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.LbProductName.Name = "LbProductName";
-            this.LbProductName.Size = new System.Drawing.Size(257, 18);
+            this.LbProductName.Size = new System.Drawing.Size(522, 18);
             this.LbProductName.TabIndex = 1;
             this.LbProductName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -151,7 +151,7 @@ namespace MassK.UI.Forms
             this.ButtonHelp.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.ButtonHelp.Font = new System.Drawing.Font("Verdana", 12F);
             this.ButtonHelp.ForeColor = System.Drawing.Color.CornflowerBlue;
-            this.ButtonHelp.Location = new System.Drawing.Point(490, 14);
+            this.ButtonHelp.Location = new System.Drawing.Point(755, 14);
             this.ButtonHelp.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.ButtonHelp.Name = "ButtonHelp";
             this.ButtonHelp.Size = new System.Drawing.Size(121, 32);
@@ -172,9 +172,9 @@ namespace MassK.UI.Forms
             this.dataGrid.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.dataGrid.MultiSelect = false;
             this.dataGrid.Name = "dataGrid";
-            this.dataGrid.Size = new System.Drawing.Size(617, 490);
+            this.dataGrid.Size = new System.Drawing.Size(882, 490);
             this.dataGrid.TabIndex = 15;
-            this.dataGrid.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGrid_CellContentDoubleClick);
+            this.dataGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGrid_CellDoubleClick);
             this.dataGrid.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGrid_ColumnHeaderMouseClick);
             // 
             // FormChangeImage
@@ -182,12 +182,13 @@ namespace MassK.UI.Forms
             this.AcceptButton = this.ButtonSelect;
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(629, 651);
+            this.ClientSize = new System.Drawing.Size(894, 651);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dataGrid);
             this.Font = new System.Drawing.Font("Verdana", 12F);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Name = "FormChangeImage";
             this.Text = "Картинки для товаров";

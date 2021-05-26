@@ -154,6 +154,7 @@ namespace MassK.UI.Forms
             this.Controls.Add(this.dataGrid);
             this.Font = new System.Drawing.Font("Verdana", 12F);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Name = "FormProductCategories";
             this.Text = "Категории товаров";

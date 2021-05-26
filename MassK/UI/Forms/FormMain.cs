@@ -163,67 +163,6 @@ namespace MassK.UI.Forms
             column.DefaultCellStyle.BackColor = value.Color;
         }
 
-
-        #region old code
-
-        private void dataGrid_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex < 0)
-                return;
-
-            //Получить строку, ID, kbItem
-            DataGridViewRow row = dataGrid.Rows[e.RowIndex];
-            int id = (int)row.Cells["ID"].Value;
-            KeyboardItem kb_item = _keyboard.Find(k => k.ID == id);
-
-            var form = new FormChangeImage(kb_item);
-            if(form.ShowDialog() == DialogResult.OK)
-            {
-                _binding.ResetBindings(false);
-            }
-            //ФОрма изменения картинки
-            //Если окей, то ребинд. Если слетает сортировка, то похер пока что.
-
-            //if (dataGrid.Rows[e.RowIndex].Cells[0].Value == null) ChangeProduct(e.RowIndex);
-            //else if (e.ColumnIndex > 2 && e.ColumnIndex < 6) ChangeImage(e.RowIndex);
-            //else if (e.ColumnIndex == 7) ChangeCategories();
-        }
-
-
-        private void ChangeImage(int rowIndex)
-        {
-            //FormChangeImage form = new FormChangeImage();
-            //if (form.ShowDialog() == DialogResult.OK)
-            //{
-            //    if (form.SelectedImage != null)
-            //    {
-            //        if (dataGrid.SelectedCells.Count > 0)
-            //        {
-            //            string idKeyboardItm = dataGrid.Rows[dataGrid.SelectedCells[0].RowIndex].Cells[0].Value?.ToString() ?? "";
-
-            //            if (!string.IsNullOrEmpty(idKeyboardItm))
-            //            {
-            //                if (int.TryParse(idKeyboardItm, out int idFind))
-            //                {
-            //                    KeyboardItem keyboardItem = ProjectMandger.KeyboardItems.First(x => x.ID == idFind);
-            //                    if (keyboardItem != null)
-            //                    {
-            //                        keyboardItem.ImagePath = form.SelectedImage.Path;
-            //                        keyboardItem.PictureName = form.SelectedImage.Name;
-            //                        keyboardItem.PictureID = form.SelectedImage.Id;
-            //                        keyboardItem.Picture = form.SelectedImage.Picture;
-            //                        SetDataGrid();
-            //                        SetSorceDataGrid(ProjectMandger.KeyboardItems);
-            //                    }
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
-        }
-
-        #endregion
-
         private void CBoxCode_SelectedIndexChanged(object sender, EventArgs e)
         {
             SettingManager.NameCodePage = CBoxCode.Text;
@@ -328,10 +267,63 @@ namespace MassK.UI.Forms
 
         private void ButtonSaveToUsb_Click(object sender, EventArgs e)
         {
-            //Проставить ID категориям
-            //Проверить все значения
-            //Записать на диск
-            int c = _keyboard.Count;
+            var cat = SettingManager.Categories;
+
+            //проверка категорий
+            var err_list = _keyboard.FindAll(x => string.IsNullOrWhiteSpace(x.Category));
+            if(err_list.Count > 0)
+            {
+                _binding.DataSource = err_list;
+                MessageBox.Show(LangPack.GetText("MainFormWrongCategory"), LangPack.GetText("MSGBoxHeader"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            _keyboard.ForEach(x => x.CategoryID = cat.Find(c => c.Category == x.Category)?.ID ?? 0);
+
+            //Проверка нумерации
+            if (SettingManager.PLUNumeration)
+                _keyboard.ForEach(x => x.Number = 0);
+            else
+            {
+                err_list = _keyboard.FindAll(x => x.Number < 1);
+
+                err_list.AddRange(_keyboard.Where(x => x.Number > 0)
+                                           .GroupBy(x => x.Number)
+                                           .Where(g => g.Count() > 1)
+                                           .SelectMany(x => x)
+                                           .ToList());
+
+                if(err_list.Count > 0)
+                {
+                    _binding.DataSource = err_list;
+                    MessageBox.Show(LangPack.GetText("MainFormWrongNumber"), LangPack.GetText("MSGBoxHeader"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                } 
+            }
+
+            //Проверка картинок
+            err_list = _keyboard.FindAll(x => x.Picture == null);
+            if (err_list.Count > 0)
+            {
+                _binding.DataSource = err_list;
+                MessageBox.Show(LangPack.GetText("MainFormWrongImage"), LangPack.GetText("MSGBoxHeader"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            string usb_path = ConnectionMenager.USB.FindUsbPath();
+            if (usb_path == null)
+            {
+                MessageBox.Show(LangPack.GetText("MainFormNotFoundUSB"), LangPack.GetText("MSGBoxHeader"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            var logo = Directory.GetFiles(SettingManager.LogoPath);
+            string logo_path = null;
+            if (logo.Length > 0)
+                logo_path = logo[0];
+
+            MKConverter.KBToDat(_keyboard, usb_path, logo_path, SettingManager.CodePage);
+            MessageBox.Show(LangPack.GetText("MainFormUSBDataUploaded"), LangPack.GetText("MSGBoxHeader"), MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void MenuSettings_ProductNumeration_Click(object sender, EventArgs e)
@@ -453,6 +445,42 @@ namespace MassK.UI.Forms
         {
             var form = new FormScalesTable();
             form.ShowDialog();
+        }
+
+        private void ButtonClearFilter_Click(object sender, EventArgs e)
+        {
+            _buffer = new List<KeyboardItem>(_keyboard);
+            _binding.DataSource = _buffer;
+            TboxFilter.Text = "";
+        }
+
+        private void ShowProductsWithoutPicturies_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ShowProductsWithoutPicturies.Checked)
+                _binding.DataSource = _buffer.FindAll(x => x.Picture == null);
+            else
+                _binding.DataSource = _buffer;
+        }
+
+        private void DataGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0)
+                return;
+
+            if (e.ColumnIndex < 3 || e.ColumnIndex > 5)
+                return;
+
+            //Получить строку, ID, kbItem
+            DataGridViewRow row = dataGrid.Rows[e.RowIndex];
+            int id = (int)row.Cells["ID"].Value;
+            KeyboardItem kb_item = _keyboard.Find(k => k.ID == id);
+
+            var form = new FormChangeImage(kb_item);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                _binding.ResetBindings(false);
+            }
+
         }
     }
 }

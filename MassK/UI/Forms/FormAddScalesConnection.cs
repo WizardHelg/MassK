@@ -53,5 +53,13 @@ namespace MassK.UI.Forms
         private void ButtonCancel_Click(object sender, EventArgs e)
         {
         }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+                Close();
+
+            base.OnKeyDown(e);
+        }
     }
 }
