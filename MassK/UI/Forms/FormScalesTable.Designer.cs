@@ -40,6 +40,7 @@ namespace MassK.UI.Forms
             this.ButtonFind = new System.Windows.Forms.Button();
             this.ButtonCheckConnection = new System.Windows.Forms.Button();
             this.ButtonDelete = new System.Windows.Forms.Button();
+            this.ProccessLable = new System.Windows.Forms.Label();
             this.dataGrid = new MassK.UI.Controls.CustomDataGrid();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -50,14 +51,14 @@ namespace MassK.UI.Forms
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.BackColor = System.Drawing.Color.RoyalBlue;
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(109)))), ((int)(((byte)(163)))));
             this.panel1.Controls.Add(this.Title);
             this.panel1.Controls.Add(this.ButtonHelp);
             this.panel1.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.panel1.Location = new System.Drawing.Point(3, 6);
             this.panel1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(752, 58);
+            this.panel1.Size = new System.Drawing.Size(1029, 58);
             this.panel1.TabIndex = 17;
             // 
             // Title
@@ -71,7 +72,7 @@ namespace MassK.UI.Forms
             this.Title.Location = new System.Drawing.Point(17, 17);
             this.Title.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.Title.Name = "Title";
-            this.Title.Size = new System.Drawing.Size(531, 22);
+            this.Title.Size = new System.Drawing.Size(808, 22);
             this.Title.TabIndex = 1;
             this.Title.Text = "Весы проекта";
             this.Title.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -83,7 +84,7 @@ namespace MassK.UI.Forms
             this.ButtonHelp.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.ButtonHelp.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.ButtonHelp.ForeColor = System.Drawing.Color.CornflowerBlue;
-            this.ButtonHelp.Location = new System.Drawing.Point(609, 12);
+            this.ButtonHelp.Location = new System.Drawing.Point(886, 12);
             this.ButtonHelp.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.ButtonHelp.Name = "ButtonHelp";
             this.ButtonHelp.Size = new System.Drawing.Size(118, 32);
@@ -95,13 +96,14 @@ namespace MassK.UI.Forms
             // 
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.BackColor = System.Drawing.Color.RoyalBlue;
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(109)))), ((int)(((byte)(163)))));
+            this.panel2.Controls.Add(this.ProccessLable);
             this.panel2.Controls.Add(this.ButtonSave);
             this.panel2.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.panel2.Location = new System.Drawing.Point(3, 574);
             this.panel2.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(752, 58);
+            this.panel2.Size = new System.Drawing.Size(1029, 58);
             this.panel2.TabIndex = 16;
             // 
             // ButtonSave
@@ -111,7 +113,7 @@ namespace MassK.UI.Forms
             this.ButtonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ButtonSave.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.ButtonSave.ForeColor = System.Drawing.Color.Black;
-            this.ButtonSave.Location = new System.Drawing.Point(597, 11);
+            this.ButtonSave.Location = new System.Drawing.Point(874, 11);
             this.ButtonSave.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.ButtonSave.Name = "ButtonSave";
             this.ButtonSave.Size = new System.Drawing.Size(137, 37);
@@ -145,7 +147,6 @@ namespace MassK.UI.Forms
             this.ChkBox.Size = new System.Drawing.Size(15, 14);
             this.ChkBox.TabIndex = 19;
             this.ChkBox.UseVisualStyleBackColor = true;
-            this.ChkBox.CheckedChanged += new System.EventHandler(this.ChkBox_CheckedChanged);
             // 
             // ButtonFind
             // 
@@ -175,6 +176,7 @@ namespace MassK.UI.Forms
             this.ButtonCheckConnection.TabIndex = 18;
             this.ButtonCheckConnection.Text = "Проверить связь";
             this.ButtonCheckConnection.UseVisualStyleBackColor = false;
+            this.ButtonCheckConnection.Click += new System.EventHandler(this.ButtonCheckConnection_Click);
             // 
             // ButtonDelete
             // 
@@ -191,8 +193,24 @@ namespace MassK.UI.Forms
             this.ButtonDelete.UseVisualStyleBackColor = false;
             this.ButtonDelete.Click += new System.EventHandler(this.ButtonDelete_Click);
             // 
+            // ProccessLable
+            // 
+            this.ProccessLable.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ProccessLable.AutoEllipsis = true;
+            this.ProccessLable.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.ProccessLable.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ProccessLable.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.ProccessLable.Location = new System.Drawing.Point(17, 20);
+            this.ProccessLable.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.ProccessLable.Name = "ProccessLable";
+            this.ProccessLable.Size = new System.Drawing.Size(808, 22);
+            this.ProccessLable.TabIndex = 21;
+            this.ProccessLable.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // dataGrid
             // 
+            this.dataGrid.AllowUserToAddRows = false;
             this.dataGrid.AllowUserToDeleteRows = false;
             this.dataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
@@ -201,7 +219,7 @@ namespace MassK.UI.Forms
             this.dataGrid.Location = new System.Drawing.Point(3, 116);
             this.dataGrid.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.dataGrid.Name = "dataGrid";
-            this.dataGrid.Size = new System.Drawing.Size(750, 456);
+            this.dataGrid.Size = new System.Drawing.Size(1027, 456);
             this.dataGrid.TabIndex = 15;
             // 
             // FormScalesTable
@@ -209,7 +227,7 @@ namespace MassK.UI.Forms
             this.AcceptButton = this.ButtonSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(757, 632);
+            this.ClientSize = new System.Drawing.Size(1034, 632);
             this.Controls.Add(this.ChkBox);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
@@ -224,7 +242,6 @@ namespace MassK.UI.Forms
             this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Name = "FormScalesTable";
             this.Text = "Таблица весов";
-            this.Load += new System.EventHandler(this.FormWeighingMachins_Load);
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).EndInit();
@@ -246,5 +263,6 @@ namespace MassK.UI.Forms
         private System.Windows.Forms.Button ButtonCheckConnection;
         private System.Windows.Forms.Button ButtonDelete;
         private System.Windows.Forms.Button ButtonSave;
+        private System.Windows.Forms.Label ProccessLable;
     }
 }

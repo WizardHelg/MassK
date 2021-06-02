@@ -174,7 +174,7 @@ namespace MassK.UI.Forms
             this.dataGrid.Name = "dataGrid";
             this.dataGrid.Size = new System.Drawing.Size(882, 490);
             this.dataGrid.TabIndex = 15;
-            this.dataGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGrid_CellDoubleClick);
+            this.dataGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGrid_CellDoubleClick);
             this.dataGrid.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGrid_ColumnHeaderMouseClick);
             // 
             // FormChangeImage

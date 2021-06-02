@@ -88,10 +88,9 @@
     <Compile Include="BL\KeyboardItem.cs" />
     <Compile Include="BL\ProductCategory.cs" />
     <Compile Include="BL\Product.cs" />
-    <Compile Include="BL\ProjectMandger.cs" />
-    <Compile Include="BL\WeighingMachine.cs" />
+    <Compile Include="BL\ScaleInfo.cs" />
     <Compile Include="Data\MKConverter.cs" />
-    <Compile Include="Data\ConnectionMenager.cs" />
+    <Compile Include="Data\ConnectionManager.cs" />
     <Compile Include="PulsTimer.cs">
       <SubType>Component</SubType>
     </Compile>

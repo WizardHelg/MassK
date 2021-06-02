@@ -24,7 +24,7 @@ namespace MassK.Settings
         public static string DefaultImagesPath => (Lang == "Русский") ? RusImagePath : EngImagePath;
         public static string SettingPath { get; set; } = Path.Combine(RootPath, "Settings");
 
-        private static List<EncodingInfo> _encoding_infos = Encoding.GetEncodings().ToList();
+        private static readonly List<EncodingInfo> _encoding_infos = Encoding.GetEncodings().ToList();
         private static EncodingInfo _code_page;
 
         /// <summary>
@@ -87,6 +87,18 @@ namespace MassK.Settings
             }
         }
 
+        static List<ScaleInfo> _scale_infos;
+        public static List<ScaleInfo> ScaleInfos
+        {
+            get => _scale_infos;
+            set
+            {
+                _scale_infos = value;
+                Save(_scale_infos);
+            }
+        }
+        public static void ReloadScaleInfos() => _scale_infos = Load<ScaleInfo>();
+
         static bool _plu_numeration;
         public static bool PLUNumeration
         {
@@ -123,6 +135,7 @@ namespace MassK.Settings
             _plu_numeration = plu_num;
 
             _categories = Load<ProductCategory>();
+            _scale_infos = Load<ScaleInfo>();
         }
 
         private static XDocument GetSettingXML()
@@ -233,7 +246,7 @@ namespace MassK.Settings
 
                 foreach(var prop in props)
                 {
-                    if (prop.PropertyType != typeof(Image) )
+                    if (prop.PropertyType != typeof(Image) && prop.GetCustomAttribute(typeof(NonSaveAttribute)) == null)
                     {
                         element.Add(new XElement(
                             prop.Name,
@@ -251,5 +264,11 @@ namespace MassK.Settings
 
             x_doc.Save(Path.Combine(SettingPath, $"{type.Name}.xml"));
         }
+    }
+
+    [AttributeUsage(AttributeTargets.Property)]
+    class NonSaveAttribute : Attribute
+    {
+
     }
 }

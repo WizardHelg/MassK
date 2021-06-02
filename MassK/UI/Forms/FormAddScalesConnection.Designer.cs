@@ -42,13 +42,18 @@ namespace MassK.UI.Forms
             this.ButtonHelp = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.TBoxIp = new System.Windows.Forms.MaskedTextBox();
+            this.COMPortComboBox = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // CBoxConnectionType
             // 
+            this.CBoxConnectionType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CBoxConnectionType.Font = new System.Drawing.Font("Verdana", 12F);
             this.CBoxConnectionType.FormattingEnabled = true;
+            this.CBoxConnectionType.Items.AddRange(new object[] {
+            "Ethernet",
+            "COM"});
             this.CBoxConnectionType.Location = new System.Drawing.Point(15, 38);
             this.CBoxConnectionType.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.CBoxConnectionType.Name = "CBoxConnectionType";
@@ -64,6 +69,7 @@ namespace MassK.UI.Forms
             this.TBoxPort.Name = "TBoxPort";
             this.TBoxPort.Size = new System.Drawing.Size(133, 27);
             this.TBoxPort.TabIndex = 2;
+            this.TBoxPort.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TBoxPort_KeyPress);
             // 
             // TypeConnection
             // 
@@ -130,20 +136,20 @@ namespace MassK.UI.Forms
             this.ButtonCancel.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.ButtonCancel.Name = "ButtonCancel";
             this.ButtonCancel.Size = new System.Drawing.Size(140, 34);
-            this.ButtonCancel.TabIndex = 5;
+            this.ButtonCancel.TabIndex = 6;
             this.ButtonCancel.Text = "Отменить";
             this.ButtonCancel.UseVisualStyleBackColor = true;
-            this.ButtonCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
             // 
             // ButtonSave
             // 
             this.ButtonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ButtonSave.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.ButtonSave.Font = new System.Drawing.Font("Verdana", 12F);
             this.ButtonSave.Location = new System.Drawing.Point(339, 184);
             this.ButtonSave.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.ButtonSave.Name = "ButtonSave";
             this.ButtonSave.Size = new System.Drawing.Size(154, 34);
-            this.ButtonSave.TabIndex = 4;
+            this.ButtonSave.TabIndex = 5;
             this.ButtonSave.Text = "Сохранить";
             this.ButtonSave.UseVisualStyleBackColor = true;
             this.ButtonSave.Click += new System.EventHandler(this.ButtonSave_Click);
@@ -156,7 +162,7 @@ namespace MassK.UI.Forms
             this.ButtonHelp.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.ButtonHelp.Name = "ButtonHelp";
             this.ButtonHelp.Size = new System.Drawing.Size(124, 34);
-            this.ButtonHelp.TabIndex = 6;
+            this.ButtonHelp.TabIndex = 4;
             this.ButtonHelp.Text = "Справка";
             this.ButtonHelp.UseVisualStyleBackColor = true;
             // 
@@ -165,7 +171,6 @@ namespace MassK.UI.Forms
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.TBoxIp);
             this.panel1.Controls.Add(this.TBoxName);
             this.panel1.Controls.Add(this.CBoxConnectionType);
             this.panel1.Controls.Add(this.TBoxPort);
@@ -173,6 +178,8 @@ namespace MassK.UI.Forms
             this.panel1.Controls.Add(this.TypeConnection);
             this.panel1.Controls.Add(this.IP);
             this.panel1.Controls.Add(this.ScalesName);
+            this.panel1.Controls.Add(this.TBoxIp);
+            this.panel1.Controls.Add(this.COMPortComboBox);
             this.panel1.Font = new System.Drawing.Font("Verdana", 12F);
             this.panel1.Location = new System.Drawing.Point(10, 12);
             this.panel1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -189,7 +196,16 @@ namespace MassK.UI.Forms
             this.TBoxIp.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.TBoxIp.Name = "TBoxIp";
             this.TBoxIp.Size = new System.Drawing.Size(285, 27);
-            this.TBoxIp.TabIndex = 4;
+            this.TBoxIp.TabIndex = 1;
+            // 
+            // COMPortComboBox
+            // 
+            this.COMPortComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.COMPortComboBox.FormattingEnabled = true;
+            this.COMPortComboBox.Location = new System.Drawing.Point(185, 38);
+            this.COMPortComboBox.Name = "COMPortComboBox";
+            this.COMPortComboBox.Size = new System.Drawing.Size(430, 26);
+            this.COMPortComboBox.TabIndex = 2;
             // 
             // FormAddScalesConnection
             // 
@@ -209,7 +225,6 @@ namespace MassK.UI.Forms
             this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Name = "FormAddScalesConnection";
             this.Text = "Добавить весы";
-            this.Load += new System.EventHandler(this.FormAddWeighingMachine_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -230,5 +245,6 @@ namespace MassK.UI.Forms
         private System.Windows.Forms.Button ButtonHelp;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.MaskedTextBox TBoxIp;
+        private System.Windows.Forms.ComboBox COMPortComboBox;
     }
 }

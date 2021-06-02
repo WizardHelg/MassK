@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MassK.UI.LangPacks;
 using MassK.Settings;
+using MassK.Data;
+using System.Net;
+using System.Net.Sockets;
 
 namespace MassK
 {

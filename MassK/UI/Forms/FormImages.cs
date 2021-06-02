@@ -16,7 +16,7 @@ using DGVTBColumn = System.Windows.Forms.DataGridViewTextBoxColumn;
 using DGVIColumn = System.Windows.Forms.DataGridViewImageColumn;
 using DGVCBColumn = System.Windows.Forms.DataGridViewComboBoxColumn;
 using DGVColumn = System.Windows.Forms.DataGridViewColumn;
-using ScaleFileNum = MassK.Data.ConnectionMenager.RAWFiles.ScaleFileNum;
+using ScaleFileNum = MassK.Data.ConnectionManager.RAWFiles.ScaleFileNum;
 using System.Reflection;
 
 namespace MassK.UI.Forms
@@ -24,7 +24,7 @@ namespace MassK.UI.Forms
     public partial class FormImages : Form
     {
         List<ImageItem> _images;
-        BindingSource _binding = new BindingSource();
+        readonly BindingSource _binding = new BindingSource();
 
         public FormImages() => InitializeComponent();
 

@@ -11,7 +11,7 @@ using DGVTBColumn = System.Windows.Forms.DataGridViewTextBoxColumn;
 using DGVIColumn = System.Windows.Forms.DataGridViewImageColumn;
 using DGVCBColumn = System.Windows.Forms.DataGridViewComboBoxColumn;
 using DGVColumn = System.Windows.Forms.DataGridViewColumn;
-using ScaleFileNum = MassK.Data.ConnectionMenager.RAWFiles.ScaleFileNum;
+using ScaleFileNum = MassK.Data.ConnectionManager.RAWFiles.ScaleFileNum;
 using System.Reflection;
 
 
@@ -19,11 +19,11 @@ namespace MassK.UI.Forms
 {
     public partial class FormChangeImage : Form
     {
-        KeyboardItem _kbItem;
+        readonly KeyboardItem _kbItem;
         List<ImageItem> _images;
         List<ImageItem> _buffer;
-        PulsTimer _timer = new PulsTimer();
-        BindingSource _binding = new BindingSource();
+        readonly PulsTimer _timer = new PulsTimer();
+        readonly BindingSource _binding = new BindingSource();
 
         internal FormChangeImage(KeyboardItem kbItem)
         {
@@ -162,7 +162,7 @@ namespace MassK.UI.Forms
             }
         }
 
-        private void dataGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void DataGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0)
                 return;
