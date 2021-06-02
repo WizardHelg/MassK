@@ -19,7 +19,7 @@ using DGVTBColumn = System.Windows.Forms.DataGridViewTextBoxColumn;
 using DGVIColumn = System.Windows.Forms.DataGridViewImageColumn;
 using DGVCBColumn = System.Windows.Forms.DataGridViewComboBoxColumn;
 using DGVColumn = System.Windows.Forms.DataGridViewColumn;
-using ScaleFileNum = MassK.Data.ConnectionMenager.RAWFiles.ScaleFileNum;
+using ScaleFileNum = MassK.Data.ConnectionManager.RAWFiles.ScaleFileNum;
 
 using System.ComponentModel;
 using System.Collections.ObjectModel;
@@ -33,11 +33,10 @@ namespace MassK.UI.Forms
 
         List<Product> _products = new List<Product>();
         List<KeyboardItem> _keyboard = new List<KeyboardItem>();
-
-        BindingSource _combo_box_column_binding = new BindingSource();
-        BindingSource _binding = new BindingSource();
+        readonly BindingSource _combo_box_column_binding = new BindingSource();
+        readonly BindingSource _binding = new BindingSource();
         bool _is_initial = false;
-        PulsTimer _timer = new PulsTimer();
+        readonly PulsTimer _timer = new PulsTimer();
 
         public FormMain() => InitializeComponent();
 
@@ -193,15 +192,15 @@ namespace MassK.UI.Forms
 
         private void MenuFile_LoadFromUSB_Click(object sender, EventArgs e)
         {
-            string usb_path = ConnectionMenager.USB.FindUsbPath();
+            string usb_path = ConnectionManager.USB.FindUsbPath();
             if(usb_path == null)
             {
                 MessageBox.Show(LangPack.GetText("MainFormNotFoundUSB"), LangPack.GetText("MSGBoxHeader"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            var prod_path = ConnectionMenager.RAWFiles.GetScaleFileName(ScaleFileNum.PROD, usb_path, true);
-            var plu_path = ConnectionMenager.RAWFiles.GetScaleFileName(ScaleFileNum.PLU, usb_path, true);
+            var prod_path = ConnectionManager.RAWFiles.GetScaleFileName(ScaleFileNum.PROD, usb_path, true);
+            var plu_path = ConnectionManager.RAWFiles.GetScaleFileName(ScaleFileNum.PLU, usb_path, true);
 
             if(!File.Exists(prod_path) || !File.Exists(plu_path))
             {
@@ -261,7 +260,7 @@ namespace MassK.UI.Forms
             TboxFilter.Enabled = main_flag;
             ShowProductsWithoutPicturies.Enabled = main_flag;
 
-            ButtonProducts.Enabled = lockContol != LockContolEnum.All ? true : false;
+            ButtonProducts.Enabled = lockContol != LockContolEnum.All;
             MenuFile_LoadFromPC.Enabled = CheckProjectonPC();
         }
 
@@ -310,7 +309,7 @@ namespace MassK.UI.Forms
                 return;
             }
 
-            string usb_path = ConnectionMenager.USB.FindUsbPath();
+            string usb_path = ConnectionManager.USB.FindUsbPath();
             if (usb_path == null)
             {
                 MessageBox.Show(LangPack.GetText("MainFormNotFoundUSB"), LangPack.GetText("MSGBoxHeader"), MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -444,7 +443,8 @@ namespace MassK.UI.Forms
         private void MenuSettings_ScalesTable_Click(object sender, EventArgs e)
         {
             var form = new FormScalesTable();
-            form.ShowDialog();
+            if (form.ShowDialog() != DialogResult.OK)
+                SettingManager.ReloadScaleInfos();
         }
 
         private void ButtonClearFilter_Click(object sender, EventArgs e)
