@@ -54,9 +54,9 @@ namespace MassK.UI.Forms
             this.MenuSettings_ProductCategories = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuSettings_PictureLibrary = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuDescription = new System.Windows.Forms.ToolStripButton();
+            this.MenuLangList = new System.Windows.Forms.ToolStripDropDownButton();
             this.ButtonClearFilter = new System.Windows.Forms.Button();
             this.dataGrid = new MassK.UI.Controls.CustomDataGrid();
-            this.LangList = new System.Windows.Forms.ToolStripDropDownButton();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.MenuStrip.SuspendLayout();
@@ -246,7 +246,7 @@ namespace MassK.UI.Forms
             this.MenuFile,
             this.MenuSettings,
             this.MenuDescription,
-            this.LangList});
+            this.MenuLangList});
             this.MenuStrip.Location = new System.Drawing.Point(0, 0);
             this.MenuStrip.Name = "MenuStrip";
             this.MenuStrip.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
@@ -347,6 +347,18 @@ namespace MassK.UI.Forms
             this.MenuDescription.Text = "Описание";
             this.MenuDescription.Click += new System.EventHandler(this.ShowDescription_Click);
             // 
+            // MenuLangList
+            // 
+            this.MenuLangList.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.MenuLangList.AutoSize = false;
+            this.MenuLangList.Image = ((System.Drawing.Image)(resources.GetObject("MenuLangList.Image")));
+            this.MenuLangList.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.MenuLangList.Name = "MenuLangList";
+            this.MenuLangList.Size = new System.Drawing.Size(110, 45);
+            this.MenuLangList.Text = "Русский";
+            this.MenuLangList.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.MenuLangList.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
+            // 
             // ButtonClearFilter
             // 
             this.ButtonClearFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -381,18 +393,6 @@ namespace MassK.UI.Forms
             this.dataGrid.TabIndex = 5;
             this.dataGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGrid_CellDoubleClick);
             this.dataGrid.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGrid_ColumnHeaderMouseClick);
-            // 
-            // LangList
-            // 
-            this.LangList.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.LangList.AutoSize = false;
-            this.LangList.Image = ((System.Drawing.Image)(resources.GetObject("LangList.Image")));
-            this.LangList.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.LangList.Name = "LangList";
-            this.LangList.Size = new System.Drawing.Size(110, 45);
-            this.LangList.Text = "Русский";
-            this.LangList.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.LangList.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
             // 
             // FormMain
             // 
@@ -451,7 +451,7 @@ namespace MassK.UI.Forms
         private System.Windows.Forms.ToolStripMenuItem MenuSettings_ProductCategories;
         private System.Windows.Forms.ToolStripMenuItem MenuSettings_PictureLibrary;
         private System.Windows.Forms.Button ButtonClearFilter;
-        private System.Windows.Forms.ToolStripDropDownButton LangList;
+        private System.Windows.Forms.ToolStripDropDownButton MenuLangList;
     }
 }
 

@@ -170,7 +170,7 @@ namespace MassK.Settings
         /// <returns></returns>
         public static IEnumerable<string> GetCodePages()
         {
-            if(_lang != "Русский")
+            if (_lang != "Русский")
                 return Encoding.GetEncodings().OrderBy(item => item.Name).Select(item => item.Name);
             else
                 return Encoding.GetEncodings().OrderBy(item => item.DisplayName).Select(item => item.DisplayName);
@@ -181,7 +181,7 @@ namespace MassK.Settings
         /// </summary>
         /// <typeparam name="T">Тип класса, из которого сохранятся только свойста с типом ValueType и string</typeparam>
         /// <returns></returns>
-        public static List<T> Load<T>() where T: class, new()
+        public static List<T> Load<T>() where T : class, new()
         {
             string path = Path.Combine(SettingPath, $"{typeof(T).Name}.xml");
             List<T> buffer = new List<T>();
@@ -226,6 +226,27 @@ namespace MassK.Settings
             return buffer;
         }
 
+        internal static void SetCodePage(string lang)
+        {
+
+        }
+
+        private static Dictionary<string, string> _codePages = new Dictionary<string, string>()
+        {
+            {"Русский","1251" },
+            {"Казахстан","1251" },
+            {"Болгария","1251" },
+            {"Кыргызстан","1251" },
+            {"Узбекистан","1251" },
+            {"English","1252" },
+            {"Latvian","1257" },
+            {"Тунис","1252" },
+            {"French","1252" },
+            {"Азербайджан","1254" },
+            {"Turkmen","1250" },
+            {"Georgian","1250" },
+            {"Armenian","1250" },
+        };
         /// <summary>
         /// Сохраняет список классов в xml в папку указанную в свойстве SettigPath с именем: название_типа_Т.xml
         /// </summary>

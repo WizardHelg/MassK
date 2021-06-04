@@ -13,7 +13,26 @@ namespace MassK.UI.LangPacks
     {
         readonly static Dictionary<string, XElement> _lang_packs = new Dictionary<string, XElement>();
         private static XElement _lang;
-        
+        public static Dictionary<string, string> Langs = new Dictionary<string, string>()
+        {
+            {"",""},
+            {"",""},
+            {"",""},
+            {"",""}
+        };
+        public static Dictionary<string, string> Countres = new Dictionary<string, string>()
+        {
+            {"Россия",""},
+            {"Казахстан",""},
+            {"Латвия",""},
+            {"Тунис",""},
+            {"",""},
+            {"Грузия",""},
+            {"Кыргызстан",""},
+            {"Кот-д'Ивуар",""},
+            {"Узбекистан",""},
+            {"Азербайджан",""}
+        };
 
         /// <summary>
         /// Загрузить языковые пакеты
@@ -21,10 +40,10 @@ namespace MassK.UI.LangPacks
         /// <param name="langPath">Путь к папке содержащий xml языковые пакеты</param>
         public static void Load(string langPath)
         {
-            foreach(var file in Directory.EnumerateFiles(langPath, "*.xml", SearchOption.TopDirectoryOnly))
+            foreach (var file in Directory.EnumerateFiles(langPath, "*.xml", SearchOption.TopDirectoryOnly))
             {
                 var x_doc = XDocument.Load(file);
-                if(x_doc.Root.Element("Name") is XElement element && !_lang_packs.ContainsKey(element.Value))
+                if (x_doc.Root.Element("Name") is XElement element && !_lang_packs.ContainsKey(element.Value))
                     _lang_packs.Add(element.Value, x_doc.Root);
             }
         }
@@ -56,7 +75,7 @@ namespace MassK.UI.LangPacks
         /// <param name="langName"></param>
         /// <returns>true если указанный язык есть в списке языков</returns>
         public static bool SetLang(string langName)
-        {            
+        {
             _lang_packs.TryGetValue(langName, out XElement lang_pack);
             _lang = lang_pack;
             return _lang != null;
@@ -68,16 +87,21 @@ namespace MassK.UI.LangPacks
         /// <param name="form"></param>
         public static void Translate(Form form, DataGridView dgv = null, params Action[] addActions)
         {
-            if(_lang?.Element(form.GetType().Name) is XElement form_element)
+            if (_lang?.Element(form.GetType().Name) is XElement form_element)
             {
                 foreach (Control control in GetControls(form))
                     if (form_element.Element(control.Name) is XElement element)
                         control.Text = element.Value;
 
                 if (form.Controls.ContainsKey("MenuStrip"))
-                    foreach(ToolStripItem menu_item in GetMenu(form.Controls["MenuStrip"]))
-                        if (form_element.Element(menu_item.Name) is XElement element)
-                            menu_item.Text = element.Value;
+                    ///if (form_element s(menu_item.Name))
+                    ///ToDo исключение если нет элемента
+                    foreach (ToolStripItem menu_item in GetMenu(form.Controls["MenuStrip"]))
+                        if (!string.IsNullOrEmpty(menu_item.Name))
+                        {
+                            if (form_element.Element(menu_item.Name) is XElement element)
+                                menu_item.Text = element.Value;
+                        }
 
                 if (form_element.Element("Caption") is XElement caption)
                     form.Text = caption.Value;
@@ -99,7 +123,7 @@ namespace MassK.UI.LangPacks
         /// <returns>Текс</returns>
         public static string GetText(string name)
         {
-            if(_lang?.Element("Texts") is XElement text)
+            if (_lang?.Element("Texts") is XElement text)
                 return text.Element(name)?.Value;
 
             return null;
@@ -109,7 +133,7 @@ namespace MassK.UI.LangPacks
         {
             List<Control> buffer = new List<Control>();
 
-            foreach(Control control in root.Controls)
+            foreach (Control control in root.Controls)
                 if (control.Name != "")
                 {
                     buffer.Add(control);
@@ -123,7 +147,7 @@ namespace MassK.UI.LangPacks
         {
             var ts = root as ToolStrip;
             var buffer = new List<ToolStripItem>();
-            foreach(ToolStripItem item in ts.Items)
+            foreach (ToolStripItem item in ts.Items)
             {
                 buffer.Add(item);
                 if (item is ToolStripDropDownButton drop_button)
@@ -133,16 +157,24 @@ namespace MassK.UI.LangPacks
             return buffer;
         }
 
-       public static Image GetPicture(string lang)
+        public static Image GetPicture(string lang)
         {
             Image image = default;
-            string filename = Path.Combine(Settings.SettingManager.LangPath, "Flags",lang +".png");
+            string filename = Path.Combine(Settings.SettingManager.LangPath, "Flags", lang + ".png");
 
-                  if (File.Exists(filename))
+            if (File.Exists(filename))
                 using (FileStream fs = new FileStream(filename, FileMode.Open))
                     image = Image.FromStream(fs);
             return image;
         }
 
+        internal static string GetCodePage()
+        {
+            string codepage = default;
+
+
+            //codepage = 
+            return codepage;
+        }
     }
 }

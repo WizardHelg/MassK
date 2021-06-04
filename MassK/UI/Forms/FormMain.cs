@@ -72,7 +72,7 @@ namespace MassK.UI.Forms
 
         private void FillLangs()
         {
-            LangList.DropDownItems.Clear();
+            MenuLangList.DropDownItems.Clear();
 
             foreach (string lang in LangPack.GetLangNames())
             {
@@ -80,11 +80,11 @@ namespace MassK.UI.Forms
 
                 ToolStripMenuItem itm = new ToolStripMenuItem(lang, image);
                 itm.Click += LangList_SelectedIndexChanged;
-                LangList.DropDownItems.Add(itm);
+                MenuLangList.DropDownItems.Add(itm);
                 if (lang == SettingManager.Lang)
                 {
-                    LangList.Text = lang;
-                    LangList.Image = LangPack.GetPicture(lang);
+                    MenuLangList.Text = lang;
+                    MenuLangList.Image = LangPack.GetPicture(lang);
                 }
             }
         }
@@ -96,6 +96,11 @@ namespace MassK.UI.Forms
             //    CBoxCode.Items.Add(codePage);
             //CBoxCode.Text = SettingManager.NameCodePage;
         }
+        private void CBoxCode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //SettingManager.NameCodePage = CBoxCode.Text;
+        }
+
 
         private void SetDataGrid()
         {
@@ -136,6 +141,7 @@ namespace MassK.UI.Forms
                 col.AutoSizeMode = item.AutoSizeMode;
                 col.Visible = item.Visible;
                 col.SortMode = DataGridViewColumnSortMode.Programmatic;
+                col.CellTemplate.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 dataGrid.Columns.Add(col);
             }
 
@@ -178,10 +184,13 @@ namespace MassK.UI.Forms
         {
             if (_is_initial) return;
 
-            string lang = LangList.Text; /// CbxLang.Text;
+            string lang = MenuLangList.Text; /// CbxLang.Text;
             SettingManager.Lang = lang;
-            LangPack.SetLang(lang);
+           if(LangPack.SetLang(lang))
+            {
+                SettingManager.SetCodePage( lang);  //LangPack.GetCodePage();
             LangPack.Translate(this, dataGrid, FillFilter, FillCodePage);
+            }
         }
 
         private void CbxLang_KeyPress(object sender, KeyPressEventArgs e) => e.Handled = true;
@@ -201,7 +210,8 @@ namespace MassK.UI.Forms
             string usb_path = ConnectionManager.USB.FindUsbPath();
             if(usb_path == null)
             {
-                MessageBox.Show(LangPack.GetText("MainFormNotFoundUSB"), LangPack.GetText("MSGBoxHeader"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+               // MessageBox.Show(LangPack.GetText("MainFormNotFoundUSB"), LangPack.GetText("MSGBoxHeader"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(LangPack.GetText("MainFormNotFoundUSB"),string.Empty , MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -210,7 +220,7 @@ namespace MassK.UI.Forms
 
             if(!File.Exists(prod_path) || !File.Exists(plu_path))
             {
-                MessageBox.Show(LangPack.GetText("MainFormWrongUSBData"), LangPack.GetText("MSGBoxHeader"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(LangPack.GetText("MainFormWrongUSBData"), string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -221,7 +231,7 @@ namespace MassK.UI.Forms
 
             _products = MKConverter.ProdFromDat(prod_path, plu_path);
             LockControl(LockContolEnum.ExceptProd);
-            MessageBox.Show(LangPack.GetText("MainFormUSBDataLoaded"), LangPack.GetText("MSGBoxHeader"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(LangPack.GetText("MainFormUSBDataLoaded"), string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void ButtonProducts_Click(object sender, EventArgs e)
@@ -500,17 +510,15 @@ namespace MassK.UI.Forms
         }
 
         private void FormMain_Load(object sender, EventArgs e)
-        {         
+        {
         }
 
-        private void CBoxCode_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            SettingManager.NameCodePage = CBoxCode.Text;
-        }
+    
 
         private void ButtonUploadToScales_Click(object sender, EventArgs e)
         {
 
         }
+       
     }
 }
