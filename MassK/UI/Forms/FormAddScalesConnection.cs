@@ -11,12 +11,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO.Ports;
 using System.Text.RegularExpressions;
+using System.Net;
 
 namespace MassK.UI.Forms
 {
     public partial class FormAddScalesConnection : Form
     {
         readonly List<ScaleInfo> _scale_infos;
+
         public FormAddScalesConnection(List<ScaleInfo> scaleInfos)
         {
             InitializeComponent();
@@ -103,7 +105,7 @@ namespace MassK.UI.Forms
 
         private void TBoxPort_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar))
+            if ((!Char.IsDigit(e.KeyChar) || (TBoxPort.Text.Length > 3)) && !Char.IsControl(e.KeyChar))
                 e.Handled = true;
         }
     }

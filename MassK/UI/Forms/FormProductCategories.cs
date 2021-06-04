@@ -22,8 +22,8 @@ namespace MassK.UI.Forms
 {
     public partial class FormProductCategories : Form
     {
-        List<ProductCategory> _categories = SettingManager.Categories;
-        BindingSource _binding = new BindingSource();
+        readonly List<ProductCategory> _categories = SettingManager.Categories;
+        readonly BindingSource _binding = new BindingSource();
 
         public FormProductCategories() => InitializeComponent();
 
@@ -100,15 +100,40 @@ namespace MassK.UI.Forms
             }
         }
 
-        private void ButtonSave_Click(object sender, EventArgs e)
+        bool _is_changed = false;
+
+        private void SaveData()
         {
-            if(_categories.All(c => !string.IsNullOrWhiteSpace(c.Category)))
+            if (_categories.All(c => !string.IsNullOrWhiteSpace(c.Category)))
             {
                 SettingManager.Categories = _categories;
+                _is_changed = false;
                 DialogResult = DialogResult.OK;
             }
             else
                 MessageBox.Show(LangPack.GetText("ProductCategoryFormWrongValues"), LangPack.GetText("MSGBoxHeader"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+
+        private void ButtonSave_Click(object sender, EventArgs e) => SaveData();
+
+        private void DataGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e) => _is_changed = true;
+
+        private void FormProductCategories_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if(_is_changed)
+                switch(MessageBox.Show(LangPack.GetText("SaveQuestion"),
+                                       LangPack.GetText("MSGBoxHeader"),
+                                       MessageBoxButtons.YesNoCancel,
+                                       MessageBoxIcon.Information))
+                {
+                    case DialogResult.Yes:
+                        SaveData();
+                        break;
+                    case DialogResult.Cancel:
+                        e.Cancel = true;
+                        break;
+                }
         }
 
         protected override void OnKeyDown(KeyEventArgs e)

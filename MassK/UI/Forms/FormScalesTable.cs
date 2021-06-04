@@ -180,5 +180,10 @@ namespace MassK.UI.Forms
                 ProcessDecorator(() => ConnectionManager.Connection.CheckState(_scale_infos), 250);
             }
         }
+
+        private void ButtonHelp_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -482,5 +482,12 @@ namespace MassK.UI.Forms
             }
 
         }
+
+        private void MenuFile_LoadFromScales_Click(object sender, EventArgs e)
+        {
+            string path = Path.Combine(SettingManager.RootPath, ConnectionManager.RAWFiles.GetDefaultFileName(ScaleFileNum.PROD));
+            var scales = SettingManager.ScaleInfos;
+            ConnectionManager.Connection.LoadProdFile(scales[0], path);
+        }
     }
 }
