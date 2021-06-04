@@ -72,19 +72,29 @@ namespace MassK.UI.Forms
 
         private void FillLangs()
         {
-            CbxLang.Items.Clear();
-            foreach (string lang in LangPack.GetLangNames())
-                CbxLang.Items.Add(lang);
+            LangList.DropDownItems.Clear();
 
-            CbxLang.Text = SettingManager.Lang;
+            foreach (string lang in LangPack.GetLangNames())
+            {
+                Image image = LangPack.GetPicture(lang);
+
+                ToolStripMenuItem itm = new ToolStripMenuItem(lang, image);
+                itm.Click += LangList_SelectedIndexChanged;
+                LangList.DropDownItems.Add(itm);
+                if (lang == SettingManager.Lang)
+                {
+                    LangList.Text = lang;
+                    LangList.Image = LangPack.GetPicture(lang);
+                }
+            }
         }
 
         private void FillCodePage()
-        {
-            CBoxCode.Items.Clear();
-            foreach (var codePage in SettingManager.GetCodePages())
-                CBoxCode.Items.Add(codePage);
-            CBoxCode.Text = SettingManager.NameCodePage;
+        {            
+            //CBoxCode.Items.Clear();
+            //foreach (var codePage in SettingManager.GetCodePages())
+            //    CBoxCode.Items.Add(codePage);
+            //CBoxCode.Text = SettingManager.NameCodePage;
         }
 
         private void SetDataGrid()
@@ -162,23 +172,19 @@ namespace MassK.UI.Forms
             column.DefaultCellStyle.BackColor = value.Color;
         }
 
-        private void CBoxCode_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            SettingManager.NameCodePage = CBoxCode.Text;
-        }
+      
 
-        private void CbxLang_SelectedIndexChanged(object sender, EventArgs e)
+        private void LangList_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (_is_initial) return;
 
-            string lang = CbxLang.Text;
+            string lang = LangList.Text; /// CbxLang.Text;
             SettingManager.Lang = lang;
             LangPack.SetLang(lang);
             LangPack.Translate(this, dataGrid, FillFilter, FillCodePage);
         }
 
         private void CbxLang_KeyPress(object sender, KeyPressEventArgs e) => e.Handled = true;
-        private void CBoxCode_KeyPress(object sender, KeyPressEventArgs e) => e.Handled = true;
 
         private void MenuSettings_ProductCategories_Click(object sender, EventArgs e)
         {
@@ -480,6 +486,30 @@ namespace MassK.UI.Forms
             {
                 _binding.ResetBindings(false);
             }
+
+        }
+
+        private void ShowDescription_Click(object sender, EventArgs e)
+        {
+            new FormHelp().ShowDialog() ;
+        }
+
+        private void ButtonHelp_Click(object sender, EventArgs e)
+        {
+            new FormDescription().ShowDialog();         
+        }
+
+        private void FormMain_Load(object sender, EventArgs e)
+        {         
+        }
+
+        private void CBoxCode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SettingManager.NameCodePage = CBoxCode.Text;
+        }
+
+        private void ButtonUploadToScales_Click(object sender, EventArgs e)
+        {
 
         }
     }

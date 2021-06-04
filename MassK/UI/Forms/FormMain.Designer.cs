@@ -53,11 +53,10 @@ namespace MassK.UI.Forms
             this.MenuSettings_ProductNumeration = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuSettings_ProductCategories = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuSettings_PictureLibrary = new System.Windows.Forms.ToolStripMenuItem();
-            this.CbxLang = new System.Windows.Forms.ToolStripComboBox();
             this.MenuDescription = new System.Windows.Forms.ToolStripButton();
-            this.CBoxCode = new System.Windows.Forms.ToolStripComboBox();
             this.ButtonClearFilter = new System.Windows.Forms.Button();
             this.dataGrid = new MassK.UI.Controls.CustomDataGrid();
+            this.LangList = new System.Windows.Forms.ToolStripDropDownButton();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.MenuStrip.SuspendLayout();
@@ -176,6 +175,7 @@ namespace MassK.UI.Forms
             this.ButtonHelp.TabIndex = 0;
             this.ButtonHelp.Text = "Справка";
             this.ButtonHelp.UseVisualStyleBackColor = false;
+            this.ButtonHelp.Click += new System.EventHandler(this.ButtonHelp_Click);
             // 
             // panel1
             // 
@@ -236,6 +236,7 @@ namespace MassK.UI.Forms
             this.ButtonUploadToScales.TabIndex = 9;
             this.ButtonUploadToScales.Text = "Выгрузить в весы";
             this.ButtonUploadToScales.UseVisualStyleBackColor = false;
+            this.ButtonUploadToScales.Click += new System.EventHandler(this.ButtonUploadToScales_Click);
             // 
             // MenuStrip
             // 
@@ -244,9 +245,8 @@ namespace MassK.UI.Forms
             this.MenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MenuFile,
             this.MenuSettings,
-            this.CbxLang,
             this.MenuDescription,
-            this.CBoxCode});
+            this.LangList});
             this.MenuStrip.Location = new System.Drawing.Point(0, 0);
             this.MenuStrip.Name = "MenuStrip";
             this.MenuStrip.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
@@ -337,16 +337,6 @@ namespace MassK.UI.Forms
             this.MenuSettings_PictureLibrary.Text = "Библиотека картинок";
             this.MenuSettings_PictureLibrary.Click += new System.EventHandler(this.MenuSettings_PictureLibrary_Click);
             // 
-            // CbxLang
-            // 
-            this.CbxLang.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.CbxLang.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.CbxLang.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.CbxLang.Name = "CbxLang";
-            this.CbxLang.Size = new System.Drawing.Size(170, 48);
-            this.CbxLang.SelectedIndexChanged += new System.EventHandler(this.CbxLang_SelectedIndexChanged);
-            this.CbxLang.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CbxLang_KeyPress);
-            // 
             // MenuDescription
             // 
             this.MenuDescription.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -355,16 +345,7 @@ namespace MassK.UI.Forms
             this.MenuDescription.Name = "MenuDescription";
             this.MenuDescription.Size = new System.Drawing.Size(110, 45);
             this.MenuDescription.Text = "Описание";
-            // 
-            // CBoxCode
-            // 
-            this.CBoxCode.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.CBoxCode.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.CBoxCode.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.CBoxCode.Name = "CBoxCode";
-            this.CBoxCode.Size = new System.Drawing.Size(380, 48);
-            this.CBoxCode.SelectedIndexChanged += new System.EventHandler(this.CBoxCode_SelectedIndexChanged);
-            this.CBoxCode.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CBoxCode_KeyPress);
+            this.MenuDescription.Click += new System.EventHandler(this.ShowDescription_Click);
             // 
             // ButtonClearFilter
             // 
@@ -401,6 +382,18 @@ namespace MassK.UI.Forms
             this.dataGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGrid_CellDoubleClick);
             this.dataGrid.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGrid_ColumnHeaderMouseClick);
             // 
+            // LangList
+            // 
+            this.LangList.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.LangList.AutoSize = false;
+            this.LangList.Image = ((System.Drawing.Image)(resources.GetObject("LangList.Image")));
+            this.LangList.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.LangList.Name = "LangList";
+            this.LangList.Size = new System.Drawing.Size(110, 45);
+            this.LangList.Text = "Русский";
+            this.LangList.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.LangList.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
@@ -419,6 +412,7 @@ namespace MassK.UI.Forms
             this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Name = "FormMain";
             this.Text = "Редактор клавиатуры весов";
+            this.Load += new System.EventHandler(this.FormMain_Load);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -451,14 +445,13 @@ namespace MassK.UI.Forms
         private System.Windows.Forms.ToolStripMenuItem MenuFile_LoadFromUSB;
         private System.Windows.Forms.ToolStripMenuItem MenuFile_SaveToPC;
         private System.Windows.Forms.ToolStripMenuItem MenuFile_LoadFromPC;
-        private System.Windows.Forms.ToolStripComboBox CbxLang;
         private System.Windows.Forms.ToolStripButton MenuDescription;
         private System.Windows.Forms.ToolStripMenuItem MenuSettings_ScalesTable;
         private System.Windows.Forms.ToolStripMenuItem MenuSettings_ProductNumeration;
         private System.Windows.Forms.ToolStripMenuItem MenuSettings_ProductCategories;
         private System.Windows.Forms.ToolStripMenuItem MenuSettings_PictureLibrary;
-        private System.Windows.Forms.ToolStripComboBox CBoxCode;
         private System.Windows.Forms.Button ButtonClearFilter;
+        private System.Windows.Forms.ToolStripDropDownButton LangList;
     }
 }
 

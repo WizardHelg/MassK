@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using System.IO;
 using System.Globalization;
+using System.Drawing;
 
 namespace MassK.UI.LangPacks
 {
@@ -12,6 +13,7 @@ namespace MassK.UI.LangPacks
     {
         readonly static Dictionary<string, XElement> _lang_packs = new Dictionary<string, XElement>();
         private static XElement _lang;
+        
 
         /// <summary>
         /// Загрузить языковые пакеты
@@ -54,7 +56,7 @@ namespace MassK.UI.LangPacks
         /// <param name="langName"></param>
         /// <returns>true если указанный язык есть в списке языков</returns>
         public static bool SetLang(string langName)
-        {
+        {            
             _lang_packs.TryGetValue(langName, out XElement lang_pack);
             _lang = lang_pack;
             return _lang != null;
@@ -130,5 +132,17 @@ namespace MassK.UI.LangPacks
             }
             return buffer;
         }
+
+       public static Image GetPicture(string lang)
+        {
+            Image image = default;
+            string filename = Path.Combine(Settings.SettingManager.LangPath, "Flags",lang +".png");
+
+                  if (File.Exists(filename))
+                using (FileStream fs = new FileStream(filename, FileMode.Open))
+                    image = Image.FromStream(fs);
+            return image;
+        }
+
     }
 }
