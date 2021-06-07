@@ -45,7 +45,6 @@ namespace MassK.UI.Forms
             _is_initial = true;
             
             FillLangs();      
-            FillCodePage();
             SetDataGrid();
             dataGrid.DataError += DataGrid_DataError;
             dataGrid.DataSource = _binding;
@@ -53,7 +52,7 @@ namespace MassK.UI.Forms
 
             LockControl(LockContolEnum.All);
 
-            LangPack.Translate(this, dataGrid, FillFilter, FillCodePage);
+            LangPack.Translate(this, dataGrid, FillFilter);
             base.OnLoad(e);
             _is_initial = false;
         }
@@ -89,18 +88,8 @@ namespace MassK.UI.Forms
             }
         }
 
-        private void FillCodePage()
-        {            
-            //CBoxCode.Items.Clear();
-            //foreach (var codePage in SettingManager.GetCodePages())
-            //    CBoxCode.Items.Add(codePage);
-            //CBoxCode.Text = SettingManager.NameCodePage;
-        }
-        private void CBoxCode_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //SettingManager.NameCodePage = CBoxCode.Text;
-        }
 
+  
 
         private void SetDataGrid()
         {
@@ -189,7 +178,7 @@ namespace MassK.UI.Forms
            if(LangPack.SetLang(lang))
             {
                 SettingManager.SetCodePage( lang);  //LangPack.GetCodePage();
-            LangPack.Translate(this, dataGrid, FillFilter, FillCodePage);
+            LangPack.Translate(this, dataGrid, FillFilter);
             }
         }
 

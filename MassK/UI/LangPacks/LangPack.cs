@@ -13,25 +13,28 @@ namespace MassK.UI.LangPacks
     {
         readonly static Dictionary<string, XElement> _lang_packs = new Dictionary<string, XElement>();
         private static XElement _lang;
-        public static Dictionary<string, string> Langs = new Dictionary<string, string>()
-        {
-            {"",""},
-            {"",""},
-            {"",""},
-            {"",""}
-        };
+        //public static Dictionary<string, string> Langs = new Dictionary<string, string>()
+        //{
+        //    {"",""},
+        //    {"",""},
+        //    {"",""},
+        //    {"",""}
+        //};
         public static Dictionary<string, string> Countres = new Dictionary<string, string>()
         {
+            {"Армения",""},
+            {"Азербайджан",""},
             {"Россия",""},
+            {"Франция",""},
             {"Казахстан",""},
             {"Латвия",""},
             {"Тунис",""},
-            {"",""},
+            {"Болгария",""},
+            {"Туркменистан",""},
             {"Грузия",""},
             {"Кыргызстан",""},
             {"Кот-д'Ивуар",""},
             {"Узбекистан",""},
-            {"Азербайджан",""}
         };
 
         /// <summary>
@@ -160,8 +163,7 @@ namespace MassK.UI.LangPacks
         public static Image GetPicture(string lang)
         {
             Image image = default;
-            string filename = Path.Combine(Settings.SettingManager.LangPath, "Flags", lang + ".png");
-
+            string filename = Path.Combine(Settings.SettingManager.LangPath,"Flags", $"{lang} .png") ;
             if (File.Exists(filename))
                 using (FileStream fs = new FileStream(filename, FileMode.Open))
                     image = Image.FromStream(fs);
