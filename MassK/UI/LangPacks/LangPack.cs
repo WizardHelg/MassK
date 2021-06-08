@@ -13,29 +13,20 @@ namespace MassK.UI.LangPacks
     {
         readonly static Dictionary<string, XElement> _lang_packs = new Dictionary<string, XElement>();
         private static XElement _lang;
-        //public static Dictionary<string, string> Langs = new Dictionary<string, string>()
-        //{
-        //    {"",""},
-        //    {"",""},
-        //    {"",""},
-        //    {"",""}
-        //};
-        public static Dictionary<string, string> Countres = new Dictionary<string, string>()
-        {
-            {"Армения",""},
-            {"Азербайджан",""},
-            {"Россия",""},
-            {"Франция",""},
-            {"Казахстан",""},
-            {"Латвия",""},
-            {"Тунис",""},
-            {"Болгария",""},
-            {"Туркменистан",""},
-            {"Грузия",""},
-            {"Кыргызстан",""},
-            {"Кот-д'Ивуар",""},
-            {"Узбекистан",""},
-        };
+
+        //    {"Армения",""},
+        //    {"Азербайджан",""},
+        //    {"Россия",""},
+        //    {"Франция",""},
+        //    {"Казахстан",""},
+        //    {"Латвия",""},
+        //    {"Тунис",""},
+        //    {"Болгария",""},
+        //    {"Туркменистан",""},
+        //    {"Грузия",""},
+        //    {"Кыргызстан",""},
+        //    {"Кот-д'Ивуар",""},
+        //    {"Узбекистан",""},
 
         /// <summary>
         /// Загрузить языковые пакеты
@@ -65,11 +56,23 @@ namespace MassK.UI.LangPacks
         public static string SetCurrentCultureLang()
         {
             var ci = CultureInfo.CurrentUICulture;
-            var lang_name = ci.NativeName.Split(new char[] { ' ' }, 2, StringSplitOptions.RemoveEmptyEntries)[0];
-            lang_name = $"{lang_name.Substring(0, 1).ToUpper()}{lang_name.Substring(1, lang_name.Length - 1)}";
-            _lang_packs.TryGetValue(lang_name, out XElement lang_pack);
-            _lang = lang_pack;
-            return _lang?.Element("Name").Value ?? "";
+            var native_name = ci.NativeName.Split(new char[] { ' ' }, 2, StringSplitOptions.RemoveEmptyEntries)[0];
+            native_name = $"{native_name.Substring(0, 1).ToUpper()}{native_name.Substring(1, native_name.Length - 1)}";
+            foreach (XElement lang_pack in _lang_packs.Values)
+            {
+                var xe = lang_pack.Element("NameLocal");
+                if (xe is XElement)
+                {
+                    string localeName = xe.Value;
+                    if (localeName == native_name)
+                    {
+                        _lang = lang_pack;
+                        break;
+                    }
+                }
+            }
+            ///_lang_packs.TryGetValue(native_name, out XElement lang_pack);
+            return _lang?.Element("Name").Value ?? ""; ;
         }
 
         /// <summary>
@@ -160,15 +163,7 @@ namespace MassK.UI.LangPacks
             return buffer;
         }
 
-        public static Image GetPicture(string lang)
-        {
-            Image image = default;
-            string filename = Path.Combine(Settings.SettingManager.LangPath,"Flags", $"{lang} .png") ;
-            if (File.Exists(filename))
-                using (FileStream fs = new FileStream(filename, FileMode.Open))
-                    image = Image.FromStream(fs);
-            return image;
-        }
+
 
         internal static string GetCodePage()
         {

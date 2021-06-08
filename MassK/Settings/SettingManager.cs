@@ -32,31 +32,30 @@ namespace MassK.Settings
         /// </summary>
         public static int CodePage => _code_page?.CodePage ?? 0;
 
-        /// <summary>
-        /// Сохраненное в настройках имя кодовой страницы
-        /// </summary>
-        public static string NameCodePage
-        {
-            get
-            {
-                if (_lang != "Русский")
-                    return _code_page?.Name ?? "";
-                else
-                    return _code_page?.DisplayName ?? "";
-            }
-            set
-            {
-                if (_lang != "Русский")
-                    _code_page = _encoding_infos.Find(x => x.Name == value);
-                else
-                    _code_page = _encoding_infos.Find(x => x.DisplayName == value);
+        ///// <summary>
+        ///// Сохраненное в настройках имя кодовой страницы
+        ///// </summary>
+        //public static string NameCodePage
+        //{
+        //    get
+        //    {
+        //        if (_lang != "Русский")
+        //            return _code_page?.Name ?? "";
+        //        else
+        //            return _code_page?.DisplayName ?? "";
+        //    }
+        //    set
+        //    {
+        //        if (_lang != "Русский")
+        //            _code_page = _encoding_infos.Find(x => x.Name == value);
+        //        else
+        //            _code_page = _encoding_infos.Find(x => x.DisplayName == value);
 
-                SaveToXml("CodePage", $"{_code_page.CodePage}");
-            }
-        }
+        //        SaveToXml("CodePage", $"{_code_page.CodePage}");
+        //    }
+        //}
 
         private static string _lang;
-
         /// <summary>
         /// Сохраненный в настройках язык
         /// </summary>
@@ -100,6 +99,10 @@ namespace MassK.Settings
         public static void ReloadScaleInfos() => _scale_infos = Load<ScaleInfo>();
 
         static bool _plu_numeration;
+
+        /// <summary>
+        ///  Параметр приложения. Plu \ оператор
+        /// </summary>
         public static bool PLUNumeration
         {
             get => _plu_numeration;
@@ -107,6 +110,21 @@ namespace MassK.Settings
             {
                 _plu_numeration = value;
                 SaveToXml("PLUNumeration", $"{value}");
+            }
+        }
+
+        public static bool _show_discription;
+
+        /// <summary>
+        ///  Параметр приложения. Предлагать показать окно с описанием приложения при запуске программы
+        /// </summary>
+        public static bool ShowDiscription
+        {
+            get => _show_discription;
+            set
+            {
+                _show_discription = value;
+                SaveToXml("ShowDiscription", $"{value}");
             }
         }
 
@@ -133,6 +151,9 @@ namespace MassK.Settings
 
             bool.TryParse(root.Element("PLUNumeration")?.Value, out bool plu_num);
             _plu_numeration = plu_num;
+            
+            bool.TryParse(root.Element("ShowDiscription")?.Value, out bool sh_discript);
+            _show_discription = sh_discript;
 
             _categories = Load<ProductCategory>();
             _scale_infos = Load<ScaleInfo>();

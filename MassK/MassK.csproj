@@ -162,6 +162,7 @@
       <DependentUpon>FormScalesTable.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\LangPacks\LangPack.cs" />
+    <Compile Include="UI\LangPacks\Localization.cs" />
     <EmbeddedResource Include="UI\Forms\FormAddScalesConnection.resx">
       <DependentUpon>FormAddScalesConnection.cs</DependentUpon>
     </EmbeddedResource>

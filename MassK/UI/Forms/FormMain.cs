@@ -75,16 +75,16 @@ namespace MassK.UI.Forms
 
             foreach (string lang in LangPack.GetLangNames())
             {
-                Image image = LangPack.GetPicture(lang);
+                //Image image = LangPack.GetPicture(lang);
 
-                ToolStripMenuItem itm = new ToolStripMenuItem(lang, image);
-                itm.Click += LangList_SelectedIndexChanged;
-                MenuLangList.DropDownItems.Add(itm);
-                if (lang == SettingManager.Lang)
-                {
-                    MenuLangList.Text = lang;
-                    MenuLangList.Image = LangPack.GetPicture(lang);
-                }
+                //ToolStripMenuItem itm = new ToolStripMenuItem(lang, image);
+                //itm.Click += LangList_SelectedIndexChanged;
+                //MenuLangList.DropDownItems.Add(itm);
+                //if (lang == SettingManager.Lang)
+                //{
+                //    MenuLangList.Text = lang;
+                //    MenuLangList.Image = LangPack.GetPicture(lang);
+                //}
             }
         }
 
