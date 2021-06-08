@@ -236,6 +236,7 @@ namespace MassK.UI.Forms
             this.ButtonUploadToScales.TabIndex = 9;
             this.ButtonUploadToScales.Text = "Выгрузить в весы";
             this.ButtonUploadToScales.UseVisualStyleBackColor = false;
+            this.ButtonUploadToScales.Click += new System.EventHandler(this.ButtonUploadToScales_Click);
             // 
             // MenuStrip
             // 

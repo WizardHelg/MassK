@@ -198,8 +198,14 @@ namespace MassK.Data
             }
 
             //Загрузка файлов с весов
-
-            public static void LoadProdFile(ScaleInfo scale, string savePath)
+            //TODO протестировать загрузку продуктового файла
+            /// <summary>
+            /// Загружает продуктовый файл из весов
+            /// </summary>
+            /// <param name="scale">Данные подключения</param>
+            /// <param name="savePath">путь куда запишется файл</param>
+            /// <param name="fileNum">Номер файла. См приложение  4.1</param>
+            public static void LoadFile(ScaleInfo scale, string savePath, RAWFiles.ScaleFileNum fileNum)
             {
                 Socket socket = null;
                 try
@@ -222,7 +228,7 @@ namespace MassK.Data
                         ushort cur_part = 1;
                         while (true)
                         {
-                            socket.Send(CMD.TCP_REQ_UFILES(1, cur_part++));
+                            socket.Send(CMD.TCP_REQ_UFILES((byte)fileNum, cur_part++));
                             bytes = socket.Receive(buffer, buffer.Length, SocketFlags.None);
                             data = buffer.Take(bytes).ToArray();
                             data = CMD.GetData(data);
@@ -250,24 +256,15 @@ namespace MassK.Data
                 }
             }
 
-            public static void LoadPLUFile(ScaleInfo scale, string savePath)
-            {
-                //тут то же что в загрузке продуктов
-            }
-
-            public static void LoadKBFile(ScaleInfo scale, string savePath)
-            {
-                //тут то же но грузим файл клавы. 
-                //Могут быть траблы, так как весы в душе не чают че им сделать с этим странным файлом
-            }
-
+            /// <summary>
+            /// Выгрузка файла клавиатуры в весы
+            /// </summary>
+            /// <param name="scale">Информация о весах</param>
+            /// <param name="filePath">Путь к dat файлу клавиатуры</param>
             public static void UploadKBFile(ScaleInfo scale, string filePath)
             {
-
+                //TODO Выгрузка данных в весы по аналогии с загрузкой. Только комманды TCP_DFILE и файл клавиатуры нужно разбивать по 1042 байта.
             }
-
-            //выгрузка файлов в весы
-
         }
 
         private static class CMD
