@@ -514,5 +514,39 @@ namespace MassK.UI.Forms
             //new FormMain.Show(this.Handle);
             //Addo
         }
+
+        private void MenuFile_LoadFromScales_Click(object sender, EventArgs e)
+        {
+            //TODO тут надо загрузить файлы 1 - продуктовый, 2- PLU и 31 - клавиатура если есть
+            //К слову проверка статуса файла 31 не работает на этих весах. Возможно потому, что впринципе оно не предназначено для работы с файлом клавиатуры
+            //TODO далее при помощи MKConverter дешифровать загруженные файлы.
+
+            string prod_path = Path.Combine(SettingManager.RootPath, ConnectionManager.RAWFiles.GetDefaultFileName(ScaleFileNum.PROD));
+            string plu_path = Path.Combine(SettingManager.RootPath, ConnectionManager.RAWFiles.GetDefaultFileName(ScaleFileNum.PLU));
+            string kb_path = Path.Combine(SettingManager.RootPath, ConnectionManager.RAWFiles.GetDefaultFileName(ScaleFileNum.KB));
+
+            ScaleInfo scale = null; //TODO тут как то получить одни весы. Так как выгрузка данных из пачики весов лишина смысла
+
+            ConnectionManager.Connection.LoadFile(scale, prod_path, ScaleFileNum.PROD);
+            ConnectionManager.Connection.LoadFile(scale, plu_path, ScaleFileNum.PLU);
+            ConnectionManager.Connection.LoadFile(scale, kb_path, ScaleFileNum.KB);
+
+            _products = MKConverter.ProdFromDat(prod_path, plu_path);
+            
+            //TODO если файл клавиатры не пуст подгрузить его. через MKConverter. И обновить биндинг.
+        }
+
+        private void ButtonUploadToScales_Click(object sender, EventArgs e)
+        {
+            string path = Path.Combine(SettingManager.RootPath, ConnectionManager.RAWFiles.GetDefaultFileName(ScaleFileNum.KB));
+
+            //При помощи MKConverter зашифровать данные клавиатуры
+            MKConverter.KBToDat(_keyboard, path);
+
+            //При помощи ConnectionManager выгрузит в весы.
+            foreach(var scale in SettingManager.ScaleInfos)
+                if(scale.Unload)
+                    ConnectionManager.Connection.UploadKBFile(scale, path);
+        }
     }
 }

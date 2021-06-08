@@ -30,6 +30,9 @@ namespace MassK.BL
         public static implicit operator IPEndPoint(ScaleInfo scaleInfo)
         {
             string[] buffer = scaleInfo.Connection.Split(':');
+            if (buffer.Length < 2)
+                return null;
+
             return new IPEndPoint(IPAddress.Parse(buffer[0]), int.Parse(buffer[1]));
         }
     }

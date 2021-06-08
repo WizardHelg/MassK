@@ -142,6 +142,7 @@ namespace MassK.UI.Forms
             this.dataGrid.Name = "dataGrid";
             this.dataGrid.Size = new System.Drawing.Size(649, 460);
             this.dataGrid.TabIndex = 20;
+            this.dataGrid.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGrid_CellValueChanged);
             // 
             // FormProductCategories
             // 
@@ -158,6 +159,7 @@ namespace MassK.UI.Forms
             this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Name = "FormProductCategories";
             this.Text = "Категории товаров";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormProductCategories_FormClosing);
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).EndInit();

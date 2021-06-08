@@ -275,6 +275,7 @@ namespace MassK.UI.Forms
             this.MenuFile_LoadFromScales.Name = "MenuFile_LoadFromScales";
             this.MenuFile_LoadFromScales.Size = new System.Drawing.Size(330, 22);
             this.MenuFile_LoadFromScales.Text = "Загрузить данные из весов";
+            this.MenuFile_LoadFromScales.Click += new System.EventHandler(this.MenuFile_LoadFromScales_Click);
             // 
             // MenuFile_LoadFromUSB
             // 

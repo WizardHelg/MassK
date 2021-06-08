@@ -34,13 +34,13 @@ namespace MassK.UI.Forms
             this.Title = new System.Windows.Forms.Label();
             this.ButtonHelp = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.ProccessLable = new System.Windows.Forms.Label();
             this.ButtonSave = new System.Windows.Forms.Button();
             this.ButtonAdd = new System.Windows.Forms.Button();
             this.ChkBox = new System.Windows.Forms.CheckBox();
             this.ButtonFind = new System.Windows.Forms.Button();
             this.ButtonCheckConnection = new System.Windows.Forms.Button();
             this.ButtonDelete = new System.Windows.Forms.Button();
-            this.ProccessLable = new System.Windows.Forms.Label();
             this.dataGrid = new MassK.UI.Controls.CustomDataGrid();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -91,6 +91,7 @@ namespace MassK.UI.Forms
             this.ButtonHelp.TabIndex = 0;
             this.ButtonHelp.Text = "Справка";
             this.ButtonHelp.UseVisualStyleBackColor = false;
+            this.ButtonHelp.Click += new System.EventHandler(this.ButtonHelp_Click);
             // 
             // panel2
             // 
@@ -105,6 +106,21 @@ namespace MassK.UI.Forms
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1029, 58);
             this.panel2.TabIndex = 16;
+            // 
+            // ProccessLable
+            // 
+            this.ProccessLable.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ProccessLable.AutoEllipsis = true;
+            this.ProccessLable.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.ProccessLable.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ProccessLable.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.ProccessLable.Location = new System.Drawing.Point(17, 20);
+            this.ProccessLable.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.ProccessLable.Name = "ProccessLable";
+            this.ProccessLable.Size = new System.Drawing.Size(808, 22);
+            this.ProccessLable.TabIndex = 21;
+            this.ProccessLable.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // ButtonSave
             // 
@@ -192,21 +208,6 @@ namespace MassK.UI.Forms
             this.ButtonDelete.Text = "Удалить";
             this.ButtonDelete.UseVisualStyleBackColor = false;
             this.ButtonDelete.Click += new System.EventHandler(this.ButtonDelete_Click);
-            // 
-            // ProccessLable
-            // 
-            this.ProccessLable.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ProccessLable.AutoEllipsis = true;
-            this.ProccessLable.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.ProccessLable.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ProccessLable.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.ProccessLable.Location = new System.Drawing.Point(17, 20);
-            this.ProccessLable.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.ProccessLable.Name = "ProccessLable";
-            this.ProccessLable.Size = new System.Drawing.Size(808, 22);
-            this.ProccessLable.TabIndex = 21;
-            this.ProccessLable.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // dataGrid
             // 

@@ -42,10 +42,10 @@ namespace MassK.Data
             {
                 PROD = 1,
                 PLU = 5,
-                KB = 64
+                KB = 31
             }
 
-            public static string GetScaleFileName(ScaleFileNum num, string rootPath, bool foolName = false)
+            public static string GetScaleFileName(ScaleFileNum num, string rootPath, bool fullName = false)
             {
                 int last_version = -1;
                 string file_prefix = $"{(int)num:D2}PC";
@@ -59,7 +59,7 @@ namespace MassK.Data
                 if (last_version < 0)
                     return null;
 
-                return Path.Combine(foolName ? rootPath : "", $"{file_prefix}{last_version:D10}.dat");
+                return Path.Combine(fullName ? rootPath : "", $"{file_prefix}{last_version:D10}.dat");
             }
 
             public static string IncrementVersion(string fileName)
@@ -75,6 +75,7 @@ namespace MassK.Data
 
         public static class Connection
         {
+            //Сканирование
             public static List<ScaleInfo> Scan(List<ScaleInfo> data = null)
             {
                 List<ScaleInfo> buffer = new List<ScaleInfo>();
@@ -138,11 +139,9 @@ namespace MassK.Data
                 return result;
             }
 
-
-
             private static List<ScaleInfo> ComScan()
             {
-                //Добавить скан com портов
+                //TODO Добавить скан com портов
                 return new List<ScaleInfo>();
             }
 
@@ -161,11 +160,132 @@ namespace MassK.Data
                     else
                         scale.State = false;
             }
+
+            //Запрос статуса файлов с текущими весами не работает
+            public static (bool Prod, bool PLU, bool KB) GetFileStatuses(ScaleInfo scale)
+            {
+                //Добавить проверку COm или Ethernet
+                Socket socket = null;
+                try
+                {
+                    socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                    socket.Connect(scale);
+                    socket.Send(CMD.TCP_GET_STATUSES);
+
+                    byte[] data = new byte[1024];
+
+                    int bytes = socket.Receive(data, data.Length, SocketFlags.None);
+                    data = data.Take(bytes).ToArray();
+                    data = CMD.GetData(data);
+
+                    if (data[0] != 0x40)
+                        throw new ApplicationException("Не верный ответ весов");
+
+                    uint mask = BitConverter.ToUInt32(data, 1);
+                    return (Prod: (mask & 1) == 0,
+                            PLU:  (mask & (1 << 3)) == 0,
+                            KB:   (mask & (1 << 29)) == 0);
+                }
+                catch(Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+                finally
+                {
+                    socket?.Shutdown(SocketShutdown.Both);
+                    socket?.Close();
+                }
+            }
+
+            //Загрузка файлов с весов
+            //TODO протестировать загрузку файла
+            /// <summary>
+            /// Загружает продуктовый файл из весов
+            /// </summary>
+            /// <param name="scale">Данные подключения</param>
+            /// <param name="savePath">путь куда запишется файл</param>
+            /// <param name="fileNum">Номер файла. См приложение  4.1</param>
+            public static void LoadFile(ScaleInfo scale, string savePath, RAWFiles.ScaleFileNum fileNum)
+            {
+                Socket socket = null;
+                try
+                {
+                    socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                    socket.Connect(scale);
+                    socket.Send(CMD.TCP_SET_WORK_MODE);
+
+                    byte[] buffer = new byte[1024];
+
+                    int bytes = socket.Receive(buffer, buffer.Length, SocketFlags.None);
+                    byte[] data = buffer.Take(bytes).ToArray();
+                    data = CMD.GetData(data);
+
+                    if (data[0] != 0x51)
+                        throw new ApplicationException("Ошибка установки режима работы весов");
+
+                    using (FileStream fs = new FileStream(savePath, FileMode.Create))
+                    {
+                        ushort cur_part = 1;
+                        while (true)
+                        {
+                            socket.Send(CMD.TCP_REQ_UFILES((byte)fileNum, cur_part++));
+                            bytes = socket.Receive(buffer, buffer.Length, SocketFlags.None);
+                            data = buffer.Take(bytes).ToArray();
+                            data = CMD.GetData(data);
+
+                            if (data[0] != 0x45)
+                                throw new ApplicationException("Ошибка при загрузке файла из чертовых весов");
+
+                            ushort data_len = BitConverter.ToUInt16(data, 6);
+
+                            fs.Write(data, 8, data_len);
+
+                            if (BitConverter.ToUInt16(data, 2) == BitConverter.ToUInt16(data, 4))
+                                break;
+                        }
+                    }                   
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+                finally
+                {
+                    socket?.Shutdown(SocketShutdown.Both);
+                    socket?.Close();
+                }
+            }
+
+            /// <summary>
+            /// Выгрузка файла клавиатуры в весы
+            /// </summary>
+            /// <param name="scale">Информация о весах</param>
+            /// <param name="filePath">Путь к dat файлу клавиатуры</param>
+            public static void UploadKBFile(ScaleInfo scale, string filePath)
+            {
+                //TODO Выгрузка данных в весы по аналогии с загрузкой. Только комманды TCP_DFILE и файл клавиатуры нужно разбивать по 1024 байта.
+            }
         }
 
         private static class CMD
         {
             public static byte[] UDP_POLL => MakeCommand(new byte[] { 0x00 });
+
+            public static byte[] TCP_GET_STATUSES => MakeCommand(new byte[] { 0x80 });
+
+            public static byte[] TCP_SET_WORK_MODE => MakeCommand(new byte[] { 0x91, 0x04 });
+
+            public static byte[] TCP_REQ_UFILES(byte fileNum, ushort part)
+            {
+                List<byte> buffer = new List<byte>();
+
+                buffer.Add(0x58);
+                buffer.Add(fileNum);
+                buffer.AddRange(BitConverter.GetBytes((ushort)0));
+                buffer.AddRange(BitConverter.GetBytes(part));
+
+                return MakeCommand(buffer.ToArray());
+            }
 
             private static byte[] MakeCommand(byte[] data)
             {
