@@ -73,19 +73,19 @@ namespace MassK.UI.Forms
         {
             MenuLangList.DropDownItems.Clear();
 
-            foreach (string lang in LangPack.GetLangNames())
-            {
-                //Image image = LangPack.GetPicture(lang);
+            //foreach (string lang in LangPack.GetLangNames())
+            //{
+            //    //Image image = LangPack.GetPicture(lang);
 
-                //ToolStripMenuItem itm = new ToolStripMenuItem(lang, image);
-                //itm.Click += LangList_SelectedIndexChanged;
-                //MenuLangList.DropDownItems.Add(itm);
-                //if (lang == SettingManager.Lang)
-                //{
-                //    MenuLangList.Text = lang;
-                //    MenuLangList.Image = LangPack.GetPicture(lang);
-                //}
-            }
+            //    //ToolStripMenuItem itm = new ToolStripMenuItem(lang, image);
+            //    //itm.Click += LangList_SelectedIndexChanged;
+            //    //MenuLangList.DropDownItems.Add(itm);
+            //    //if (lang == SettingManager.Lang)
+            //    //{
+            //    //    MenuLangList.Text = lang;
+            //    //    MenuLangList.Image = LangPack.GetPicture(lang);
+            //    //}
+           // }
         }
 
 
@@ -498,16 +498,7 @@ namespace MassK.UI.Forms
             new FormDescription().ShowDialog();         
         }
 
-        private void FormMain_Load(object sender, EventArgs e)
-        {
-        }
-
-    
-
-        private void ButtonUploadToScales_Click(object sender, EventArgs e)
-        {
-
-        }
+            
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {

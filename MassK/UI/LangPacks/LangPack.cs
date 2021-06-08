@@ -113,8 +113,8 @@ namespace MassK.UI.LangPacks
 
         public static bool SetLang(string langName)
         {
-            TryGetValue(langName, out XElement lang_pack);
-            _lang = lang_pack;
+            //TryGetValue(langName, out XElement lang_pack);
+            //_lang = lang_pack;
             return _lang != null;
         }
 
@@ -131,33 +131,33 @@ namespace MassK.UI.LangPacks
         /// <param name="form"></param>
         public static void Translate(Form form, DataGridView dgv = null, params Action[] addActions)
         {
-            if (_lang?.Element(form.GetType().Name) is XElement form_element)
-            {
-                foreach (Control control in GetControls(form))
-                    if (form_element.Element(control.Name) is XElement element)
-                        control.Text = element.Value;
+            //if (_lang?.Element(form.GetType().Name) is XElement form_element)
+            //{
+            //    foreach (Control control in GetControls(form))
+            //        if (form_element.Element(control.Name) is XElement element)
+            //            control.Text = element.Value;
 
-                if (form.Controls.ContainsKey("MenuStrip"))
-                    ///if (form_element s(menu_item.Name))
-                    ///ToDo исключение если нет элемента
-                    foreach (ToolStripItem menu_item in GetMenu(form.Controls["MenuStrip"]))
-                        if (!string.IsNullOrEmpty(menu_item.Name))
-                        {
-                            if (form_element.Element(menu_item.Name) is XElement element)
-                                menu_item.Text = element.Value;
-                        }
+            //    if (form.Controls.ContainsKey("MenuStrip"))
+            //        ///if (form_element s(menu_item.Name))
+            //        ///ToDo исключение если нет элемента
+            //        foreach (ToolStripItem menu_item in GetMenu(form.Controls["MenuStrip"]))
+            //            if (!string.IsNullOrEmpty(menu_item.Name))
+            //            {
+            //                if (form_element.Element(menu_item.Name) is XElement element)
+            //                    menu_item.Text = element.Value;
+            //            }
 
-                if (form_element.Element("Caption") is XElement caption)
-                    form.Text = caption.Value;
+            //    if (form_element.Element("Caption") is XElement caption)
+            //        form.Text = caption.Value;
 
-                if (dgv != null)
-                    foreach (DataGridViewColumn col in dgv.Columns)
-                        if (form_element.Element($"DataGridView_{col.Name}") is XElement element)
-                            col.HeaderText = element.Value;
+            //    if (dgv != null)
+            //        foreach (DataGridViewColumn col in dgv.Columns)
+            //            if (form_element.Element($"DataGridView_{col.Name}") is XElement element)
+            //                col.HeaderText = element.Value;
 
-                foreach (var action in addActions)
-                    action();
-            }
+            //    foreach (var action in addActions)
+            //        action();
+            //}
         }
 
         /// <summary>
@@ -167,8 +167,8 @@ namespace MassK.UI.LangPacks
         /// <returns>Текс</returns>
         public static string GetText(string name)
         {
-            if (_lang?.Element("Texts") is XElement text)
-                return text.Element(name)?.Value;
+            //if (_lang?.Element("Texts") is XElement text)
+            //    return text.Element(name)?.Value;
 
             return null;
         }

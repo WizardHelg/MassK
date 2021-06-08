@@ -425,7 +425,7 @@ namespace MassK.UI.Forms
             this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Name = "FormMain";
             this.Text = "Редактор клавиатуры весов";
-            this.Load += new System.EventHandler(this.FormMain_Load);
+        
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
