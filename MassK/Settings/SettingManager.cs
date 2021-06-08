@@ -15,6 +15,7 @@ namespace MassK.Settings
     {
         public static string RootPath { get; set; } = Application.StartupPath;
         public static string LangPath { get; set; } = Path.Combine(RootPath, "Lang");
+        public static string FlagPath { get; set; } = Path.Combine(Settings.SettingManager.LangPath, "Flags");
         public static string ImagePath { get; set; } = Path.Combine(RootPath, "Images");
         public static string ProgrammPictures { get; set; } = Path.Combine(ImagePath, "ProgrammPictures");
         public static string UserPictures { get; set; } = Path.Combine(ImagePath, "UserPictures");

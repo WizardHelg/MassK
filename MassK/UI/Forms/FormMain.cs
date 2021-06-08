@@ -508,6 +508,11 @@ namespace MassK.UI.Forms
         {
 
         }
-       
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            //new FormMain.Show(this.Handle);
+            //Addo
+        }
     }
 }

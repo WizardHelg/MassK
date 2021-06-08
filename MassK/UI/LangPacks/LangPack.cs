@@ -11,8 +11,10 @@ namespace MassK.UI.LangPacks
 {
     public class LangPack
     {
-        readonly static Dictionary<string, XElement> _lang_packs = new Dictionary<string, XElement>();
-        private static XElement _lang;
+      //  readonly static Dictionary<string, XElement> _lang_packs = new Dictionary<string, XElement>();
+        // private static XElement _lang;
+        readonly static List<Localization> _lang_packs;
+        private static Localization _lang;
 
         //    {"Армения",""},
         //    {"Азербайджан",""},
@@ -37,17 +39,28 @@ namespace MassK.UI.LangPacks
             foreach (var file in Directory.EnumerateFiles(langPath, "*.xml", SearchOption.TopDirectoryOnly))
             {
                 var x_doc = XDocument.Load(file);
-                if (x_doc.Root.Element("Name") is XElement element && !_lang_packs.ContainsKey(element.Value))
-                    _lang_packs.Add(element.Value, x_doc.Root);
+                if (x_doc.Root.Element("Name") is XElement element && _lang_packs.Find(x => x.Name == element.Value)==null)
+                _lang_packs.Add(new Localization(x_doc.Root));
+                // _lang_packs.Add(element.Value, x_doc.Root);
             }
         }
+
+        //public static void Load(string langPath)
+        //{
+        //    foreach (var file in Directory.EnumerateFiles(langPath, "*.xml", SearchOption.TopDirectoryOnly))
+        //    {
+        //        var x_doc = XDocument.Load(file);
+        //        if (x_doc.Root.Element("Name") is XElement element && !_lang_packs.ContainsKey(element.Value))
+        //            _lang_packs.Add(element.Value, x_doc.Root);
+        //    }
+        //}
 
         /// <summary>
         /// Список загруженных языковых пакетов
         /// </summary>
         /// <returns></returns>
-        public static List<string> GetLangNames() => _lang_packs.Keys.ToList();
-
+        //public static List<string> GetLangNames() => _lang_packs.Keys.ToList();
+        //public static List<string> GetLangNames() => (from lp in _lang_packs select lp.Name).ToList();
 
         /// <summary>
         /// Установить языковой пакет в соответствии с культурой установленной в системе
@@ -58,34 +71,59 @@ namespace MassK.UI.LangPacks
             var ci = CultureInfo.CurrentUICulture;
             var native_name = ci.NativeName.Split(new char[] { ' ' }, 2, StringSplitOptions.RemoveEmptyEntries)[0];
             native_name = $"{native_name.Substring(0, 1).ToUpper()}{native_name.Substring(1, native_name.Length - 1)}";
-            foreach (XElement lang_pack in _lang_packs.Values)
-            {
-                var xe = lang_pack.Element("NameLocal");
-                if (xe is XElement)
-                {
-                    string localeName = xe.Value;
-                    if (localeName == native_name)
-                    {
-                        _lang = lang_pack;
-                        break;
-                    }
-                }
-            }
-            ///_lang_packs.TryGetValue(native_name, out XElement lang_pack);
-            return _lang?.Element("Name").Value ?? ""; ;
+
+            Localization findLang = _lang_packs.Find(x => x.NameLocal == native_name);
+            if (findLang !=null) _lang = findLang;
+            return _lang.Name;
         }
+
+        private bool TryGetLangByName(string name, out Localization findLang)
+        {
+            findLang = _lang_packs.Find(x => x.NameLocal == name);
+            return findLang != null;
+        } 
+        
+        //public static string SetCurrentCultureLang()
+        //{
+        //    var ci = CultureInfo.CurrentUICulture;
+        //    var native_name = ci.NativeName.Split(new char[] { ' ' }, 2, StringSplitOptions.RemoveEmptyEntries)[0];
+        //    native_name = $"{native_name.Substring(0, 1).ToUpper()}{native_name.Substring(1, native_name.Length - 1)}";
+        //    foreach (XElement lang_pack in _lang_packs.Values)
+        //    {
+        //        var xe = lang_pack.Element("NameLocal");
+        //        if (xe is XElement)
+        //        {
+        //            string localeName = xe.Value;
+        //            if (localeName == native_name)
+        //            {
+        //                _lang = lang_pack;
+        //                break;
+        //            }
+        //        }
+        //    }
+        //    ///_lang_packs.TryGetValue(native_name, out XElement lang_pack);
+        //    return _lang?.Element("Name").Value ?? ""; ;
+        //}
 
         /// <summary>
         /// Установить языковой пакет по имени
         /// </summary>
         /// <param name="langName"></param>
         /// <returns>true если указанный язык есть в списке языков</returns>
+
         public static bool SetLang(string langName)
         {
-            _lang_packs.TryGetValue(langName, out XElement lang_pack);
+            TryGetValue(langName, out XElement lang_pack);
             _lang = lang_pack;
             return _lang != null;
         }
+
+        //public static bool SetLang(string langName)
+        //{
+        //    _lang_packs.TryGetValue(langName, out XElement lang_pack);
+        //    _lang = lang_pack;
+        //    return _lang != null;
+        //}
 
         /// <summary>
         /// Установить свойство Text контролов на форме
