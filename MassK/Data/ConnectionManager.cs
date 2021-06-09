@@ -142,7 +142,14 @@ namespace MassK.Data
             private static List<ScaleInfo> ComScan()
             {
                 //TODO Добавить скан com портов
-                return new List<ScaleInfo>();
+                List<ScaleInfo> result = new List<ScaleInfo>();
+               string[] ports = System.IO.Ports.SerialPort.GetPortNames();
+                    foreach(string port in ports)
+                {
+                    result.Add(new ScaleInfo() { Name = port });
+                }
+
+                return result;
             }
 
             public static void CheckState(List<ScaleInfo> data)
@@ -264,6 +271,25 @@ namespace MassK.Data
             public static void UploadKBFile(ScaleInfo scale, string filePath)
             {
                 //TODO Выгрузка данных в весы по аналогии с загрузкой. Только комманды TCP_DFILE и файл клавиатуры нужно разбивать по 1024 байта.
+                Socket socket = null;
+
+                socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                socket.Connect(scale);
+                socket.Send(CMD.TCP_SET_WORK_MODE);
+
+                byte[] buffer = new byte[1024];
+                int bytes = socket.Receive(buffer, buffer.Length, SocketFlags.None);
+                byte[] data = buffer.Take(bytes).ToArray();
+                data = CMD.GetData(data);
+
+                if (data[0] != 0x51)
+                    throw new ApplicationException("Ошибка установки режима работы весов");
+
+                using (FileStream fs = new FileStream(filePath, FileMode.Open))
+                {
+                    int len = fs.Read(buffer,0,buffer.Length);
+                    
+                }
             }
         }
 

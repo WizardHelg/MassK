@@ -72,7 +72,21 @@ namespace MassK.UI.Forms
         private void FillLangs()
         {
             MenuLangList.DropDownItems.Clear();
+            string folderFlag = SettingManager.FlagPath;
+            foreach (Localization lang in LangPack.LangPacks)
+            {
+                Image image = lang.GetFlag(folderFlag); 
 
+                ToolStripMenuItem itm = new ToolStripMenuItem(lang.NameLocal, image);
+                itm.Click += LangList_SelectedIndexChanged;
+                MenuLangList.DropDownItems.Add(itm);
+                if (lang.NameLocal == SettingManager.Lang)
+                {
+                    MenuLangList.Text = lang.NameLocal;
+                    MenuLangList.Image = lang.GetFlag(folderFlag);
+                }
+                
+            }
             //foreach (string lang in LangPack.GetLangNames())
             //{
             //    //Image image = LangPack.GetPicture(lang);
@@ -85,11 +99,26 @@ namespace MassK.UI.Forms
             //    //    MenuLangList.Text = lang;
             //    //    MenuLangList.Image = LangPack.GetPicture(lang);
             //    //}
-           // }
+            // }
+        }
+        private void LangList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (_is_initial) return;
+
+            ToolStripMenuItem itm = (ToolStripMenuItem)sender;
+            MenuLangList.Text = itm.Text;
+            MenuLangList.Image = itm.Image;
+
+            string lang = MenuLangList.Text; /// CbxLang.Text;
+            SettingManager.Lang = lang;
+            if (LangPack.SetLang(lang))
+            {
+                SettingManager.SetCodePage(lang);  //LangPack.GetCodePage();
+                LangPack.Translate(this, dataGrid, FillFilter);
+            }
         }
 
 
-  
 
         private void SetDataGrid()
         {
@@ -130,7 +159,8 @@ namespace MassK.UI.Forms
                 col.AutoSizeMode = item.AutoSizeMode;
                 col.Visible = item.Visible;
                 col.SortMode = DataGridViewColumnSortMode.Programmatic;
-                col.CellTemplate.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                col.HeaderCell.Style.Alignment= DataGridViewContentAlignment.MiddleCenter;
+                //col.CellTemplate.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 dataGrid.Columns.Add(col);
             }
 
@@ -169,18 +199,7 @@ namespace MassK.UI.Forms
 
       
 
-        private void LangList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (_is_initial) return;
-
-            string lang = MenuLangList.Text; /// CbxLang.Text;
-            SettingManager.Lang = lang;
-           if(LangPack.SetLang(lang))
-            {
-                SettingManager.SetCodePage( lang);  //LangPack.GetCodePage();
-            LangPack.Translate(this, dataGrid, FillFilter);
-            }
-        }
+     
 
         private void CbxLang_KeyPress(object sender, KeyPressEventArgs e) => e.Handled = true;
 
@@ -447,6 +466,11 @@ namespace MassK.UI.Forms
 
         private void MenuSettings_ScalesTable_Click(object sender, EventArgs e)
         {
+            ShowScales();
+        }
+
+        private void ShowScales()
+        {
             var form = new FormScalesTable();
             if (form.ShowDialog() != DialogResult.OK)
                 SettingManager.ReloadScaleInfos();
@@ -497,15 +521,7 @@ namespace MassK.UI.Forms
         {
             new FormDescription().ShowDialog();         
         }
-
-            
-
-        private void toolStripButton1_Click(object sender, EventArgs e)
-        {
-            //new FormMain.Show(this.Handle);
-            //Addo
-        }
-
+                           
         private void MenuFile_LoadFromScales_Click(object sender, EventArgs e)
         {
             //TODO тут надо загрузить файлы 1 - продуктовый, 2- PLU и 31 - клавиатура если есть
@@ -516,15 +532,25 @@ namespace MassK.UI.Forms
             string plu_path = Path.Combine(SettingManager.RootPath, ConnectionManager.RAWFiles.GetDefaultFileName(ScaleFileNum.PLU));
             string kb_path = Path.Combine(SettingManager.RootPath, ConnectionManager.RAWFiles.GetDefaultFileName(ScaleFileNum.KB));
 
-            ScaleInfo scale = null; //TODO тут как то получить одни весы. Так как выгрузка данных из пачики весов лишина смысла
+            ScaleInfo scale = SettingManager.ScaleInfos.First(x => x.Load);  //TODO тут как то получить одни весы. Так как выгрузка данных из пачики весов лишина смысла
+            
+            if (scale is null )
+            {
+                MessageBox.Show("Выберите весы","Отсуттствуют весы",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                ShowScales();
+            }
 
             ConnectionManager.Connection.LoadFile(scale, prod_path, ScaleFileNum.PROD);
             ConnectionManager.Connection.LoadFile(scale, plu_path, ScaleFileNum.PLU);
             ConnectionManager.Connection.LoadFile(scale, kb_path, ScaleFileNum.KB);
 
             _products = MKConverter.ProdFromDat(prod_path, plu_path);
-            
             //TODO если файл клавиатры не пуст подгрузить его. через MKConverter. И обновить биндинг.
+            if (_products != null)
+            {
+                LockControl(LockContolEnum.ExceptProd);
+                MessageBox.Show(LangPack.GetText("MainFormUSBDataLoaded"), string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void ButtonUploadToScales_Click(object sender, EventArgs e)

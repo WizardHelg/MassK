@@ -13,22 +13,12 @@ namespace MassK.UI.LangPacks
     {
       //  readonly static Dictionary<string, XElement> _lang_packs = new Dictionary<string, XElement>();
         // private static XElement _lang;
-        readonly static List<Localization> _lang_packs;
+        public static List<Localization> LangPacks { get => _lang_packs; }
+        private readonly static List<Localization> _lang_packs = new List<Localization>();
+
         private static Localization _lang;
 
-        //    {"Армения",""},
-        //    {"Азербайджан",""},
-        //    {"Россия",""},
-        //    {"Франция",""},
-        //    {"Казахстан",""},
-        //    {"Латвия",""},
-        //    {"Тунис",""},
-        //    {"Болгария",""},
-        //    {"Туркменистан",""},
-        //    {"Грузия",""},
-        //    {"Кыргызстан",""},
-        //    {"Кот-д'Ивуар",""},
-        //    {"Узбекистан",""},
+       
 
         /// <summary>
         /// Загрузить языковые пакеты
@@ -71,13 +61,16 @@ namespace MassK.UI.LangPacks
             var ci = CultureInfo.CurrentUICulture;
             var native_name = ci.NativeName.Split(new char[] { ' ' }, 2, StringSplitOptions.RemoveEmptyEntries)[0];
             native_name = $"{native_name.Substring(0, 1).ToUpper()}{native_name.Substring(1, native_name.Length - 1)}";
+            SetLang(native_name);
 
-            Localization findLang = _lang_packs.Find(x => x.NameLocal == native_name);
-            if (findLang !=null) _lang = findLang;
+            //Localization findLang = _lang_packs.Find(x => x.NameLocal == native_name);
+            //if (findLang !=null) _lang = findLang;
+            //if (TryGetLangByName(native_name, out Localization findLang))
+            //    _lang = findLang;
             return _lang.Name;
         }
 
-        private bool TryGetLangByName(string name, out Localization findLang)
+        private static bool TryGetLangByName(string name, out Localization findLang)
         {
             findLang = _lang_packs.Find(x => x.NameLocal == name);
             return findLang != null;
@@ -113,6 +106,8 @@ namespace MassK.UI.LangPacks
 
         public static bool SetLang(string langName)
         {
+            if (TryGetLangByName(langName, out Localization findLang))
+                _lang = findLang;
             //TryGetValue(langName, out XElement lang_pack);
             //_lang = lang_pack;
             return _lang != null;
@@ -131,33 +126,33 @@ namespace MassK.UI.LangPacks
         /// <param name="form"></param>
         public static void Translate(Form form, DataGridView dgv = null, params Action[] addActions)
         {
-            //if (_lang?.Element(form.GetType().Name) is XElement form_element)
-            //{
-            //    foreach (Control control in GetControls(form))
-            //        if (form_element.Element(control.Name) is XElement element)
-            //            control.Text = element.Value;
+            if (_lang?.Root.Element(form.GetType().Name) is XElement form_element)
+            {
+                foreach (Control control in GetControls(form))
+                    if (form_element.Element(control.Name) is XElement element)
+                        control.Text = element.Value;
 
-            //    if (form.Controls.ContainsKey("MenuStrip"))
-            //        ///if (form_element s(menu_item.Name))
-            //        ///ToDo исключение если нет элемента
-            //        foreach (ToolStripItem menu_item in GetMenu(form.Controls["MenuStrip"]))
-            //            if (!string.IsNullOrEmpty(menu_item.Name))
-            //            {
-            //                if (form_element.Element(menu_item.Name) is XElement element)
-            //                    menu_item.Text = element.Value;
-            //            }
+                if (form.Controls.ContainsKey("MenuStrip"))
+                    ///if (form_element s(menu_item.Name))
+                    ///ToDo исключение если нет элемента
+                    foreach (ToolStripItem menu_item in GetMenu(form.Controls["MenuStrip"]))
+                        if (!string.IsNullOrEmpty(menu_item.Name))
+                        {
+                            if (form_element.Element(menu_item.Name) is XElement element)
+                                menu_item.Text = element.Value;
+                        }
 
-            //    if (form_element.Element("Caption") is XElement caption)
-            //        form.Text = caption.Value;
+                if (form_element.Element("Caption") is XElement caption)
+                    form.Text = caption.Value;
 
-            //    if (dgv != null)
-            //        foreach (DataGridViewColumn col in dgv.Columns)
-            //            if (form_element.Element($"DataGridView_{col.Name}") is XElement element)
-            //                col.HeaderText = element.Value;
+                if (dgv != null)
+                    foreach (DataGridViewColumn col in dgv.Columns)
+                        if (form_element.Element($"DataGridView_{col.Name}") is XElement element)
+                            col.HeaderText = element.Value;
 
-            //    foreach (var action in addActions)
-            //        action();
-            //}
+                foreach (var action in addActions)
+                    action();
+            }
         }
 
         /// <summary>
@@ -167,8 +162,8 @@ namespace MassK.UI.LangPacks
         /// <returns>Текс</returns>
         public static string GetText(string name)
         {
-            //if (_lang?.Element("Texts") is XElement text)
-            //    return text.Element(name)?.Value;
+            if (_lang?.Root.Element("Texts") is XElement text)
+                return text.Element(name)?.Value;
 
             return null;
         }
@@ -205,11 +200,7 @@ namespace MassK.UI.LangPacks
 
         internal static string GetCodePage()
         {
-            string codepage = default;
-
-
-            //codepage = 
-            return codepage;
+            return _lang.CodePage;
         }
     }
 }
