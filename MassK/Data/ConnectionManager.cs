@@ -313,6 +313,8 @@ namespace MassK.Data
                 return MakeCommand(buffer.ToArray());
             }
 
+
+
             private static byte[] MakeCommand(byte[] data)
             {
                 List<byte> buffer = new List<byte>() { 0xf8, 0x55, 0xce };

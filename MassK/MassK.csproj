@@ -94,6 +94,7 @@
     <Compile Include="PulsTimer.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ScaleCommandTest.cs" />
     <Compile Include="Settings\SettingManager.cs" />
     <Compile Include="Exceptions\BException.cs" />
     <Compile Include="UI\Controls\CustomDataGrid.cs">

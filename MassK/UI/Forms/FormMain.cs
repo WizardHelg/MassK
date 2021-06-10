@@ -119,7 +119,6 @@ namespace MassK.UI.Forms
         }
 
 
-
         private void SetDataGrid()
         {
             dataGrid.Columns.Clear();
@@ -564,6 +563,17 @@ namespace MassK.UI.Forms
             foreach(var scale in SettingManager.ScaleInfos)
                 if(scale.Unload)
                     ConnectionManager.Connection.UploadKBFile(scale, path);
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            string prod_path = Path.Combine(SettingManager.RootPath, ConnectionManager.RAWFiles.GetDefaultFileName(ScaleFileNum.PROD));
+            string plu_path = Path.Combine(SettingManager.RootPath, ConnectionManager.RAWFiles.GetDefaultFileName(ScaleFileNum.PLU));
+            string kb_path = Path.Combine(SettingManager.RootPath, ConnectionManager.RAWFiles.GetDefaultFileName(ScaleFileNum.KB));
+
+          // string savePath = "";
+            ScaleInfo scale = SettingManager.ScaleInfos.First(x => x.Load);
+            ScaleCommandTest.GetInfo(scale, prod_path, ScaleFileNum.PROD);
         }
     }
 }
