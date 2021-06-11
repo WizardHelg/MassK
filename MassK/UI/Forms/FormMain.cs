@@ -561,6 +561,9 @@ namespace MassK.UI.Forms
 
             ConnectionManager.Connection.LoadFile(scale, prod_path, ScaleFileNum.PROD);
             ConnectionManager.Connection.LoadFile(scale, plu_path, ScaleFileNum.PLU);
+
+           // ConnectionManager.Connection.CheckState()
+
             ConnectionManager.Connection.LoadFile(scale, kb_path, ScaleFileNum.KB);
 
             _products = MKConverter.ProdFromDat(prod_path, plu_path);
@@ -575,8 +578,9 @@ namespace MassK.UI.Forms
         private void ButtonUploadToScales_Click(object sender, EventArgs e)
         {
             string path = Path.Combine(SettingManager.RootPath, ConnectionManager.RAWFiles.GetDefaultFileName(ScaleFileNum.KB));
-
+            //string path = SettingManager.RootPath;
             //При помощи MKConverter зашифровать данные клавиатуры
+
             MKConverter.KBToDat(_keyboard, path);
 
             //При помощи ConnectionManager выгрузит в весы.

@@ -161,8 +161,10 @@ namespace MassK.Data
             Encoding encoding = CodePage > 0 ? Encoding.GetEncoding(CodePage) : Encoding.Default;
             long version = -1;
             string last_file = null;
-
-            foreach(var file in Directory.GetFiles(saveDirectory, "64PC*.dat"))
+            
+           //Directory.GetDirectory(saveDirectory)
+            
+            foreach(var file in Directory.GetFiles( saveDirectory, "64PC*.dat"))
             {
                 string file_name = Path.GetFileNameWithoutExtension(file);
                 if(file_name.Length == 14 && long.TryParse(file_name.Substring(4, 10), out long result) && result > version)

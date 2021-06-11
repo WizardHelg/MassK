@@ -37,7 +37,6 @@ namespace MassK.UI.Forms
             this.panel1 = new System.Windows.Forms.Panel();
             this.LbProductName = new System.Windows.Forms.Label();
             this.Title = new System.Windows.Forms.Label();
-            this.ButtonHelp = new System.Windows.Forms.Button();
             this.dataGrid = new MassK.UI.Controls.CustomDataGrid();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -108,7 +107,6 @@ namespace MassK.UI.Forms
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(109)))), ((int)(((byte)(163)))));
             this.panel1.Controls.Add(this.LbProductName);
             this.panel1.Controls.Add(this.Title);
-            this.panel1.Controls.Add(this.ButtonHelp);
             this.panel1.Location = new System.Drawing.Point(3, 4);
             this.panel1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.panel1.Name = "panel1";
@@ -126,7 +124,7 @@ namespace MassK.UI.Forms
             this.LbProductName.Location = new System.Drawing.Point(223, 21);
             this.LbProductName.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.LbProductName.Name = "LbProductName";
-            this.LbProductName.Size = new System.Drawing.Size(522, 18);
+            this.LbProductName.Size = new System.Drawing.Size(654, 18);
             this.LbProductName.TabIndex = 1;
             this.LbProductName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -143,22 +141,6 @@ namespace MassK.UI.Forms
             this.Title.TabIndex = 1;
             this.Title.Text = "Картинка для товара:";
             this.Title.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // ButtonHelp
-            // 
-            this.ButtonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ButtonHelp.BackColor = System.Drawing.Color.White;
-            this.ButtonHelp.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.ButtonHelp.Font = new System.Drawing.Font("Verdana", 12F);
-            this.ButtonHelp.ForeColor = System.Drawing.Color.CornflowerBlue;
-            this.ButtonHelp.Location = new System.Drawing.Point(755, 14);
-            this.ButtonHelp.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.ButtonHelp.Name = "ButtonHelp";
-            this.ButtonHelp.Size = new System.Drawing.Size(121, 32);
-            this.ButtonHelp.TabIndex = 0;
-            this.ButtonHelp.Text = "Справка";
-            this.ButtonHelp.UseVisualStyleBackColor = false;
-            this.ButtonHelp.Click += new System.EventHandler(this.ButtonHelp_Click);
             // 
             // dataGrid
             // 
@@ -208,7 +190,6 @@ namespace MassK.UI.Forms
         private System.Windows.Forms.Label Find;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label Title;
-        private System.Windows.Forms.Button ButtonHelp;
         private System.Windows.Forms.Button ButtonSelect;
         private UI.Controls.CustomDataGrid dataGrid;
         private System.Windows.Forms.Label LbProductName;

@@ -221,7 +221,7 @@ namespace MassK.Data
                     socket.Connect(scale);
                     socket.Send(CMD.TCP_SET_WORK_MODE);
 
-                    byte[] buffer = new byte[1024];
+                    byte[] buffer = new byte[2048];
 
                     int bytes = socket.Receive(buffer, buffer.Length, SocketFlags.None);
                     byte[] data = buffer.Take(bytes).ToArray();
@@ -240,9 +240,10 @@ namespace MassK.Data
                             data = buffer.Take(bytes).ToArray();
                             data = CMD.GetData(data);
 
+                            if (data[0] != 0x46)
+                                throw new ApplicationException("Невозможно выгрузить");
                             if (data[0] != 0x45)
                                 throw new ApplicationException("Ошибка при загрузке файла из чертовых весов");
-
                             ushort data_len = BitConverter.ToUInt16(data, 6);
 
                             fs.Write(data, 8, data_len);
@@ -305,7 +306,7 @@ namespace MassK.Data
             {
                 List<byte> buffer = new List<byte>();
 
-                buffer.Add(0x58);
+                buffer.Add(0x85);
                 buffer.Add(fileNum);
                 buffer.AddRange(BitConverter.GetBytes((ushort)0));
                 buffer.AddRange(BitConverter.GetBytes(part));
