@@ -87,6 +87,7 @@ namespace MassK.UI.Forms
                 col.AutoSizeMode = item.AutoSizeMode;
                 col.Visible = item.Visible;
                 col.SortMode = DataGridViewColumnSortMode.Programmatic;
+                col.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 dataGrid.Columns.Add(col);
             }
 

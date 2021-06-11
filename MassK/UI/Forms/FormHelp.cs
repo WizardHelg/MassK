@@ -12,9 +12,19 @@ namespace MassK.UI.Forms
 {
     public partial class FormHelp : Form
     {
+        public string HelpText {
+            get => TextBox.Text;            
+            set => TextBox.Text = value; }
+
         public FormHelp()
         {
             InitializeComponent();
+        }
+        
+
+        private void ButtonExit_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

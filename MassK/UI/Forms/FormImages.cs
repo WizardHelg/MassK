@@ -73,6 +73,7 @@ namespace MassK.UI.Forms
                 col.AutoSizeMode = item.AutoSizeMode;
                 col.Visible = item.Visible;
                 col.SortMode = DataGridViewColumnSortMode.Programmatic;
+                col.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 dataGrid.Columns.Add(col);
             }
 
@@ -210,5 +211,13 @@ namespace MassK.UI.Forms
 
             base.OnKeyDown(e);
         }
+
+        private void ButtonHelp_Click(object sender, EventArgs e)
+        {
+            FormHelp frm = new FormHelp();
+            frm.HelpText = LangPack.GetText("FormImagesHelp");
+            frm.ShowDialog();
+        }
+       
     }
 }

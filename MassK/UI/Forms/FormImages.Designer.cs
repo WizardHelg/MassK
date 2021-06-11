@@ -41,7 +41,6 @@ namespace MassK.UI.Forms
             this.ButtonAdd = new System.Windows.Forms.Button();
             this.ButtonDelete = new System.Windows.Forms.Button();
             this.ButtonLogo = new System.Windows.Forms.Button();
-            this.ButtonSave = new System.Windows.Forms.Button();
             this.dataGrid = new MassK.UI.Controls.CustomDataGrid();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -57,7 +56,7 @@ namespace MassK.UI.Forms
             this.panel2.Controls.Add(this.TboxFilter);
             this.panel2.Controls.Add(this.InField);
             this.panel2.Controls.Add(this.Find);
-            this.panel2.Location = new System.Drawing.Point(3, 581);
+            this.panel2.Location = new System.Drawing.Point(3, 574);
             this.panel2.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1017, 64);
@@ -157,6 +156,7 @@ namespace MassK.UI.Forms
             this.ButtonHelp.TabIndex = 0;
             this.ButtonHelp.Text = "Справка";
             this.ButtonHelp.UseVisualStyleBackColor = false;
+            this.ButtonHelp.Click += new System.EventHandler(this.ButtonHelp_Click);
             // 
             // ButtonAdd
             // 
@@ -203,22 +203,6 @@ namespace MassK.UI.Forms
             this.ButtonLogo.UseVisualStyleBackColor = false;
             this.ButtonLogo.Click += new System.EventHandler(this.ButtonLogo_Click);
             // 
-            // ButtonSave
-            // 
-            this.ButtonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.ButtonSave.BackColor = System.Drawing.Color.Transparent;
-            this.ButtonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ButtonSave.Font = new System.Drawing.Font("Verdana", 12F);
-            this.ButtonSave.ForeColor = System.Drawing.Color.Black;
-            this.ButtonSave.Location = new System.Drawing.Point(877, 615);
-            this.ButtonSave.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.ButtonSave.Name = "ButtonSave";
-            this.ButtonSave.Size = new System.Drawing.Size(130, 30);
-            this.ButtonSave.TabIndex = 14;
-            this.ButtonSave.Text = "Сохранить";
-            this.ButtonSave.UseVisualStyleBackColor = false;
-            this.ButtonSave.Visible = false;
-            // 
             // dataGrid
             // 
             this.dataGrid.AllowUserToAddRows = false;
@@ -231,7 +215,7 @@ namespace MassK.UI.Forms
             this.dataGrid.Location = new System.Drawing.Point(2, 102);
             this.dataGrid.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.dataGrid.Name = "dataGrid";
-            this.dataGrid.Size = new System.Drawing.Size(1018, 543);
+            this.dataGrid.Size = new System.Drawing.Size(1018, 536);
             this.dataGrid.TabIndex = 0;
             this.dataGrid.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGrid_ColumnHeaderMouseClick);
             // 
@@ -239,9 +223,8 @@ namespace MassK.UI.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1022, 650);
+            this.ClientSize = new System.Drawing.Size(1022, 643);
             this.Controls.Add(this.ButtonLogo);
-            this.Controls.Add(this.ButtonSave);
             this.Controls.Add(this.ButtonDelete);
             this.Controls.Add(this.ButtonAdd);
             this.Controls.Add(this.panel1);
@@ -276,6 +259,5 @@ namespace MassK.UI.Forms
         private System.Windows.Forms.Button ButtonAdd;
         private System.Windows.Forms.Button ButtonDelete;
         private System.Windows.Forms.Button ButtonLogo;
-        private System.Windows.Forms.Button ButtonSave;
     }
 }

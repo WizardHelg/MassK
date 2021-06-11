@@ -40,6 +40,15 @@ namespace MassK.UI.Forms
 
         public FormMain() => InitializeComponent();
 
+
+        private void FormMain_Load(object sender, EventArgs e)
+        {
+            if (SettingManager.ShowDiscription)
+            {
+
+            }
+        }
+
         protected override void OnLoad(EventArgs e)
         {
             _is_initial = true;
@@ -159,7 +168,6 @@ namespace MassK.UI.Forms
                 col.Visible = item.Visible;
                 col.SortMode = DataGridViewColumnSortMode.Programmatic;
                 col.HeaderCell.Style.Alignment= DataGridViewContentAlignment.MiddleCenter;
-                //col.CellTemplate.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 dataGrid.Columns.Add(col);
             }
 
@@ -277,6 +285,7 @@ namespace MassK.UI.Forms
 
             ButtonUploadToScales.Visible= main_flag;
             ButtonSaveToUsb.Visible = main_flag;
+            ButtonClearFilter.Visible = main_flag;
             CBoxFields.Visible = main_flag;
             MenuFile_SaveToPC.Visible = main_flag;
             TboxFilter.Visible = main_flag;
@@ -522,12 +531,14 @@ namespace MassK.UI.Forms
 
         private void ShowDescription_Click(object sender, EventArgs e)
         {
-            new FormHelp().ShowDialog() ;
+            new FormDescription().ShowDialog();         
         }
 
         private void ButtonHelp_Click(object sender, EventArgs e)
         {
-            new FormDescription().ShowDialog();         
+            FormHelp frm = new FormHelp();
+            frm.HelpText = LangPack.GetText("MainFormHelp");
+            frm.ShowDialog();
         }
                            
         private void MenuFile_LoadFromScales_Click(object sender, EventArgs e)
@@ -583,6 +594,6 @@ namespace MassK.UI.Forms
           // string savePath = "";
             ScaleInfo scale = SettingManager.ScaleInfos.First(x => x.Load);
             ScaleCommandTest.GetInfo(scale, prod_path, ScaleFileNum.PROD);
-        }
+        }       
     }
 }

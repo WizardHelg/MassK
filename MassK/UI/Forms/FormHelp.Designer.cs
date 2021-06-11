@@ -81,6 +81,7 @@ namespace MassK.UI.Forms
             this.ButtonExit.TabIndex = 20;
             this.ButtonExit.Text = "Выход";
             this.ButtonExit.UseVisualStyleBackColor = false;
+            this.ButtonExit.Click += new System.EventHandler(this.ButtonExit_Click);
             // 
             // panel1
             // 

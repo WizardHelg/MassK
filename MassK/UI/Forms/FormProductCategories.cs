@@ -74,6 +74,7 @@ namespace MassK.UI.Forms
                 col.Visible = item.Visible;
                 col.ValueType = typeof(string);
                 col.SortMode = DataGridViewColumnSortMode.Programmatic;
+                col.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 dataGrid.Columns.Add(col);
             }
 
@@ -142,6 +143,13 @@ namespace MassK.UI.Forms
                 Close();
 
             base.OnKeyDown(e);
+        }
+
+        private void ButtonHelp_Click(object sender, EventArgs e)
+        {
+            FormHelp frm = new FormHelp();
+            frm.HelpText = LangPack.GetText("FormProductCategoriesHelp");
+            frm.ShowDialog();
         }
     }
 }
