@@ -275,16 +275,25 @@ namespace MassK.UI.Forms
             else
                 main_flag = true;
 
+            ButtonUploadToScales.Visible= main_flag;
+            ButtonSaveToUsb.Visible = main_flag;
+            CBoxFields.Visible = main_flag;
+            MenuFile_SaveToPC.Visible = main_flag;
+            TboxFilter.Visible = main_flag;
+            ShowProductsWithoutPicturies.Visible = main_flag;
 
-            ButtonUploadToScales.Enabled = main_flag;
-            ButtonSaveToUsb.Enabled = main_flag;            
-            CBoxFields.Enabled = main_flag;
-            MenuFile_SaveToPC.Enabled = main_flag;
-            TboxFilter.Enabled = main_flag;
-            ShowProductsWithoutPicturies.Enabled = main_flag;
+            ButtonProducts.Visible = lockContol != LockContolEnum.All;
+            MenuFile_LoadFromPC.Visible = CheckProjectonPC();
 
-            ButtonProducts.Enabled = lockContol != LockContolEnum.All;
-            MenuFile_LoadFromPC.Enabled = CheckProjectonPC();
+            //ButtonUploadToScales.Enabled = main_flag;
+            //ButtonSaveToUsb.Enabled = main_flag;            
+            //CBoxFields.Enabled = main_flag;
+            //MenuFile_SaveToPC.Enabled = main_flag;
+            //TboxFilter.Enabled = main_flag;
+            //ShowProductsWithoutPicturies.Enabled = main_flag;
+
+            //ButtonProducts.Enabled = lockContol != LockContolEnum.All;
+            //MenuFile_LoadFromPC.Enabled = CheckProjectonPC();
         }
 
         private void ButtonSaveToUsb_Click(object sender, EventArgs e)
