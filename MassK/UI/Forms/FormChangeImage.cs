@@ -185,5 +185,12 @@ namespace MassK.UI.Forms
 
             base.OnKeyDown(e);
         }
+
+        private void ButtonHelp_Click(object sender, EventArgs e)
+        {
+            FormHelp frm = new FormHelp();
+            frm.HelpText = LangPack.GetText("FormChangeImageHelp");
+            frm.ShowDialog();
+        }
     }
 }

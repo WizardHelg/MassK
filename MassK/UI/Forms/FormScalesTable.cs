@@ -184,7 +184,9 @@ namespace MassK.UI.Forms
 
         private void ButtonHelp_Click(object sender, EventArgs e)
         {
-
+            FormHelp frm = new FormHelp();
+            frm.HelpText = LangPack.GetText("FormScalesTableHelp");
+            frm.ShowDialog();
         }
     }
 }

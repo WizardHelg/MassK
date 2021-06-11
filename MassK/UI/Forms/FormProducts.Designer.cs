@@ -164,6 +164,7 @@ namespace MassK.UI.Forms
             this.ButtonHelp.TabIndex = 0;
             this.ButtonHelp.Text = "Справка";
             this.ButtonHelp.UseVisualStyleBackColor = false;
+            this.ButtonHelp.Click += new System.EventHandler(this.ButtonHelp_Click);
             // 
             // panel1
             // 
