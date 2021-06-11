@@ -122,7 +122,7 @@ namespace MassK.UI.Forms
             SettingManager.Lang = lang;
             if (LangPack.SetLang(lang))
             {
-                SettingManager.SetCodePage(lang);  //LangPack.GetCodePage();
+                SettingManager.SetCodePage(LangPack.GetCodePage());  //LangPack.GetCodePage();
                 LangPack.Translate(this, dataGrid, FillFilter);
             }
         }

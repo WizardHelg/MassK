@@ -32,7 +32,16 @@ namespace MassK.Settings
         /// Номер кодовой страницы. 0 если используется кодировка по умолчанию;
         /// </summary>
         public static int CodePage => _code_page?.CodePage ?? 0;
-
+        internal static void SetCodePage(string codePage)
+        {
+            if (string.IsNullOrEmpty(codePage)) return;
+            EncodingInfo info = _encoding_infos.Find(x => x.CodePage.ToString() == codePage);
+            if (info != null)
+            {
+                _code_page = info;
+                SaveToXml("CodePage", $"{_code_page.CodePage}");
+            }
+        }
         ///// <summary>
         ///// Сохраненное в настройках имя кодовой страницы
         ///// </summary>
@@ -152,7 +161,7 @@ namespace MassK.Settings
 
             bool.TryParse(root.Element("PLUNumeration")?.Value, out bool plu_num);
             _plu_numeration = plu_num;
-            
+
             bool.TryParse(root.Element("ShowDiscription")?.Value, out bool sh_discript);
             _show_discription = sh_discript;
 
@@ -248,10 +257,7 @@ namespace MassK.Settings
             return buffer;
         }
 
-        internal static void SetCodePage(string lang)
-        {
 
-        }
 
         private static Dictionary<string, string> _codePages = new Dictionary<string, string>()
         {
@@ -274,7 +280,7 @@ namespace MassK.Settings
         /// </summary>
         /// <typeparam name="T">Тип класса, из которого сохранятся только свойста с типом ValueType и string</typeparam>
         /// <param name="data"></param>
-        public static void Save<T>(List<T> data) where T: class
+        public static void Save<T>(List<T> data) where T : class
         {
             XElement root = new XElement("Data");
             Type type = typeof(T);
@@ -287,13 +293,13 @@ namespace MassK.Settings
             {
                 XElement element = new XElement(type.Name);
 
-                foreach(var prop in props)
+                foreach (var prop in props)
                 {
                     if (prop.PropertyType != typeof(Image) && prop.GetCustomAttribute(typeof(NonSaveAttribute)) == null)
                     {
                         element.Add(new XElement(
                             prop.Name,
-                            prop.GetValue(item)?.ToString()??""));
+                            prop.GetValue(item)?.ToString() ?? ""));
                     }
                 }
 
