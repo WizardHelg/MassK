@@ -24,6 +24,7 @@ namespace MassK.Settings
         public static string EngImagePath { get; set; } = Path.Combine(ProgrammPictures, "ENG");
         public static string DefaultImagesPath => (Lang == "Русский") ? RusImagePath : EngImagePath;
         public static string SettingPath { get; set; } = Path.Combine(RootPath, "Settings");
+        public static string PresentationPath { get; set; } = Path.Combine(RootPath, "Presentation");
 
         private static readonly List<EncodingInfo> _encoding_infos = Encoding.GetEncodings().ToList();
         private static EncodingInfo _code_page;

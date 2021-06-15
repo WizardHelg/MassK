@@ -45,7 +45,7 @@ namespace MassK.UI.Forms
         {
             if (SettingManager.ShowDiscription)
             {
-
+                new FormDescription().ShowDialog();
             }
         }
 
@@ -78,6 +78,8 @@ namespace MassK.UI.Forms
                 MessageBox.Show(LangPack.GetText("MainFormWrongProductNumber"), LangPack.GetText("MSGBoxHeader"), MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
+
+        private void CbxLang_KeyPress(object sender, KeyPressEventArgs e) => e.Handled = true;
         private void FillLangs()
         {
             MenuLangList.DropDownItems.Clear();
@@ -94,21 +96,7 @@ namespace MassK.UI.Forms
                     MenuLangList.Text = lang.NameLocal;
                     MenuLangList.Image = lang.GetFlag(folderFlag);
                 }
-                
             }
-            //foreach (string lang in LangPack.GetLangNames())
-            //{
-            //    //Image image = LangPack.GetPicture(lang);
-
-            //    //ToolStripMenuItem itm = new ToolStripMenuItem(lang, image);
-            //    //itm.Click += LangList_SelectedIndexChanged;
-            //    //MenuLangList.DropDownItems.Add(itm);
-            //    //if (lang == SettingManager.Lang)
-            //    //{
-            //    //    MenuLangList.Text = lang;
-            //    //    MenuLangList.Image = LangPack.GetPicture(lang);
-            //    //}
-            // }
         }
         private void LangList_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -208,7 +196,7 @@ namespace MassK.UI.Forms
 
      
 
-        private void CbxLang_KeyPress(object sender, KeyPressEventArgs e) => e.Handled = true;
+      
 
         private void MenuSettings_ProductCategories_Click(object sender, EventArgs e)
         {
