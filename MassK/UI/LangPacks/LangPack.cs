@@ -198,9 +198,9 @@ namespace MassK.UI.LangPacks
 
 
 
-        internal static string GetCodePage()
+        internal static int GetCodePage()
         {
-            return _lang.CodePage;
+            return  int.TryParse( _lang.CodePage,  out int cod)? cod: 0 ;
         }
     }
 }

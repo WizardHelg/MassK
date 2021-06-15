@@ -191,11 +191,6 @@ namespace MassK.UI.Forms
             column.ReadOnly = value.ReadOnly;
             column.DefaultCellStyle.BackColor = value.Color;
         }
-
-      
-
-     
-
       
 
         private void MenuSettings_ProductCategories_Click(object sender, EventArgs e)
@@ -550,9 +545,13 @@ namespace MassK.UI.Forms
             ConnectionManager.Connection.LoadFile(scale, prod_path, ScaleFileNum.PROD);
             ConnectionManager.Connection.LoadFile(scale, plu_path, ScaleFileNum.PLU);
 
-           // ConnectionManager.Connection.CheckState()
-
-            ConnectionManager.Connection.LoadFile(scale, kb_path, ScaleFileNum.KB);
+            // ConnectionManager.Connection.CheckState()
+            try
+            {
+                ConnectionManager.Connection.LoadFile(scale, kb_path, ScaleFileNum.KB);
+             List<KeyboardItem> keyboardItems = MKConverter.KBFromDat(kb_path, LangPack.GetCodePage());
+            }
+            catch (Exception) { };
 
             _products = MKConverter.ProdFromDat(prod_path, plu_path);
             //TODO если файл клавиатры не пуст подгрузить его. через MKConverter. И обновить биндинг.
