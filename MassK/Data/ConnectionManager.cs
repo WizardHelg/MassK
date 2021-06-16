@@ -279,6 +279,7 @@ namespace MassK.Data
                 socket.Send(CMD.TCP_SET_WORK_MODE);
 
                 byte[] buffer = new byte[1024];
+                //byte[] buffer = new byte[2048];
                 int bytes = socket.Receive(buffer, buffer.Length, SocketFlags.None);
                 byte[] data = buffer.Take(bytes).ToArray();
                 data = CMD.GetData(data);

@@ -219,9 +219,7 @@ namespace MassK.Data
                     bw.Write((ushort)category.Length);
                     bw.Write(category);
                 }
-
             }
-
             if (File.Exists(last_file))
                 File.Delete(last_file);
         }

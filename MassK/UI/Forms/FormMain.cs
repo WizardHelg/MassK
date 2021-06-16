@@ -110,7 +110,7 @@ namespace MassK.UI.Forms
             SettingManager.Lang = lang;
             if (LangPack.SetLang(lang))
             {
-                SettingManager.SetCodePage(LangPack.GetCodePage());  //LangPack.GetCodePage();
+                SettingManager.SetCodePage(LangPack.GetCodePage().ToString());  //LangPack.GetCodePage();
                 LangPack.Translate(this, dataGrid, FillFilter);
             }
         }
@@ -273,6 +273,8 @@ namespace MassK.UI.Forms
             MenuFile_SaveToPC.Visible = main_flag;
             TboxFilter.Visible = main_flag;
             ShowProductsWithoutPicturies.Visible = main_flag;
+            FindProduct.Visible = main_flag;
+            InField.Visible = main_flag;
 
             ButtonProducts.Visible = lockContol != LockContolEnum.All;
             MenuFile_LoadFromPC.Visible = CheckProjectonPC();
@@ -348,6 +350,21 @@ namespace MassK.UI.Forms
             MKConverter.KBToDat(_keyboard, usb_path, logo_path, SettingManager.CodePage);
             MessageBox.Show(LangPack.GetText("MainFormUSBDataUploaded"), LangPack.GetText("MSGBoxHeader"), MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        private void ButtonUploadToScales_Click(object sender, EventArgs e)
+        {
+            string path = SettingManager.RootPath;
+            //При помощи MKConverter зашифровать данные клавиатуры
+
+            MKConverter.KBToDat(_keyboard, path);
+
+           // string path = Path.Combine(SettingManager.RootPath, ConnectionManager.RAWFiles.GetDefaultFileName(ScaleFileNum.KB));
+            //При помощи ConnectionManager выгрузит в весы.
+            foreach (var scale in SettingManager.ScaleInfos)
+                if (scale.Unload)
+                    ConnectionManager.Connection.UploadKBFile(scale, path);
+        }
+
 
         private void MenuSettings_ProductNumeration_Click(object sender, EventArgs e)
         {
@@ -562,19 +579,6 @@ namespace MassK.UI.Forms
             }
         }
 
-        private void ButtonUploadToScales_Click(object sender, EventArgs e)
-        {
-            string path = Path.Combine(SettingManager.RootPath, ConnectionManager.RAWFiles.GetDefaultFileName(ScaleFileNum.KB));
-            //string path = SettingManager.RootPath;
-            //При помощи MKConverter зашифровать данные клавиатуры
-
-            MKConverter.KBToDat(_keyboard, path);
-
-            //При помощи ConnectionManager выгрузит в весы.
-            foreach(var scale in SettingManager.ScaleInfos)
-                if(scale.Unload)
-                    ConnectionManager.Connection.UploadKBFile(scale, path);
-        }
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
