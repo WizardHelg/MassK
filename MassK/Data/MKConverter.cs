@@ -149,6 +149,22 @@ namespace MassK.Data
             return keyboards;
         }
 
+        public static (string last_file, long version) GetFileLastVersion(string saveDirectory)
+        {
+            long version = -1;
+            string last_file = null;
+            foreach (var file in Directory.GetFiles(saveDirectory, "64PC*.dat"))
+            {
+                string file_name = Path.GetFileNameWithoutExtension(file);
+                if (file_name.Length == 14 && long.TryParse(file_name.Substring(4, 10), out long result) && result > version)
+                {
+                    version = result;
+                    last_file = file;
+                }
+            }
+            return (last_file,version);
+        }
+
         /// <summary>
         /// Сохраняет файл клавиатуры
         /// </summary>
@@ -161,22 +177,21 @@ namespace MassK.Data
             Encoding encoding = CodePage > 0 ? Encoding.GetEncoding(CodePage) : Encoding.Default;
             long version = -1;
             string last_file = null;
-            
-           //Directory.GetDirectory(saveDirectory)
-            
-            foreach(var file in Directory.GetFiles( saveDirectory, "64PC*.dat"))
-            {
-                string file_name = Path.GetFileNameWithoutExtension(file);
-                if(file_name.Length == 14 && long.TryParse(file_name.Substring(4, 10), out long result) && result > version)
-                {
-                    version = result;
-                    last_file = file;
-                }
-            }    
- 
-            version++;
 
-            
+            //foreach(var file in Directory.GetFiles( saveDirectory, "64PC*.dat"))
+            //{
+            //    string file_name = Path.GetFileNameWithoutExtension(file);
+            //    if(file_name.Length == 14 && long.TryParse(file_name.Substring(4, 10), out long result) && result > version)
+            //    {
+            //        version = result;
+            //        last_file = file;
+            //    }
+            //}    
+            var file = GetFileLastVersion(saveDirectory);
+            version = file.version;
+            last_file = file.last_file;
+
+                version++;
             using(FileStream fs = new FileStream(Path.Combine(saveDirectory, $"64PC{version:D10}.dat"), FileMode.OpenOrCreate))
             using(BinaryWriter bw = new BinaryWriter(fs, encoding))
             {

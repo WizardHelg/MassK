@@ -353,16 +353,17 @@ namespace MassK.UI.Forms
 
         private void ButtonUploadToScales_Click(object sender, EventArgs e)
         {
-            string path = SettingManager.RootPath;
+            string folder = SettingManager.RootPath;
             //При помощи MKConverter зашифровать данные клавиатуры
 
-            MKConverter.KBToDat(_keyboard, path);
+            MKConverter.KBToDat(_keyboard, folder);
 
-           // string path = Path.Combine(SettingManager.RootPath, ConnectionManager.RAWFiles.GetDefaultFileName(ScaleFileNum.KB));
+            // string path = Path.Combine(SettingManager.RootPath, ConnectionManager.RAWFiles.GetDefaultFileName(ScaleFileNum.KB));
+            var file = MKConverter.GetFileLastVersion(folder);
             //При помощи ConnectionManager выгрузит в весы.
             foreach (var scale in SettingManager.ScaleInfos)
                 if (scale.Unload)
-                    ConnectionManager.Connection.UploadKBFile(scale, path);
+                    ConnectionManager.Connection.UploadKBFile(scale, file.last_file);
         }
 
 

@@ -42,7 +42,8 @@ namespace MassK.Data
             {
                 PROD = 1,
                 PLU = 5,
-                KB = 31
+                KB = 31,
+                Keyboard = 11
             }
 
             public static string GetScaleFileName(ScaleFileNum num, string rootPath, bool fullName = false)
@@ -286,11 +287,25 @@ namespace MassK.Data
 
                 if (data[0] != 0x51)
                     throw new ApplicationException("Ошибка установки режима работы весов");
+                RAWFiles.ScaleFileNum fileNum = RAWFiles.ScaleFileNum.KB;
 
                 using (FileStream fs = new FileStream(filePath, FileMode.Open))
                 {
-                    int len = fs.Read(buffer,0,buffer.Length);
-                    
+                    ushort cur_part =0 ;
+                    ushort parts_amount =(ushort) Math.Ceiling((double)  fs.Length / 1024);
+                while (fs.Read(buffer,0,buffer.Length)>0)
+                    {
+                        cur_part++;
+                        byte[] buffer_send = new byte[2048];
+                        socket.Send(CMD.TCP_DFILE((byte)fileNum,buffer , cur_part,parts_amount));                        
+                        bytes = socket.Receive( buffer_send, buffer_send.Length, SocketFlags.None);
+                        data = buffer_send.Take(bytes).ToArray();
+                        data = CMD.GetData(data);
+
+                        if (data[0] != 0x45)                         
+                        throw new ApplicationException("Ошибка при загрузке файла из чертовых весов");
+                       
+                    }
                 }
             }
         }
@@ -315,6 +330,45 @@ namespace MassK.Data
                 return MakeCommand(buffer.ToArray());
             }
 
+            public static byte[] TCP_DFILE(byte fileNum,byte[] arr_data ,ushort part, ushort amount)
+            {
+                List<byte> body = new List<byte>();
+                ushort len_data = (ushort)arr_data.Length;
+
+                body.Add(0x82);
+                //Номер файла 
+                body.Add(fileNum);
+                //Количество частей в файле 
+                body.AddRange(BitConverter.GetBytes(amount));
+                //Номер текущей части
+                body.AddRange(BitConverter.GetBytes(part));
+                //Длина записи 
+                body.AddRange(BitConverter.GetBytes(len_data));
+                //Данные 
+                body.AddRange(arr_data);
+
+                // return MakeCommand(body.ToArray());
+                
+                byte[] body_data = body.ToArray();
+                List<byte> command = new List<byte>() { 0xf8, 0x55, 0xce };
+                ushort len = (ushort)body_data.Length;
+                ushort crc = CRC(body_data);
+
+                command.AddRange(BitConverter.GetBytes(len));
+                command.AddRange(body_data);
+                command.AddRange(BitConverter.GetBytes(crc));
+
+                return command.ToArray();
+
+                //ushort len = (ushort)data.Length;
+                //ushort crc = CRC(data);
+                /////заголовочная последовательность
+                //List<byte> command = new List<byte>() { 0xf8, 0x55, 0xce };
+                //command.AddRange(BitConverter.GetBytes(len));
+                //command.AddRange(data);
+                //command.AddRange(BitConverter.GetBytes(crc));
+                //return command.ToArray();              
+            }          
 
 
             private static byte[] MakeCommand(byte[] data)
@@ -349,6 +403,11 @@ namespace MassK.Data
                 return result;
             }
 
+            /// <summary>
+            ///  Контрольная сумма
+            /// </summary>
+            /// <param name="data"></param>
+            /// <returns></returns>
             private static ushort CRC(byte[] data)
             {
                 ushort crc = 0;
