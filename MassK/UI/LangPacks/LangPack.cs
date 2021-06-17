@@ -196,8 +196,6 @@ namespace MassK.UI.LangPacks
             return buffer;
         }
 
-
-
         internal static int GetCodePage()
         {
             return  int.TryParse( _lang.CodePage,  out int cod)? cod: 0 ;

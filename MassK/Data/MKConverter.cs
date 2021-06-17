@@ -153,7 +153,7 @@ namespace MassK.Data
         {
             long version = -1;
             string last_file = null;
-            foreach (var file in Directory.GetFiles(saveDirectory, "64PC*.dat"))
+            foreach (var file in Directory.GetFiles(saveDirectory, "11PC*.dat"))
             {
                 string file_name = Path.GetFileNameWithoutExtension(file);
                 if (file_name.Length == 14 && long.TryParse(file_name.Substring(4, 10), out long result) && result > version)
@@ -192,10 +192,10 @@ namespace MassK.Data
             last_file = file.last_file;
 
                 version++;
-            using(FileStream fs = new FileStream(Path.Combine(saveDirectory, $"64PC{version:D10}.dat"), FileMode.OpenOrCreate))
+            using(FileStream fs = new FileStream(Path.Combine(saveDirectory, $"11PC{version:D10}.dat"), FileMode.OpenOrCreate))
             using(BinaryWriter bw = new BinaryWriter(fs, encoding))
             {
-                byte[] buffer = encoding.GetBytes($"64PC{version:D10}");
+                byte[] buffer = encoding.GetBytes($"11PC{version:D10}");
                 bw.Write(buffer);
 
                 byte[] pic_data;

@@ -42,8 +42,8 @@ namespace MassK.Data
             {
                 PROD = 1,
                 PLU = 5,
-                KB = 31,
-                Keyboard = 11
+                KB = 11,
+                //Keyboard = 11
             }
 
             public static string GetScaleFileName(ScaleFileNum num, string rootPath, bool fullName = false)
@@ -272,7 +272,6 @@ namespace MassK.Data
             /// <param name="filePath">Путь к dat файлу клавиатуры</param>
             public static void UploadKBFile(ScaleInfo scale, string filePath)
             {
-                //TODO Выгрузка данных в весы по аналогии с загрузкой. Только комманды TCP_DFILE и файл клавиатуры нужно разбивать по 1024 байта.
                 Socket socket = null;
 
                 socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -280,7 +279,6 @@ namespace MassK.Data
                 socket.Send(CMD.TCP_SET_WORK_MODE);
 
                 byte[] buffer = new byte[1024];
-                //byte[] buffer = new byte[2048];
                 int bytes = socket.Receive(buffer, buffer.Length, SocketFlags.None);
                 byte[] data = buffer.Take(bytes).ToArray();
                 data = CMD.GetData(data);
@@ -289,6 +287,8 @@ namespace MassK.Data
                     throw new ApplicationException("Ошибка установки режима работы весов");
                 RAWFiles.ScaleFileNum fileNum = RAWFiles.ScaleFileNum.KB;
 
+                //TODO Выгрузка данных в весы по аналогии с загрузкой.
+                //Только комманды TCP_DFILE и файл клавиатуры нужно разбивать по 1024 байта.
                 using (FileStream fs = new FileStream(filePath, FileMode.Open))
                 {
                     ushort cur_part =0 ;

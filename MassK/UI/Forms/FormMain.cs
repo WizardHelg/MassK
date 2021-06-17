@@ -52,8 +52,8 @@ namespace MassK.UI.Forms
         protected override void OnLoad(EventArgs e)
         {
             _is_initial = true;
-            
-            FillLangs();      
+
+            FillLangs();
             SetDataGrid();
             dataGrid.DataError += DataGrid_DataError;
             dataGrid.DataSource = _binding;
@@ -86,7 +86,7 @@ namespace MassK.UI.Forms
             string folderFlag = SettingManager.FlagPath;
             foreach (Localization lang in LangPack.LangPacks)
             {
-                Image image = lang.GetFlag(folderFlag); 
+                Image image = lang.GetFlag(folderFlag);
 
                 ToolStripMenuItem itm = new ToolStripMenuItem(lang.NameLocal, image);
                 itm.Click += LangList_SelectedIndexChanged;
@@ -145,7 +145,7 @@ namespace MassK.UI.Forms
                 (typeof(DGVTBColumn), "ImagePath", "ImagePath", "ImagePath", true, DGASMode.AllCells, false)
             };
 
-            foreach(var item in DGSetting)
+            foreach (var item in DGSetting)
             {
                 DGVColumn col = Activator.CreateInstance(item.Type) as DGVColumn;
                 col.Name = item.Name;
@@ -155,7 +155,7 @@ namespace MassK.UI.Forms
                 col.AutoSizeMode = item.AutoSizeMode;
                 col.Visible = item.Visible;
                 col.SortMode = DataGridViewColumnSortMode.Programmatic;
-                col.HeaderCell.Style.Alignment= DataGridViewContentAlignment.MiddleCenter;
+                col.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 dataGrid.Columns.Add(col);
             }
 
@@ -191,12 +191,12 @@ namespace MassK.UI.Forms
             column.ReadOnly = value.ReadOnly;
             column.DefaultCellStyle.BackColor = value.Color;
         }
-      
+
 
         private void MenuSettings_ProductCategories_Click(object sender, EventArgs e)
         {
             var form = new FormProductCategories();
-            if(form.ShowDialog() == DialogResult.OK)
+            if (form.ShowDialog() == DialogResult.OK)
             {
                 _combo_box_column_binding.DataSource = SettingManager.Categories;
                 _combo_box_column_binding.ResetBindings(false);
@@ -206,17 +206,17 @@ namespace MassK.UI.Forms
         private void MenuFile_LoadFromUSB_Click(object sender, EventArgs e)
         {
             string usb_path = ConnectionManager.USB.FindUsbPath();
-            if(usb_path == null)
+            if (usb_path == null)
             {
-               // MessageBox.Show(LangPack.GetText("MainFormNotFoundUSB"), LangPack.GetText("MSGBoxHeader"), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                MessageBox.Show(LangPack.GetText("MainFormNotFoundUSB"),string.Empty , MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // MessageBox.Show(LangPack.GetText("MainFormNotFoundUSB"), LangPack.GetText("MSGBoxHeader"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(LangPack.GetText("MainFormNotFoundUSB"), string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             var prod_path = ConnectionManager.RAWFiles.GetScaleFileName(ScaleFileNum.PROD, usb_path, true);
             var plu_path = ConnectionManager.RAWFiles.GetScaleFileName(ScaleFileNum.PLU, usb_path, true);
 
-            if(!File.Exists(prod_path) || !File.Exists(plu_path))
+            if (!File.Exists(prod_path) || !File.Exists(plu_path))
             {
                 MessageBox.Show(LangPack.GetText("MainFormWrongUSBData"), string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -266,7 +266,7 @@ namespace MassK.UI.Forms
             else
                 main_flag = true;
 
-            ButtonUploadToScales.Visible= main_flag;
+            ButtonUploadToScales.Visible = main_flag;
             ButtonSaveToUsb.Visible = main_flag;
             ButtonClearFilter.Visible = main_flag;
             CBoxFields.Visible = main_flag;
@@ -278,14 +278,12 @@ namespace MassK.UI.Forms
 
             ButtonProducts.Visible = lockContol != LockContolEnum.All;
             MenuFile_LoadFromPC.Visible = CheckProjectonPC();
-
             //ButtonUploadToScales.Enabled = main_flag;
             //ButtonSaveToUsb.Enabled = main_flag;            
             //CBoxFields.Enabled = main_flag;
             //MenuFile_SaveToPC.Enabled = main_flag;
             //TboxFilter.Enabled = main_flag;
             //ShowProductsWithoutPicturies.Enabled = main_flag;
-
             //ButtonProducts.Enabled = lockContol != LockContolEnum.All;
             //MenuFile_LoadFromPC.Enabled = CheckProjectonPC();
         }
@@ -296,7 +294,7 @@ namespace MassK.UI.Forms
 
             //проверка категорий
             var err_list = _keyboard.FindAll(x => string.IsNullOrWhiteSpace(x.Category));
-            if(err_list.Count > 0)
+            if (err_list.Count > 0)
             {
                 _binding.DataSource = err_list;
                 MessageBox.Show(LangPack.GetText("MainFormWrongCategory"), LangPack.GetText("MSGBoxHeader"), MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -317,13 +315,12 @@ namespace MassK.UI.Forms
                                            .Where(g => g.Count() > 1)
                                            .SelectMany(x => x)
                                            .ToList());
-
-                if(err_list.Count > 0)
+                if (err_list.Count > 0)
                 {
                     _binding.DataSource = err_list;
                     MessageBox.Show(LangPack.GetText("MainFormWrongNumber"), LangPack.GetText("MSGBoxHeader"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
-                } 
+                }
             }
 
             //Проверка картинок
@@ -353,24 +350,32 @@ namespace MassK.UI.Forms
 
         private void ButtonUploadToScales_Click(object sender, EventArgs e)
         {
-            string folder = SettingManager.RootPath;
-            //При помощи MKConverter зашифровать данные клавиатуры
+            try
+            {
 
-            MKConverter.KBToDat(_keyboard, folder);
+                string folder = SettingManager.RootPath;
+                //При помощи MKConverter зашифровать данные клавиатуры
 
-            // string path = Path.Combine(SettingManager.RootPath, ConnectionManager.RAWFiles.GetDefaultFileName(ScaleFileNum.KB));
-            var file = MKConverter.GetFileLastVersion(folder);
-            //При помощи ConnectionManager выгрузит в весы.
-            foreach (var scale in SettingManager.ScaleInfos)
-                if (scale.Unload)
-                    ConnectionManager.Connection.UploadKBFile(scale, file.last_file);
+                MKConverter.KBToDat(_keyboard, folder);
+
+                // string path = Path.Combine(SettingManager.RootPath, ConnectionManager.RAWFiles.GetDefaultFileName(ScaleFileNum.KB));
+                var file = MKConverter.GetFileLastVersion(folder);
+                //При помощи ConnectionManager выгрузит в весы.
+                foreach (var scale in SettingManager.ScaleInfos)
+                    if (scale.Unload)
+                        ConnectionManager.Connection.UploadKBFile(scale, file.last_file);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
 
         private void MenuSettings_ProductNumeration_Click(object sender, EventArgs e)
         {
             var form = new FormProductNumeration();
-            if(form.ShowDialog() == DialogResult.OK)
+            if (form.ShowDialog() == DialogResult.OK)
                 PLUNumeration();
         }
 
@@ -392,11 +397,12 @@ namespace MassK.UI.Forms
         }
         private void MenuFile_LoadFromPC_Click(object sender, EventArgs e)
         {
+
             _products = SettingManager.Load<Product>();
             _keyboard = SettingManager.Load<KeyboardItem>();
 
             foreach (var item in _keyboard)
-                if(File.Exists(item.ImagePath))
+                if (File.Exists(item.ImagePath))
                     using (FileStream fs = new FileStream(item.ImagePath, FileMode.Open))
                         item.Picture = Image.FromStream(fs);
 
@@ -532,7 +538,7 @@ namespace MassK.UI.Forms
 
         private void ShowDescription_Click(object sender, EventArgs e)
         {
-            new FormDescription().ShowDialog();         
+            new FormDescription().ShowDialog();
         }
 
         private void ButtonHelp_Click(object sender, EventArgs e)
@@ -541,7 +547,7 @@ namespace MassK.UI.Forms
             frm.HelpText = LangPack.GetText("MainFormHelp");
             frm.ShowDialog();
         }
-                           
+
         private void MenuFile_LoadFromScales_Click(object sender, EventArgs e)
         {
             //TODO тут надо загрузить файлы 1 - продуктовый, 2- PLU и 31 - клавиатура если есть
@@ -553,10 +559,10 @@ namespace MassK.UI.Forms
             string kb_path = Path.Combine(SettingManager.RootPath, ConnectionManager.RAWFiles.GetDefaultFileName(ScaleFileNum.KB));
 
             ScaleInfo scale = SettingManager.ScaleInfos.First(x => x.Load);  //TODO тут как то получить одни весы. Так как выгрузка данных из пачики весов лишина смысла
-            
-            if (scale is null )
+
+            if (scale is null)
             {
-                MessageBox.Show("Выберите весы","Отсуттствуют весы",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                MessageBox.Show("Выберите весы", "Отсуттствуют весы", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ShowScales();
             }
 
@@ -567,7 +573,7 @@ namespace MassK.UI.Forms
             try
             {
                 ConnectionManager.Connection.LoadFile(scale, kb_path, ScaleFileNum.KB);
-             List<KeyboardItem> keyboardItems = MKConverter.KBFromDat(kb_path, LangPack.GetCodePage());
+                List<KeyboardItem> keyboardItems = MKConverter.KBFromDat(kb_path, LangPack.GetCodePage());
             }
             catch (Exception) { };
 
@@ -587,9 +593,9 @@ namespace MassK.UI.Forms
             string plu_path = Path.Combine(SettingManager.RootPath, ConnectionManager.RAWFiles.GetDefaultFileName(ScaleFileNum.PLU));
             string kb_path = Path.Combine(SettingManager.RootPath, ConnectionManager.RAWFiles.GetDefaultFileName(ScaleFileNum.KB));
 
-          // string savePath = "";
+            // string savePath = "";
             ScaleInfo scale = SettingManager.ScaleInfos.First(x => x.Load);
             ScaleCommandTest.GetInfo(scale, prod_path, ScaleFileNum.PROD);
-        }       
+        }
     }
 }

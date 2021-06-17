@@ -15,6 +15,7 @@ namespace MassK.Settings
     {
         public static string RootPath { get; set; } = Application.StartupPath;
         public static string LangPath { get; set; } = Path.Combine(RootPath, "Lang");
+        public static string Projects { get; set; } = Path.Combine(RootPath, "Projects");
         public static string FlagPath { get; set; } = Path.Combine(Settings.SettingManager.LangPath, "Flags");
         public static string ImagePath { get; set; } = Path.Combine(RootPath, "Images");
         public static string ProgrammPictures { get; set; } = Path.Combine(ImagePath, "ProgrammPictures");
@@ -257,8 +258,6 @@ namespace MassK.Settings
 
             return buffer;
         }
-
-
 
         private static Dictionary<string, string> _codePages = new Dictionary<string, string>()
         {
