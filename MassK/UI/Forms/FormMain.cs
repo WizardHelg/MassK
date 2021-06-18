@@ -276,17 +276,10 @@ namespace MassK.UI.Forms
             ShowProductsWithoutPicturies.Visible = main_flag;
             FindProduct.Visible = main_flag;
             InField.Visible = main_flag;
+            
 
             ButtonProducts.Visible = lockContol != LockContolEnum.All;
-            MenuFile_LoadFromPC.Visible = CheckProjectonPC();
-            //ButtonUploadToScales.Enabled = main_flag;
-            //ButtonSaveToUsb.Enabled = main_flag;            
-            //CBoxFields.Enabled = main_flag;
-            //MenuFile_SaveToPC.Enabled = main_flag;
-            //TboxFilter.Enabled = main_flag;
-            //ShowProductsWithoutPicturies.Enabled = main_flag;
-            //ButtonProducts.Enabled = lockContol != LockContolEnum.All;
-            //MenuFile_LoadFromPC.Enabled = CheckProjectonPC();
+            MenuFile_LoadFromPC.Visible = CheckProjectonPC();           
         }
 
         private void ButtonSaveToUsb_Click(object sender, EventArgs e)
@@ -386,16 +379,21 @@ namespace MassK.UI.Forms
             //SettingManager.Save(_keyboard);
 
             ProjectManager.SaveProject(_products, _keyboard);
-            MenuFile_LoadFromPC.Enabled = true;
+           // MenuFile_LoadFromPC.Enabled = true;
+          //  MenuFile_LoadFromPC.Visible = true;
+           MenuFile_LoadFromPC.Visible = CheckProjectonPC();
         }
 
         private bool CheckProjectonPC()
         {
-            if (File.Exists(Path.Combine(SettingManager.SettingPath, "Product.xml"))
-                && File.Exists(Path.Combine(SettingManager.SettingPath, "KeyBoardItem.xml")))
-                return true;
-            else
-                return false;
+            string[] files = Directory.GetFiles(SettingManager.Projects, "*.xml");
+            int count = files?.Length ?? 0;
+            return count > 0 ;
+            //if (File.Exists(Path.Combine(SettingManager.SettingPath, "Product.xml"))
+            //    && File.Exists(Path.Combine(SettingManager.SettingPath, "KeyBoardItem.xml")))
+            //    return true;
+            //else
+            //    return false;
         }
         private void MenuFile_LoadFromPC_Click(object sender, EventArgs e)
         {
@@ -564,13 +562,20 @@ namespace MassK.UI.Forms
             string plu_path = Path.Combine(SettingManager.RootPath, ConnectionManager.RAWFiles.GetDefaultFileName(ScaleFileNum.PLU));
             string kb_path = Path.Combine(SettingManager.RootPath, ConnectionManager.RAWFiles.GetDefaultFileName(ScaleFileNum.KB));
 
-            ScaleInfo scale = SettingManager.ScaleInfos.First(x => x.Load);  //TODO тут как то получить одни весы. Так как выгрузка данных из пачики весов лишина смысла
+            ScaleInfo scale = null;
+
+            if (SettingManager.ScaleInfos.Count>0)
+            scale = SettingManager.ScaleInfos.FirstOrDefault(x => x.Load);
+
+            //TODO тут как то получить одни весы. Так как выгрузка данных из пачики весов лишина смысла
 
             if (scale is null)
             {
                 MessageBox.Show("Выберите весы", "Отсуттствуют весы", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ShowScales();
+                return;
             }
+            
 
             List<Product> products = new List<Product>();
             List<KeyboardItem> keyboardItems = new List<KeyboardItem>();
@@ -615,17 +620,6 @@ namespace MassK.UI.Forms
             MessageBox.Show(LangPack.GetText("MainFormScaleDataLoaded"), string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-
-        private void toolStripButton1_Click(object sender, EventArgs e)
-        {
-            string prod_path = Path.Combine(SettingManager.RootPath, ConnectionManager.RAWFiles.GetDefaultFileName(ScaleFileNum.PROD));
-            string plu_path = Path.Combine(SettingManager.RootPath, ConnectionManager.RAWFiles.GetDefaultFileName(ScaleFileNum.PLU));
-            string kb_path = Path.Combine(SettingManager.RootPath, ConnectionManager.RAWFiles.GetDefaultFileName(ScaleFileNum.KB));
-
-            // string savePath = "";
-            ScaleInfo scale = SettingManager.ScaleInfos.First(x => x.Load);
-            ScaleCommandTest.GetInfo(scale, prod_path, ScaleFileNum.PROD);
-        }
 
         private void MenuFile_DropDownOpening(object sender, EventArgs e)
         {

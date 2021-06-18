@@ -95,8 +95,6 @@ namespace MassK.Data
             return buffer.Values.ToList();
         }
 
-
-
         /// <summary>
         /// Загружает файл клавиатуры
         /// </summary>
@@ -153,7 +151,6 @@ namespace MassK.Data
         {
             long version = -1;
             string last_file = null;
-            //foreach (var file in Directory.GetFiles(saveDirectory, "11PC*.dat"))
             foreach (var file in Directory.GetFiles(saveDirectory, $"{prefix}*.dat"))
             {
                 string file_name = Path.GetFileNameWithoutExtension(file);
@@ -179,15 +176,7 @@ namespace MassK.Data
             long version = -1;
             string last_file = null;
 
-            //foreach(var file in Directory.GetFiles( saveDirectory, "64PC*.dat"))
-            //{
-            //    string file_name = Path.GetFileNameWithoutExtension(file);
-            //    if(file_name.Length == 14 && long.TryParse(file_name.Substring(4, 10), out long result) && result > version)
-            //    {
-            //        version = result;
-            //        last_file = file;
-            //    }
-            //}    
+       
             var file = GetFileLastVersion(saveDirectory, "11PC");
             version = file.version;
             last_file = file.last_file;
@@ -239,134 +228,6 @@ namespace MassK.Data
             if (File.Exists(last_file))
                 File.Delete(last_file);
         }
-
-
-        //public static void ProdToDat(List<Product> products, string saveDirectory, string logoPath = null, int CodePage = 0)
-        //{
-        //    Encoding encoding = CodePage > 0 ? Encoding.GetEncoding(CodePage) : Encoding.Default;
-        //    long version = -1;
-        //    string last_file = null;
-        //    int scaleFileNum = (int)ConnectionManager.RAWFiles.ScaleFileNum.PROD;
-        //    string prefixFilename = $"{scaleFileNum}PC";
-        //    string fileName = $"{prefixFilename}{version:D10}";
-
-        //    var file = GetFileLastVersion(saveDirectory, prefixFilename);
-
-        //    version = file.version;
-        //    last_file = file.last_file;
-        //    version++;
-
-        //    using (FileStream fs = new FileStream(Path.Combine(saveDirectory, $"{fileName}.dat"), FileMode.OpenOrCreate))
-        //    using (BinaryWriter bw = new BinaryWriter(fs, encoding))
-        //    {
-        //        byte[] buffer = encoding.GetBytes(fileName);
-        //        bw.Write(buffer);
-
-        //        //byte[] pic_data;
-        //        //if (logoPath != null)
-        //        //{
-        //        //    using (FileStream pfs = new FileStream(logoPath, FileMode.Open))
-        //        //    {
-        //        //        pic_data = new byte[pfs.Length];
-        //        //        pfs.Read(pic_data, 0, pic_data.Length);
-        //        //    }
-
-        //        //    bw.Write(0);
-        //        //    bw.Write(2 + pic_data.Length);
-        //        //    bw.Write(0);
-        //        //    bw.Write(pic_data.Length);
-        //        //    bw.Write(pic_data);
-        //        //}
-        //        // foreach(Product product in products)
-
-
-        //        /// delete 
-        //        //    foreach (var key in KeyboardItem)
-        //        //    {
-        //        //        using (FileStream pfs = new FileStream(key.ImagePath, FileMode.Open))
-        //        //        {
-        //        //            pic_data = new byte[pfs.Length];
-        //        //            pfs.Read(pic_data, 0, pic_data.Length);
-        //        //        }
-        //        //        byte[] category = encoding.GetBytes(key.Category);
-
-        //        //        bw.Write(key.ID);
-        //        //        bw.Write(16 + pic_data.Length + category.Length);
-        //        //        bw.Write(key.PictureID);
-        //        //        bw.Write(pic_data.Length);
-        //        //        bw.Write(pic_data);
-        //        //        bw.Write(key.Number);
-        //        //        bw.Write(key.CategoryID);
-        //        //        bw.Write((ushort)category.Length);
-        //        //        bw.Write(category);
-        //        //    }
-        //    }
-        //    if (File.Exists(last_file))
-        //        File.Delete(last_file);
-        //}
-        
-        //public static void ProdToDat(List<Product> products, string saveDirectory, string logoPath = null, int CodePage = 0)
-        //{
-        //    Encoding encoding = CodePage > 0 ? Encoding.GetEncoding(CodePage) : Encoding.Default;
-        //    long version = -1;
-        //    string last_file = null;
-        //    int scaleFileNum = (int)ConnectionManager.RAWFiles.ScaleFileNum.PROD;
-        //    string prefixFilename = $"{scaleFileNum}PC";
-        //    string fileName = $"{prefixFilename}{version:D10}";
-
-        //    var file = GetFileLastVersion(saveDirectory, prefixFilename);
-
-        //    version = file.version;
-        //    last_file = file.last_file;
-        //    version++;
-
-        //    using (FileStream fs = new FileStream(Path.Combine(saveDirectory, $"{fileName}.dat"), FileMode.OpenOrCreate))
-        //    using (BinaryWriter bw = new BinaryWriter(fs, encoding))
-        //    {
-        //        byte[] buffer = encoding.GetBytes(fileName);
-        //        bw.Write(buffer);
-
-        //        //byte[] pic_data;
-        //        //if (logoPath != null)
-        //        //{
-        //        //    using (FileStream pfs = new FileStream(logoPath, FileMode.Open))
-        //        //    {
-        //        //        pic_data = new byte[pfs.Length];
-        //        //        pfs.Read(pic_data, 0, pic_data.Length);
-        //        //    }
-
-        //        //    bw.Write(0);
-        //        //    bw.Write(2 + pic_data.Length);
-        //        //    bw.Write(0);
-        //        //    bw.Write(pic_data.Length);
-        //        //    bw.Write(pic_data);
-        //        //}
-        //        // foreach(Product product in products)
-
-
-        //        /// delete 
-        //        //    foreach (var key in KeyboardItem)
-        //        //    {
-        //        //        using (FileStream pfs = new FileStream(key.ImagePath, FileMode.Open))
-        //        //        {
-        //        //            pic_data = new byte[pfs.Length];
-        //        //            pfs.Read(pic_data, 0, pic_data.Length);
-        //        //        }
-        //        //        byte[] category = encoding.GetBytes(key.Category);
-
-        //        //        bw.Write(key.ID);
-        //        //        bw.Write(16 + pic_data.Length + category.Length);
-        //        //        bw.Write(key.PictureID);
-        //        //        bw.Write(pic_data.Length);
-        //        //        bw.Write(pic_data);
-        //        //        bw.Write(key.Number);
-        //        //        bw.Write(key.CategoryID);
-        //        //        bw.Write((ushort)category.Length);
-        //        //        bw.Write(category);
-        //        //    }
-        //    }
-        //    if (File.Exists(last_file))
-        //        File.Delete(last_file);
-        //}
+      
     }
 }

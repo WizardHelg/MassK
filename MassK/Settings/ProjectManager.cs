@@ -15,7 +15,6 @@ namespace MassK.Settings
         private static readonly string _folder = SettingManager.Projects;
         public static List<Project> Projects { get => LoadProjectsFromFolder(_folder); }
 
-        private static List<Project> _projects;
 
         private static List<Project> LoadProjectsFromFolder(string folder)
         {
@@ -64,17 +63,12 @@ namespace MassK.Settings
 
                 string projectName = $"SL_Scale_Keyboard_Project_" +
                                      $"{DateTime.Now.ToShortDateString()}.xml";
-                // string fileName = Path.Combine(folder, projectName);
                 SaveFileDialog sfd = new SaveFileDialog()
                 {
                     InitialDirectory = folder,
-                    // Filter = "XML|\"*.xml\"",
-                    //DefaultExt = ".xml"                    
                     FileName = projectName
                 };
                 if (sfd.ShowDialog() != DialogResult.OK) throw new ApplicationException("Отмена выбора файла.");
-                //fileName = sfd.FileName;
-                //return fileName;
                 return sfd.FileName;
             }
         }

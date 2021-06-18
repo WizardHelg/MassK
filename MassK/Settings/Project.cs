@@ -5,8 +5,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace MassK.Settings
@@ -45,8 +43,6 @@ namespace MassK.Settings
         private string _fileName = default;
         private XDocument _xDocument = default;
         
-        
-        public Project() { }
         public Project(string fileName)
         {
             _fileName = fileName;
@@ -59,7 +55,6 @@ namespace MassK.Settings
                 Name = Path.GetFileNameWithoutExtension(fileName);
             }
         }
-        //private void
 
         /// <summary>
         ///  Сохранить в файл.
@@ -102,58 +97,7 @@ namespace MassK.Settings
             }
             return root;
         }
-
-
-
-
-        /// <summary>
-        /// Загрузить из фала 
-        /// </summary>
-        //private void Load(XElement root)
-        //{
-
-        //   XElement xeListObjectsRoot = root.Element($"{}")
-        //    Products = GetListObjectsFromElement(xeListObjectsRoot);
-        //    KeyboardItems = GetListObjectsFromElement(xeListObjectsRoot);
-        //    /// Собираем объекты в список
-        //    List<T> GetListObjectsFromElement(XElement objListRoot)
-        //    {
-        //        List<T> buffer = new List<T>();
-        //        foreach (XElement element in objListRoot.Elements())
-        //        {
-        //            T itm = GetObjectFromElement(xeListObjectsRoot);
-        //            if (itm != null) objects.Add(itm);
-        //        }
-
-        //        T GetObjectFromElement(XElement objRoot)
-        //        {
-        //            Type type = typeof(T);
-        //            T item = new T();
-        //            foreach (var child_element in objRoot.Elements())
-        //            {
-        //                if (type.GetProperty(child_element.Name.LocalName) is PropertyInfo prop)
-        //                {
-        //                    if (prop.PropertyType.IsValueType)
-        //                    {
-        //                        try
-        //                        {
-        //                            prop.SetValue(item, Convert.ChangeType(child_element.Value, prop.PropertyType));
-        //                        }
-        //                        catch
-        //                        {
-        //                            item = null;
-        //                            break;
-        //                        }
-        //                    }
-        //                    else
-        //                        prop.SetValue(item, child_element.Value);
-        //                }
-        //            }
-        //            return item;
-        //        }
-        //        return buffer;
-        //    }
-        //}
+             
 
         private static List<T> Load<T>(XElement root) where T : class, new()
         {
@@ -205,87 +149,7 @@ namespace MassK.Settings
                 }
                 return buffer;
             }
-        }
-
-
-        private static List<T> Load<T>(string path) where T : class, new()
-        {
-            // string path = Path.Combine(SettingManager.SettingPath, $"{typeof(T).Name}.xml");
-            List<T> buffer = new List<T>();
-
-            if (!File.Exists(path))
-            {
-                throw new ApplicationException("File not exist!");
-                //   SaveListObjects(buffer, path);
-                //  return buffer;
-            }
-
-            Type type = typeof(T);
-            XDocument x_doc = XDocument.Load(path);
-
-            foreach (var elemet in x_doc.Root.Elements())
-            {
-                T item = new T();
-                foreach (var child_element in elemet.Elements())
-                {
-                    if (type.GetProperty(child_element.Name.LocalName) is PropertyInfo prop)
-                    {
-                        if (prop.PropertyType.IsValueType)
-                        {
-                            try
-                            {
-                                prop.SetValue(item, Convert.ChangeType(child_element.Value, prop.PropertyType));
-                            }
-                            catch
-                            {
-                                item = null;
-                                break;
-                            }
-                        }
-                        else
-                            prop.SetValue(item, child_element.Value);
-                    }
-                }
-
-                if (item != null)
-                    buffer.Add(item);
-            }
-
-            return buffer;
-        }
-        //    private static void Save<T>(List<T> data, string path) where T : class
-        //    {
-        //        XElement root = new XElement("Data");
-        //        Type type = typeof(T);
-        //        List<PropertyInfo> props = (from prop in type.GetProperties()
-        //                                    let prop_type = prop.PropertyType
-        //                                    where prop_type.IsValueType || prop_type == typeof(string)
-        //                                    select prop).ToList();
-
-        //        foreach (T item in data)
-        //        {
-        //            XElement element = new XElement(type.Name);
-
-        //            foreach (var prop in props)
-        //            {
-        //                if (prop.PropertyType != typeof(Image) && prop.GetCustomAttribute(typeof(NonSaveAttribute)) == null)
-        //                {
-        //                    element.Add(new XElement(
-        //                        prop.Name,
-        //                        prop.GetValue(item)?.ToString() ?? ""));
-        //                }
-        //            }
-
-        //            root.Add(element);
-        //        }
-
-        //        XDocument x_doc = new XDocument(root);
-
-        //        if (!Directory.Exists(SettingPath))
-        //            Directory.CreateDirectory(SettingPath);
-
-        //        x_doc.Save(Path.Combine(SettingPath, $"{type.Name}.xml"));
-        //    }
+        }             
     }
 }
 

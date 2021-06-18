@@ -44,29 +44,7 @@ namespace MassK.Settings
                 SaveToXml("CodePage", $"{_code_page.CodePage}");
             }
         }
-        ///// <summary>
-        ///// Сохраненное в настройках имя кодовой страницы
-        ///// </summary>
-        //public static string NameCodePage
-        //{
-        //    get
-        //    {
-        //        if (_lang != "Русский")
-        //            return _code_page?.Name ?? "";
-        //        else
-        //            return _code_page?.DisplayName ?? "";
-        //    }
-        //    set
-        //    {
-        //        if (_lang != "Русский")
-        //            _code_page = _encoding_infos.Find(x => x.Name == value);
-        //        else
-        //            _code_page = _encoding_infos.Find(x => x.DisplayName == value);
-
-        //        SaveToXml("CodePage", $"{_code_page.CodePage}");
-        //    }
-        //}
-
+     
         private static string _lang;
         /// <summary>
         /// Сохраненный в настройках язык
