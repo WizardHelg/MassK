@@ -1,23 +1,23 @@
-﻿using System;
+﻿using MassK.BL;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace MassK.Settings
 {
-    class ProjectManager
+    static class ProjectManager
     {
-        private readonly string _folder = SettingManager.Projects;
-        public List<Project> Projects { get; private set; }
-        public ProjectManager()
-        {
-            Projects = LoadProjectsFromFolder(_folder);
-        }
+        private static readonly string _folder = SettingManager.Projects;
+        public static List<Project> Projects { get => LoadProjectsFromFolder(_folder); } 
+    
+        private static List<Project> _projects;
 
-        private List<Project> LoadProjectsFromFolder(string folder)
+        private static List<Project> LoadProjectsFromFolder(string folder)
         {
             List<Project> projects = new List<Project>();
             foreach (string file in Directory.GetFiles(folder, "*.xml"))
@@ -25,10 +25,7 @@ namespace MassK.Settings
                 try
                 {
                     Project project = new Project(file);
-                    if (project != null)
-                    {
-
-                    }
+                        projects.Add(project);
                 }
                 catch (Exception ex)
                 {
@@ -39,5 +36,44 @@ namespace MassK.Settings
             }
             return projects;
         }
+
+        internal static void SaveProject(List<Product> products, List<KeyboardItem> keyboard)
+        {
+            try
+            {
+                string fileName = GetNameNewProject();
+                Project project = new Project(fileName)
+                {
+                    KeyboardItems = keyboard,
+                    Products = products
+                };
+                project.Save();
+            }
+            catch (ApplicationException ex) { }
+
+            string GetNameNewProject()
+            {
+                string folder = SettingManager.Projects;
+                if (!Directory.Exists(folder))
+                  Directory.CreateDirectory(folder);
+
+                string projectName = $"SL_Scale_Keyboard_Project_" +
+                                     $"{DateTime.Now.ToShortDateString()}.xml";
+               // string fileName = Path.Combine(folder, projectName);
+                SaveFileDialog sfd = new SaveFileDialog()
+                {
+                    InitialDirectory = folder,
+                   // Filter = "XML|\"*.xml\"",
+                    //DefaultExt = ".xml"                    
+                     FileName = projectName
+                };
+                if (sfd.ShowDialog() != DialogResult.OK) throw new ApplicationException("Отмена выбора файла.");
+                //fileName = sfd.FileName;
+                //return fileName;
+                return sfd.FileName;
+            }
+        }
+
     }
 }
+

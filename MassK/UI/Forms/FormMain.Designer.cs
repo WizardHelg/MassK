@@ -269,6 +269,7 @@ namespace MassK.UI.Forms
             this.MenuFile.Name = "MenuFile";
             this.MenuFile.Size = new System.Drawing.Size(80, 45);
             this.MenuFile.Text = "Файл";
+            this.MenuFile.DropDownOpening += new System.EventHandler(this.MenuFile_DropDownOpening);
             // 
             // MenuFile_LoadFromScales
             // 

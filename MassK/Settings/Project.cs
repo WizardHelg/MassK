@@ -1,6 +1,7 @@
 ﻿using MassK.BL;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -12,7 +13,7 @@ namespace MassK.Settings
 {
     class Project
     {
-        public string Name { get; set; }
+        public string Name { get; private set; }
         public int MyProperty { get; set; }
         public List<Product> Products
         {
@@ -20,7 +21,7 @@ namespace MassK.Settings
             {
                 if (_products is null)
                 {
-                    _products = Load<Product>(_xDocument);
+                    _products = Load<Product>(_xDocument.Root);
                 }
                 return _products;
             }
@@ -33,7 +34,7 @@ namespace MassK.Settings
             {
                 if (_keyboardItems is null)
                 {
-                    _keyboardItems = Load<KeyboardItem>(_xDocument);
+                    _keyboardItems = Load<KeyboardItem>(_xDocument.Root);
                 }
                 return _keyboardItems;
             }
@@ -43,12 +44,20 @@ namespace MassK.Settings
 
         private string _fileName = default;
         private XDocument _xDocument = default;
+        
+        
+        public Project() { }
         public Project(string fileName)
         {
             _fileName = fileName;
-            _xDocument = XDocument.Load(fileName);
-            //List<Product> products = Load<Product>(fileName);
-            //List<KeyboardItem> keyboardItems = Load<KeyboardItem>(fileName);            
+
+            if (File.Exists(fileName))
+            {
+                _xDocument = XDocument.Load(fileName);
+                Products = Load<Product>(_xDocument.Root);
+                KeyboardItems = Load<KeyboardItem>(_xDocument.Root);
+                Name = Path.GetFileNameWithoutExtension(fileName);
+            }
         }
         //private void
 
@@ -57,44 +66,106 @@ namespace MassK.Settings
         /// </summary>
         public void Save()
         {
-
+            XElement xProd = SaveListObjects<Product>(_products);
+            XElement xKb = SaveListObjects<KeyboardItem>(_keyboardItems);
+            XElement root = new XElement("Project");
+            root.Add(xProd);
+            root.Add(xKb);            
+           _xDocument = new XDocument(root);
+            _xDocument.Save(_fileName);
         }
+
+
+        private static XElement SaveListObjects<T>(List<T> data) where T : class
+        {
+            Type type = typeof(T);
+            XElement root = new XElement($"List{type.Name}");
+            List<PropertyInfo> props = (from prop in type.GetProperties()
+                                        let prop_type = prop.PropertyType
+                                        where prop_type.IsValueType || prop_type == typeof(string)
+                                        select prop).ToList();
+
+            foreach (T item in data)
+            {
+                XElement element = new XElement(type.Name);
+
+                foreach (var prop in props)
+                {
+                    if (prop.PropertyType != typeof(Image) && prop.GetCustomAttribute(typeof(NonSaveAttribute)) == null)
+                    {
+                        element.Add(new XElement(
+                            prop.Name,
+                            prop.GetValue(item)?.ToString() ?? ""));
+                    }
+                }
+                root.Add(element);
+            }
+            return root;
+        }
+
+
+
 
         /// <summary>
         /// Загрузить из фала 
         /// </summary>
-        private void Load()
-        {
+        //private void Load(XElement root)
+        //{
 
-        }
+        //   XElement xeListObjectsRoot = root.Element($"{}")
+        //    Products = GetListObjectsFromElement(xeListObjectsRoot);
+        //    KeyboardItems = GetListObjectsFromElement(xeListObjectsRoot);
+        //    /// Собираем объекты в список
+        //    List<T> GetListObjectsFromElement(XElement objListRoot)
+        //    {
+        //        List<T> buffer = new List<T>();
+        //        foreach (XElement element in objListRoot.Elements())
+        //        {
+        //            T itm = GetObjectFromElement(xeListObjectsRoot);
+        //            if (itm != null) objects.Add(itm);
+        //        }
 
-        private static List<T> Load<T>(XDocument xDoc) where T : class, new()
+        //        T GetObjectFromElement(XElement objRoot)
+        //        {
+        //            Type type = typeof(T);
+        //            T item = new T();
+        //            foreach (var child_element in objRoot.Elements())
+        //            {
+        //                if (type.GetProperty(child_element.Name.LocalName) is PropertyInfo prop)
+        //                {
+        //                    if (prop.PropertyType.IsValueType)
+        //                    {
+        //                        try
+        //                        {
+        //                            prop.SetValue(item, Convert.ChangeType(child_element.Value, prop.PropertyType));
+        //                        }
+        //                        catch
+        //                        {
+        //                            item = null;
+        //                            break;
+        //                        }
+        //                    }
+        //                    else
+        //                        prop.SetValue(item, child_element.Value);
+        //                }
+        //            }
+        //            return item;
+        //        }
+        //        return buffer;
+        //    }
+        //}
+
+        private static List<T> Load<T>(XElement root) where T : class, new()
         {
             List<T> objects = new List<T>();
             string objName = typeof(T).Name;
-            XElement xeListObjectsRoot = xDoc.Root.Element(objName);
-            if (xeListObjectsRoot == null)
+            XElement xeListObjects = root.Element($"List{objName}");
+            if (xeListObjects !=null)
             {
-                throw new ApplicationException($"Элемент {objName} не сохранен в проекте");
+            objects = GetListObjectsFromElement(xeListObjects);
             }
-            #region
-            /*
-            XElement xeListObjectsRoot = GetElement(xDoc.Root, objName);
-             XElement GetElement(XElement root, string name)
-            {
-                foreach (var element in root.Elements())
-                {
-                    if (element.Name == name)
-                    {
-                        return element;
-                    }
-                }
-                throw new ApplicationException($"Элемент {name} не сохранен в проекте");
-            }
-        */
-            #endregion
+            return objects;
 
-            objects = GetListObjectsFromElement(xeListObjectsRoot);
 
             /// Собираем объекты в список
             List<T> GetListObjectsFromElement(XElement objListRoot)
@@ -102,8 +173,8 @@ namespace MassK.Settings
                 List<T> buffer = new List<T>();
                 foreach (XElement element in objListRoot.Elements())
                 {
-                    T itm = GetObjectFromElement(xeListObjectsRoot);
-                    if (itm != null) objects.Add(itm);
+                    T itm = GetObjectFromElement(element);
+                    if (itm != null) buffer.Add(itm);
                 }
 
                 T GetObjectFromElement(XElement objRoot)
@@ -134,9 +205,9 @@ namespace MassK.Settings
                 }
                 return buffer;
             }
-
-            return objects;
         }
+
+
         private static List<T> Load<T>(string path) where T : class, new()
         {
             // string path = Path.Combine(SettingManager.SettingPath, $"{typeof(T).Name}.xml");
@@ -144,8 +215,9 @@ namespace MassK.Settings
 
             if (!File.Exists(path))
             {
-                Save(buffer, path);
-                return buffer;
+                throw new ApplicationException("File not exist!");
+                //   SaveListObjects(buffer, path);
+                //  return buffer;
             }
 
             Type type = typeof(T);
@@ -181,39 +253,39 @@ namespace MassK.Settings
 
             return buffer;
         }
-        private static void Save<T>(List<T> data, string path) where T : class
-        {
-            XElement root = new XElement("Data");
-            Type type = typeof(T);
-            List<PropertyInfo> props = (from prop in type.GetProperties()
-                                        let prop_type = prop.PropertyType
-                                        where prop_type.IsValueType || prop_type == typeof(string)
-                                        select prop).ToList();
+        //    private static void Save<T>(List<T> data, string path) where T : class
+        //    {
+        //        XElement root = new XElement("Data");
+        //        Type type = typeof(T);
+        //        List<PropertyInfo> props = (from prop in type.GetProperties()
+        //                                    let prop_type = prop.PropertyType
+        //                                    where prop_type.IsValueType || prop_type == typeof(string)
+        //                                    select prop).ToList();
 
-            foreach (T item in data)
-            {
-                XElement element = new XElement(type.Name);
+        //        foreach (T item in data)
+        //        {
+        //            XElement element = new XElement(type.Name);
 
-                foreach (var prop in props)
-                {
-                    if (prop.PropertyType != typeof(Image) && prop.GetCustomAttribute(typeof(NonSaveAttribute)) == null)
-                    {
-                        element.Add(new XElement(
-                            prop.Name,
-                            prop.GetValue(item)?.ToString() ?? ""));
-                    }
-                }
+        //            foreach (var prop in props)
+        //            {
+        //                if (prop.PropertyType != typeof(Image) && prop.GetCustomAttribute(typeof(NonSaveAttribute)) == null)
+        //                {
+        //                    element.Add(new XElement(
+        //                        prop.Name,
+        //                        prop.GetValue(item)?.ToString() ?? ""));
+        //                }
+        //            }
 
-                root.Add(element);
-            }
+        //            root.Add(element);
+        //        }
 
-            XDocument x_doc = new XDocument(root);
+        //        XDocument x_doc = new XDocument(root);
 
-            if (!Directory.Exists(SettingPath))
-                Directory.CreateDirectory(SettingPath);
+        //        if (!Directory.Exists(SettingPath))
+        //            Directory.CreateDirectory(SettingPath);
 
-            x_doc.Save(Path.Combine(SettingPath, $"{type.Name}.xml"));
-        }
+        //        x_doc.Save(Path.Combine(SettingPath, $"{type.Name}.xml"));
+        //    }
     }
 }
-}
+

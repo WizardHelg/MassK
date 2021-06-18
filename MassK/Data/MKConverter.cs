@@ -28,14 +28,14 @@ namespace MassK.Data
         /// <returns>Список продуктов</returns>
         public static List<Product> ProdFromDat(string prodPath, string pluPath, int CodePage = 0)
         {
-            
+
             Encoding encoding = CodePage > 0 ? Encoding.GetEncoding(CodePage) : Encoding.Default;
             Dictionary<uint, Product> buffer = new Dictionary<uint, Product>();
 
             long file_lenght;
             long next_record;
-            using(FileStream fs = new FileStream(prodPath, FileMode.Open))
-            using(BinaryReader br = new BinaryReader(fs, encoding))
+            using (FileStream fs = new FileStream(prodPath, FileMode.Open))
+            using (BinaryReader br = new BinaryReader(fs, encoding))
             {
                 file_lenght = fs.Length;
                 fs.Position = 14;
@@ -85,7 +85,7 @@ namespace MassK.Data
                     fs.Read(temp, 0, 6);
                     long plu = BitConverter.ToInt64(temp, 0);
 
-                    if(buffer.TryGetValue(br.ReadUInt32(), out Product product))
+                    if (buffer.TryGetValue(br.ReadUInt32(), out Product product))
                         product.PLU = plu.ToString();
 
                     fs.Position = next_record;
@@ -95,7 +95,7 @@ namespace MassK.Data
             return buffer.Values.ToList();
         }
 
-      
+
 
         /// <summary>
         /// Загружает файл клавиатуры
@@ -162,7 +162,7 @@ namespace MassK.Data
                     last_file = file;
                 }
             }
-            return (last_file,version);
+            return (last_file, version);
         }
 
         /// <summary>
@@ -191,16 +191,16 @@ namespace MassK.Data
             version = file.version;
             last_file = file.last_file;
 
-                version++;
-            using(FileStream fs = new FileStream(Path.Combine(saveDirectory, $"11PC{version:D10}.dat"), FileMode.OpenOrCreate))
-            using(BinaryWriter bw = new BinaryWriter(fs, encoding))
+            version++;
+            using (FileStream fs = new FileStream(Path.Combine(saveDirectory, $"11PC{version:D10}.dat"), FileMode.OpenOrCreate))
+            using (BinaryWriter bw = new BinaryWriter(fs, encoding))
             {
                 byte[] buffer = encoding.GetBytes($"11PC{version:D10}");
                 bw.Write(buffer);
 
                 byte[] pic_data;
                 if (logoPath != null)
-                { 
+                {
                     using (FileStream pfs = new FileStream(logoPath, FileMode.Open))
                     {
                         pic_data = new byte[pfs.Length];
@@ -213,10 +213,10 @@ namespace MassK.Data
                     bw.Write(pic_data.Length);
                     bw.Write(pic_data);
                 }
-                
+
                 foreach (var key in keyboard)
                 {
-                    
+
                     using (FileStream pfs = new FileStream(key.ImagePath, FileMode.Open))
                     {
                         pic_data = new byte[pfs.Length];
@@ -237,6 +237,12 @@ namespace MassK.Data
             }
             if (File.Exists(last_file))
                 File.Delete(last_file);
+        }
+
+
+        public static void ProdToDat(List<Product> keyboard, string saveDirectory, string logoPath = null, int CodePage = 0)
+        {
+            
         }
     }
 }

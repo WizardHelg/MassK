@@ -24,6 +24,7 @@ using ScaleFileNum = MassK.Data.ConnectionManager.RAWFiles.ScaleFileNum;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using System.Reflection;
+using System.Diagnostics;
 
 namespace MassK.UI.Forms
 {
@@ -381,9 +382,10 @@ namespace MassK.UI.Forms
 
         private void MenuFile_SaveToPC_Click(object sender, EventArgs e)
         {
-            SettingManager.Save(_products);
-            SettingManager.Save(_keyboard);
+            //SettingManager.Save(_products);
+            //SettingManager.Save(_keyboard);
 
+            ProjectManager.SaveProject(_products, _keyboard);
             MenuFile_LoadFromPC.Enabled = true;
         }
 
@@ -397,9 +399,13 @@ namespace MassK.UI.Forms
         }
         private void MenuFile_LoadFromPC_Click(object sender, EventArgs e)
         {
+           // LoadData(SettingManager.Load<Product>(), SettingManager.Load<KeyboardItem>());
+        }
 
-            _products = SettingManager.Load<Product>();
-            _keyboard = SettingManager.Load<KeyboardItem>();
+        private void LoadData(List<Product> products,List<KeyboardItem> keyboardItems)
+        {
+            _products = products;// project.Products; //SettingManager.Load<Product>();
+            _keyboard = keyboardItems;// project.KeyboardItems; //SettingManager.Load<KeyboardItem>();
 
             foreach (var item in _keyboard)
                 if (File.Exists(item.ImagePath))
@@ -596,6 +602,32 @@ namespace MassK.UI.Forms
             // string savePath = "";
             ScaleInfo scale = SettingManager.ScaleInfos.First(x => x.Load);
             ScaleCommandTest.GetInfo(scale, prod_path, ScaleFileNum.PROD);
+        }
+
+        //event EventHandler<MyEventArgs> KeyDown;// OpenProject_Click
+        private void MenuFile_DropDownOpening(object sender, EventArgs e)
+        {
+            List<Project> projects = new List<Project>();
+            MenuFile_LoadFromPC.DropDownItems.Clear();
+            foreach (Project project in ProjectManager.Projects)
+            {
+                ToolStripItem itmProj = MenuFile_LoadFromPC.DropDownItems.Add(project.Name);
+                itmProj.Tag = project;
+                itmProj.Click += LoadProject_Click;
+            }
+        }
+
+        /// <summary>
+        ///  Загрузка сохраненного проекта
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LoadProject_Click(object sender, EventArgs e)
+        {
+            ToolStripItem itmProj = (ToolStripItem)sender;
+            Project project = (Project)itmProj.Tag;
+            //Debug.WriteLine(project.Name);
+            LoadData(project.Products, project.KeyboardItems);
         }
     }
 }
