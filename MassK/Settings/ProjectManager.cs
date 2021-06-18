@@ -13,8 +13,8 @@ namespace MassK.Settings
     static class ProjectManager
     {
         private static readonly string _folder = SettingManager.Projects;
-        public static List<Project> Projects { get => LoadProjectsFromFolder(_folder); } 
-    
+        public static List<Project> Projects { get => LoadProjectsFromFolder(_folder); }
+
         private static List<Project> _projects;
 
         private static List<Project> LoadProjectsFromFolder(string folder)
@@ -25,7 +25,7 @@ namespace MassK.Settings
                 try
                 {
                     Project project = new Project(file);
-                        projects.Add(project);
+                    projects.Add(project);
                 }
                 catch (Exception ex)
                 {
@@ -49,23 +49,28 @@ namespace MassK.Settings
                 };
                 project.Save();
             }
-            catch (ApplicationException ex) { }
+            catch (ApplicationException ex)
+            {
+                #if DEBUG
+                Debug.WriteLine(ex.Message);
+                #endif
+            }
 
             string GetNameNewProject()
             {
                 string folder = SettingManager.Projects;
                 if (!Directory.Exists(folder))
-                  Directory.CreateDirectory(folder);
+                    Directory.CreateDirectory(folder);
 
                 string projectName = $"SL_Scale_Keyboard_Project_" +
                                      $"{DateTime.Now.ToShortDateString()}.xml";
-               // string fileName = Path.Combine(folder, projectName);
+                // string fileName = Path.Combine(folder, projectName);
                 SaveFileDialog sfd = new SaveFileDialog()
                 {
                     InitialDirectory = folder,
-                   // Filter = "XML|\"*.xml\"",
+                    // Filter = "XML|\"*.xml\"",
                     //DefaultExt = ".xml"                    
-                     FileName = projectName
+                    FileName = projectName
                 };
                 if (sfd.ShowDialog() != DialogResult.OK) throw new ApplicationException("Отмена выбора файла.");
                 //fileName = sfd.FileName;

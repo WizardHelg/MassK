@@ -360,7 +360,7 @@ namespace MassK.UI.Forms
                 MKConverter.KBToDat(_keyboard, folder);
 
                 // string path = Path.Combine(SettingManager.RootPath, ConnectionManager.RAWFiles.GetDefaultFileName(ScaleFileNum.KB));
-                var file = MKConverter.GetFileLastVersion(folder);
+                var file = MKConverter.GetFileLastVersion(folder, "11PC");
                 //При помощи ConnectionManager выгрузит в весы.
                 foreach (var scale in SettingManager.ScaleInfos)
                     if (scale.Unload)
@@ -399,10 +399,10 @@ namespace MassK.UI.Forms
         }
         private void MenuFile_LoadFromPC_Click(object sender, EventArgs e)
         {
-           // LoadData(SettingManager.Load<Product>(), SettingManager.Load<KeyboardItem>());
+            // LoadData(SettingManager.Load<Product>(), SettingManager.Load<KeyboardItem>());
         }
 
-        private void LoadData(List<Product> products,List<KeyboardItem> keyboardItems)
+        private void LoadData(List<Product> products, List<KeyboardItem> keyboardItems)
         {
             _products = products;// project.Products; //SettingManager.Load<Product>();
             _keyboard = keyboardItems;// project.KeyboardItems; //SettingManager.Load<KeyboardItem>();
@@ -618,6 +618,33 @@ namespace MassK.UI.Forms
         }
 
         /// <summary>
+        ///  Загрузить из файла
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MenuFile_LoadFromFile_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog()
+            {
+                InitialDirectory = SettingManager.Projects,
+                Filter = "XML(*.xml)|*.xml|All files (*.*)|*.*",
+                Multiselect = false
+            };
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    Project project = new Project(ofd.FileName);
+                LoadData(project.Products, project.KeyboardItems);
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        /// <summary>
         ///  Загрузка сохраненного проекта
         /// </summary>
         /// <param name="sender"></param>
@@ -626,8 +653,8 @@ namespace MassK.UI.Forms
         {
             ToolStripItem itmProj = (ToolStripItem)sender;
             Project project = (Project)itmProj.Tag;
-            //Debug.WriteLine(project.Name);
             LoadData(project.Products, project.KeyboardItems);
         }
+
     }
 }

@@ -58,6 +58,7 @@ namespace MassK.UI.Forms
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.ButtonClearFilter = new System.Windows.Forms.Button();
             this.dataGrid = new MassK.UI.Controls.CustomDataGrid();
+            this.MenuFile_LoadFromFile = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.MenuStrip.SuspendLayout();
@@ -262,7 +263,8 @@ namespace MassK.UI.Forms
             this.MenuFile_LoadFromScales,
             this.MenuFile_LoadFromUSB,
             this.MenuFile_SaveToPC,
-            this.MenuFile_LoadFromPC});
+            this.MenuFile_LoadFromPC,
+            this.MenuFile_LoadFromFile});
             this.MenuFile.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.MenuFile.Image = ((System.Drawing.Image)(resources.GetObject("MenuFile.Image")));
             this.MenuFile.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -408,6 +410,13 @@ namespace MassK.UI.Forms
             this.dataGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGrid_CellDoubleClick);
             this.dataGrid.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGrid_ColumnHeaderMouseClick);
             // 
+            // MenuFile_LoadFromFile
+            // 
+            this.MenuFile_LoadFromFile.Name = "MenuFile_LoadFromFile";
+            this.MenuFile_LoadFromFile.Size = new System.Drawing.Size(330, 22);
+            this.MenuFile_LoadFromFile.Text = "Загрузить проект из файла";
+            this.MenuFile_LoadFromFile.Click += new System.EventHandler(this.MenuFile_LoadFromFile_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
@@ -467,6 +476,7 @@ namespace MassK.UI.Forms
         private System.Windows.Forms.Button ButtonClearFilter;
         private System.Windows.Forms.ToolStripDropDownButton MenuLangList;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripMenuItem MenuFile_LoadFromFile;
     }
 }
 

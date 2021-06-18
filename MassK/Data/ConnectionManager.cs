@@ -43,7 +43,6 @@ namespace MassK.Data
                 PROD = 1,
                 PLU = 5,
                 KB = 11,
-                //Keyboard = 11
             }
 
             public static string GetScaleFileName(ScaleFileNum num, string rootPath, bool fullName = false)
