@@ -48,6 +48,7 @@ namespace MassK.UI.Forms
             this.MenuFile_LoadFromUSB = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuFile_SaveToPC = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuFile_LoadFromPC = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuFile_LoadFromFile = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuSettings = new System.Windows.Forms.ToolStripDropDownButton();
             this.MenuSettings_ScalesTable = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuSettings_ProductNumeration = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,10 +56,8 @@ namespace MassK.UI.Forms
             this.MenuSettings_PictureLibrary = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuDescription = new System.Windows.Forms.ToolStripButton();
             this.MenuLangList = new System.Windows.Forms.ToolStripDropDownButton();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.ButtonClearFilter = new System.Windows.Forms.Button();
             this.dataGrid = new MassK.UI.Controls.CustomDataGrid();
-            this.MenuFile_LoadFromFile = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.MenuStrip.SuspendLayout();
@@ -248,8 +247,7 @@ namespace MassK.UI.Forms
             this.MenuFile,
             this.MenuSettings,
             this.MenuDescription,
-            this.MenuLangList,
-            this.toolStripButton1});
+            this.MenuLangList});
             this.MenuStrip.Location = new System.Drawing.Point(0, 0);
             this.MenuStrip.Name = "MenuStrip";
             this.MenuStrip.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
@@ -300,6 +298,13 @@ namespace MassK.UI.Forms
             this.MenuFile_LoadFromPC.Size = new System.Drawing.Size(330, 22);
             this.MenuFile_LoadFromPC.Text = "Загрузить проект из ПК";
             this.MenuFile_LoadFromPC.Click += new System.EventHandler(this.MenuFile_LoadFromPC_Click);
+            // 
+            // MenuFile_LoadFromFile
+            // 
+            this.MenuFile_LoadFromFile.Name = "MenuFile_LoadFromFile";
+            this.MenuFile_LoadFromFile.Size = new System.Drawing.Size(330, 22);
+            this.MenuFile_LoadFromFile.Text = "Загрузить проект из файла";
+            this.MenuFile_LoadFromFile.Click += new System.EventHandler(this.MenuFile_LoadFromFile_Click);
             // 
             // MenuSettings
             // 
@@ -365,16 +370,6 @@ namespace MassK.UI.Forms
             this.MenuLangList.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.MenuLangList.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
             // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(23, 45);
-            this.toolStripButton1.Text = "toolStripButton1";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
-            // 
             // ButtonClearFilter
             // 
             this.ButtonClearFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -409,13 +404,6 @@ namespace MassK.UI.Forms
             this.dataGrid.TabIndex = 5;
             this.dataGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGrid_CellDoubleClick);
             this.dataGrid.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGrid_ColumnHeaderMouseClick);
-            // 
-            // MenuFile_LoadFromFile
-            // 
-            this.MenuFile_LoadFromFile.Name = "MenuFile_LoadFromFile";
-            this.MenuFile_LoadFromFile.Size = new System.Drawing.Size(330, 22);
-            this.MenuFile_LoadFromFile.Text = "Загрузить проект из файла";
-            this.MenuFile_LoadFromFile.Click += new System.EventHandler(this.MenuFile_LoadFromFile_Click);
             // 
             // FormMain
             // 
@@ -475,7 +463,6 @@ namespace MassK.UI.Forms
         private System.Windows.Forms.ToolStripMenuItem MenuSettings_PictureLibrary;
         private System.Windows.Forms.Button ButtonClearFilter;
         private System.Windows.Forms.ToolStripDropDownButton MenuLangList;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripMenuItem MenuFile_LoadFromFile;
     }
 }

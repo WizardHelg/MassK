@@ -572,24 +572,47 @@ namespace MassK.UI.Forms
                 ShowScales();
             }
 
-            ConnectionManager.Connection.LoadFile(scale, prod_path, ScaleFileNum.PROD);
-            ConnectionManager.Connection.LoadFile(scale, plu_path, ScaleFileNum.PLU);
-
-            // ConnectionManager.Connection.CheckState()
+            List<Product> products = new List<Product>();
+            List<KeyboardItem> keyboardItems = new List<KeyboardItem>();
+                     
+            try
+            {
+                ConnectionManager.Connection.LoadFile(scale, prod_path, ScaleFileNum.PROD);
+                products = MKConverter.ProdFromDat(prod_path, plu_path);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Не удалось загрузить продукты из весов", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            
             try
             {
                 ConnectionManager.Connection.LoadFile(scale, kb_path, ScaleFileNum.KB);
-                List<KeyboardItem> keyboardItems = MKConverter.KBFromDat(kb_path, LangPack.GetCodePage());
+                keyboardItems = MKConverter.KBFromDat(kb_path, LangPack.GetCodePage());
             }
-            catch (Exception) { };
-
-            _products = MKConverter.ProdFromDat(prod_path, plu_path);
-            //TODO если файл клавиатры не пуст подгрузить его. через MKConverter. И обновить биндинг.
-            if (_products != null)
+            catch (Exception ex)
             {
-                LockControl(LockContolEnum.ExceptProd);
-                MessageBox.Show(LangPack.GetText("MainFormUSBDataLoaded"), string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Не удалось загрузить файл клавиатуры из весов", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            };
+
+            try
+            {
+                ConnectionManager.Connection.LoadFile(scale, plu_path, ScaleFileNum.PLU);
             }
+            catch (Exception)
+            {
+                MessageBox.Show("Не удалось загрузить PLU из весов", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            if (products.Count > 0 && keyboardItems.Count > 0)
+            {
+                LoadData(_products, keyboardItems);
+                LockControl(LockContolEnum.ExceptProd);
+            }
+
+            MessageBox.Show(LangPack.GetText("MainFormScaleDataLoaded"), string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
 
@@ -604,7 +627,6 @@ namespace MassK.UI.Forms
             ScaleCommandTest.GetInfo(scale, prod_path, ScaleFileNum.PROD);
         }
 
-        //event EventHandler<MyEventArgs> KeyDown;// OpenProject_Click
         private void MenuFile_DropDownOpening(object sender, EventArgs e)
         {
             List<Project> projects = new List<Project>();
@@ -635,9 +657,9 @@ namespace MassK.UI.Forms
                 try
                 {
                     Project project = new Project(ofd.FileName);
-                LoadData(project.Products, project.KeyboardItems);
+                    LoadData(project.Products, project.KeyboardItems);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }

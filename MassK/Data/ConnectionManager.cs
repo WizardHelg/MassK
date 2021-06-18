@@ -240,10 +240,10 @@ namespace MassK.Data
                             data = buffer.Take(bytes).ToArray();
                             data = CMD.GetData(data);
 
-                            if (data[0] != 0x46)
-                                throw new ApplicationException("Невозможно выгрузить");
+                            if (data[0] == 0x46)
+                                throw new ApplicationException("Невозможно передать файл");
                             if (data[0] != 0x45)
-                                throw new ApplicationException("Ошибка при загрузке файла из чертовых весов");
+                                throw new ApplicationException("Ошибка при загрузке файла из весов");
                             ushort data_len = BitConverter.ToUInt16(data, 6);
 
                             fs.Write(data, 8, data_len);
@@ -284,8 +284,8 @@ namespace MassK.Data
 
                 if (data[0] != 0x51)
                     throw new ApplicationException("Ошибка установки режима работы весов");
-                RAWFiles.ScaleFileNum fileNum = RAWFiles.ScaleFileNum.KB;
-
+                //RAWFiles.ScaleFileNum fileNum = RAWFiles.ScaleFileNum.KB;
+                byte fileNum = 5;
                 //TODO Выгрузка данных в весы по аналогии с загрузкой.
                 //Только комманды TCP_DFILE и файл клавиатуры нужно разбивать по 1024 байта.
                 using (FileStream fs = new FileStream(filePath, FileMode.Open))
@@ -296,13 +296,13 @@ namespace MassK.Data
                     {
                         cur_part++;
                         byte[] buffer_send = new byte[2048];
-                        socket.Send(CMD.TCP_DFILE((byte)fileNum,buffer , cur_part,parts_amount));                        
+                        socket.Send(CMD.TCP_DFILE(fileNum, buffer , cur_part,parts_amount));                        
                         bytes = socket.Receive( buffer_send, buffer_send.Length, SocketFlags.None);
                         data = buffer_send.Take(bytes).ToArray();
                         data = CMD.GetData(data);
 
-                        if (data[0] != 0x45)                         
-                        throw new ApplicationException("Ошибка при загрузке файла из чертовых весов");
+                        if (data[0] != 0x42)                         
+                        throw new ApplicationException("Ошибка при загрузке файла в весы");
                        
                     }
                 }
