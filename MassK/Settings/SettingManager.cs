@@ -13,19 +13,182 @@ namespace MassK.Settings
 {
     static class SettingManager
     {
-        public static string RootPath { get; set; } = Application.StartupPath;
-        public static string LangPath { get; set; } = Path.Combine(RootPath, "Lang");
-        public static string Projects { get; set; } = Path.Combine(RootPath, "Projects");
-        public static string FlagPath { get; set; } = Path.Combine(Settings.SettingManager.LangPath, "Flags");
-        public static string ImagePath { get; set; } = Path.Combine(RootPath, "Images");
-        public static string ProgrammPictures { get; set; } = Path.Combine(ImagePath, "ProgrammPictures");
-        public static string UserPictures { get; set; } = Path.Combine(ImagePath, "UserPictures");
-        public static string LogoPath { get; set; } = Path.Combine(ImagePath, "Logo");
-        public static string RusImagePath { get; set; } = Path.Combine(ProgrammPictures, "RUS");
-        public static string EngImagePath { get; set; } = Path.Combine(ProgrammPictures, "ENG");
+        public static string RootPath
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_rootPath))
+                {
+                    _rootPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Massa-K");
+                }
+                return _rootPath;
+            }
+        }
+        private static string _rootPath;
+
+
+        public static string LangPath
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_langPath))
+                {
+                    _langPath = GetExistPath(Path.Combine(RootPath, "Lang")); 
+                }
+                return _langPath;
+            }
+        }
+        private static string _langPath;
+
+        public static string Projects
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_projects))
+                {
+                    _projects = GetExistPath(Path.Combine(RootPath, "Projects"));
+                }
+                return _projects;
+            }
+        }
+        private static string _projects;
+
+        public static string FlagPath
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_flagPath))
+                {
+                    _flagPath = GetExistPath(Path.Combine(Settings.SettingManager.LangPath, "Flags"));
+                }
+                return _flagPath;
+            }
+        }
+        private static string _flagPath;
+
+        public static string ImagePath
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_imagePath))
+                {
+                    _imagePath = GetExistPath(Path.Combine(RootPath, "Images"));
+                }
+                return _imagePath;
+            }
+        }
+        private static string _imagePath;
+
+        public static string ProgrammPictures
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_programmPictures))
+                {
+                    _programmPictures = GetExistPath(Path.Combine(ImagePath, "ProgrammPictures"));
+                }
+                return _programmPictures;
+            }
+        }
+        private static string _programmPictures;
+
+        public static string UserPictures
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_userPictures))
+                {
+                    _userPictures = GetExistPath(Path.Combine(ImagePath, "UserPictures"));
+                }
+                return _userPictures;
+            }
+        }
+        private static string _userPictures;
+
+        public static string LogoPath
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_logoPath))
+                {
+                    _logoPath = GetExistPath(Path.Combine(ImagePath, "Logo"));
+                }
+                return _logoPath;
+            }
+        }
+        private static string _logoPath;
+
+        public static string RusImagePath
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_rusImagePath))
+                {
+                    _rusImagePath = GetExistPath(Path.Combine(ProgrammPictures, "RUS"));
+                }
+                return _rusImagePath;
+            }
+        }
+        private static string _rusImagePath;
+
+
+        public static string EngImagePath
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_engImagePath))
+                {
+                    _engImagePath = GetExistPath(Path.Combine(ProgrammPictures, "ENG"));
+                }
+            
+                return _engImagePath;
+            }
+        }
+        private static string _engImagePath;
+
+        public static string SettingPath
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_settingPath))
+                {
+                    _settingPath = GetExistPath(Path.Combine(RootPath, "Settings"));
+                }
+
+                return _settingPath;
+            }
+        }
+        private static string _settingPath;
+
+        public static string PresentationPath
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_presentationPath))
+                {
+                    _presentationPath = GetExistPath(Path.Combine(RootPath, "Presentation"));
+                }
+
+                return _presentationPath;
+            }
+        }
+        private static string _presentationPath;
+
         public static string DefaultImagesPath => (Lang == "Русский") ? RusImagePath : EngImagePath;
-        public static string SettingPath { get; set; } = Path.Combine(RootPath, "Settings");
-        public static string PresentationPath { get; set; } = Path.Combine(RootPath, "Presentation");
+
+        //public static string RootPath { get; set; } = Application.StartupPath;
+        //public static string LangPath { get; set; } = Path.Combine(RootPath, "Lang");
+        //public static string Projects { get; set; } = Path.Combine(RootPath, "Projects");
+        //public static string FlagPath { get; set; } = Path.Combine(Settings.SettingManager.LangPath, "Flags");
+        //public static string ImagePath { get; set; } = Path.Combine(RootPath, "Images");
+        //public static string ProgrammPictures { get; set; } = Path.Combine(ImagePath, "ProgrammPictures");
+        //public static string UserPictures { get; set; } = Path.Combine(ImagePath, "UserPictures");
+        //public static string LogoPath { get; set; } = Path.Combine(ImagePath, "Logo");
+        //public static string RusImagePath { get; set; } = Path.Combine(ProgrammPictures, "RUS");
+        //public static string EngImagePath { get; set; } = Path.Combine(ProgrammPictures, "ENG");
+        //public static string DefaultImagesPath => (Lang == "Русский") ? RusImagePath : EngImagePath;
+        //public static string SettingPath { get; set; } = Path.Combine(RootPath, "Settings");
+        //public static string PresentationPath { get; set; } = Path.Combine(RootPath, "Presentation");
 
         private static readonly List<EncodingInfo> _encoding_infos = Encoding.GetEncodings().ToList();
         private static EncodingInfo _code_page;
@@ -118,19 +281,26 @@ namespace MassK.Settings
             }
         }
 
+        private static string  GetExistPath(string path)
+        {
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+            return path;
+        }
+
         /// <summary>
         /// Считать настройки
         /// </summary>
         public static void ReadSettings()
         {
-            if (!Directory.Exists(UserPictures))
-                Directory.CreateDirectory(UserPictures);
+            //if (!Directory.Exists(UserPictures))
+            //    Directory.CreateDirectory(UserPictures);
 
-            if (!Directory.Exists(LogoPath))
-                Directory.CreateDirectory(LogoPath);
+            //if (!Directory.Exists(LogoPath))
+            //    Directory.CreateDirectory(LogoPath);
 
-            if (!Directory.Exists(SettingPath))
-                Directory.CreateDirectory(SettingPath);
+            //if (!Directory.Exists(SettingPath))
+            //    Directory.CreateDirectory(SettingPath);
 
 
             var root = GetSettingXML().Root;
