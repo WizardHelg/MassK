@@ -19,7 +19,7 @@ namespace MassK.Settings
             {
                 if (string.IsNullOrEmpty(_rootPath))
                 {
-                    _rootPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Massa-K");
+                    _rootPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Massa-K", "SL Scales Keyboard Editor");
                 }
                 return _rootPath;
             }

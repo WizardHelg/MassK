@@ -67,7 +67,7 @@ namespace MassK.UI.LangPacks
             //if (findLang !=null) _lang = findLang;
             //if (TryGetLangByName(native_name, out Localization findLang))
             //    _lang = findLang;
-            return _lang.Name;
+            return _lang?.Name;
         }
 
         private static bool TryGetLangByName(string name, out Localization findLang)
