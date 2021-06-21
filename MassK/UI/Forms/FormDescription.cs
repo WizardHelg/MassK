@@ -15,7 +15,7 @@ namespace MassK.UI.Forms
 {
     public partial class FormDescription : Form
     {
-        private List<Image> _images;
+       readonly private List<Image> _images;
         int _ix = 0;
         public FormDescription()
         {
@@ -38,12 +38,20 @@ namespace MassK.UI.Forms
                 }
             }
 
-            pictureBox.Image = _images.First();
             chkShow.Checked = !SettingManager.ShowDiscription;
-            SetButtons();
+            if (_images.Count > 0)
+            {
+                pictureBox.Image = _images.First();
+                SetButtons();
+            }
+            else
+            {
+                MessageBox.Show("Slides of presentation not found!", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Close();
+            }
         }
 
-    
+
 
         private void SetButtons()
         {
@@ -57,17 +65,20 @@ namespace MassK.UI.Forms
                 RadioButton rdo = default;
                 if (i > 1)
                 {
-                    rdo = new RadioButton() { Name = $"rdo{ i}",
-                                            Text ="",
-                                            Height = rdo1.Height,
-                                            Top = rdo1.Top,
-                                            Width= rdo1.Width};
+                    rdo = new RadioButton()
+                    {
+                        Name = $"rdo{ i}",
+                        Text = "",
+                        Height = rdo1.Height,
+                        Top = rdo1.Top,
+                        Width = rdo1.Width
+                    };
                     rdo.Anchor = AnchorStyles.Bottom;
                     panel2.Controls.Add(rdo);
                 }
                 else
                 {
-                    rdo = rdo1;                    
+                    rdo = rdo1;
                 }
                 rdo.Size = new Size(20, 20);
                 rdo.Tag = i;
@@ -80,10 +91,10 @@ namespace MassK.UI.Forms
         {
             RadioButton rdo = (RadioButton)sender;
             if (!rdo.Checked)
-            {               
-               return;
+            {
+                return;
             }
-            int num =(int) rdo.Tag;
+            int num = (int)rdo.Tag;
             ShowItm(num);
         }
 
@@ -91,11 +102,11 @@ namespace MassK.UI.Forms
 
         private void ChangeItm(int ix)
         {
-             if (ix > _images.Count)
+            if (ix > _images.Count)
             {
                 ix = 1;
             }
-             else if (ix < 1)
+            else if (ix < 1)
             {
                 ix = _images.Count;
             }
@@ -104,7 +115,7 @@ namespace MassK.UI.Forms
 
         private void ShowItm(int ix)
         {
-            if (ix <= _images.Count && ix>0)
+            if (ix <= _images.Count && ix > 0)
             {
                 pictureBox.Image = _images[ix - 1];
                 _ix = ix;
@@ -124,7 +135,12 @@ namespace MassK.UI.Forms
         {
             SettingManager.ShowDiscription = !chkShow.Checked;
         }
-                    
+
+        private void ButtonExit_Click(object sender, EventArgs e)
+        {
+
+        }
+
 
         //private void FormDescription_KeyDown(object sender, KeyEventArgs e)
         //{

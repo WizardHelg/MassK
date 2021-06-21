@@ -33,6 +33,7 @@ namespace MassK.UI.LangPacks
                 _lang_packs.Add(new Localization(x_doc.Root));
                 // _lang_packs.Add(element.Value, x_doc.Root);
             }
+            
         }
 
         //public static void Load(string langPath)

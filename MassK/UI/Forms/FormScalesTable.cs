@@ -38,7 +38,7 @@ namespace MassK.UI.Forms
         public FormScalesTable()
         {
             InitializeComponent();
-            
+
             _timer.Tick += (o, e) =>
             {
                 StringBuilder builder = new StringBuilder();
@@ -111,7 +111,10 @@ namespace MassK.UI.Forms
                 col.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 dataGrid.Columns.Add(col);
             }
+           // dataGrid.CellMouseClick += DataGrid_CellMouseClick; ;
         }
+
+      
 
         private void LoadConnections()
         {
@@ -129,11 +132,11 @@ namespace MassK.UI.Forms
 
                 Invoke((Action)(() => _timer.Start()));
 
-                lock(_lock_object)
+                lock (_lock_object)
                 {
                     action.Invoke();
                 }
-                
+
                 Invoke((Action)(() =>
                 {
                     if (_binding.DataSource == _scale_infos)
@@ -166,16 +169,24 @@ namespace MassK.UI.Forms
         private void ButtonDelete_Click(object sender, EventArgs e)
         {
             foreach (DataGridViewRow row in dataGrid.SelectedRows)
-                if (_scale_infos.Find(si => si.Connection == row.Cells["Connection"].Value.ToString()) is ScaleInfo scale)
-                    _scale_infos.Remove(scale);
+            {
+                if (row.Cells["Connection"].Value is null)
+                {
+                    dataGrid.Rows.Remove(row);
 
-            _binding.ResetBindings(false);
+                }
+                else if (_scale_infos.Find(si => si.Connection == row.Cells["Connection"].Value.ToString()) is ScaleInfo scale)
+                {
+                    _scale_infos.Remove(scale);
+                    _binding.ResetBindings(false);
+                }
+            }
         }
 
         private void ButtonAdd_Click(object sender, EventArgs e)
         {
             var form = new FormAddScalesConnection(_scale_infos);
-            if(form.ShowDialog() == DialogResult.OK)
+            if (form.ShowDialog() == DialogResult.OK)
             {
                 _binding.ResetBindings(false);
                 ProcessDecorator(() => ConnectionManager.Connection.CheckState(_scale_infos), 250);
@@ -188,5 +199,31 @@ namespace MassK.UI.Forms
             frm.HelpText = LangPack.GetText("FormScalesTableHelp");
             frm.ShowDialog();
         }
+
+        private void ChkBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_scale_infos.Count > 0)
+            {
+                _scale_infos.ForEach(x => x.Unload = ChkBox.Checked);
+                _binding.ResetBindings(false);
+            }
+        }
+      
+        //private void DataGrid_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        //{
+        //    //if (e.RowIndex < 0) return;
+        //    //DataGridViewRow row = dataGrid.Rows[e.RowIndex];
+        //    //DataGridViewCheckBoxCell cell = (DataGridViewCheckBoxCell)row.Cells["Load"];
+
+        //    //if (e.ColumnIndex != cell.ColumnIndex) return;
+        //    //string connection = row.Cells["Connection"].Value?.ToString() ?? "";
+        //    //if ((bool)cell.Value)
+        //    //{
+        //    //    _scale_infos.Where(a => a.Connection != connection).ToList().ForEach(x => x.Load = false);
+        //    //    _binding.ResetBindings(false);
+                
+        //    //}
+        //}
+
     }
 }

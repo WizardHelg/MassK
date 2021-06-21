@@ -8,6 +8,7 @@ using System.Reflection;
 using MassK.BL;
 using System.Drawing;
 using System.Text;
+using System.Diagnostics;
 
 namespace MassK.Settings
 {
@@ -18,14 +19,25 @@ namespace MassK.Settings
             get
             {
                 if (string.IsNullOrEmpty(_rootPath))
-                {
-                    _rootPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Massa-K", "SL Scales Keyboard Editor");
-                }
+                    _rootPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Massa-K", "SL Scales Keyboard Editor");
+                
                 return _rootPath;
             }
         }
         private static string _rootPath;
 
+        //public static string AppPath
+        //{
+        //    get
+        //    {
+        //        if (string.IsNullOrEmpty(_appPath))
+        //        {
+        //            _appPath = Application.StartupPath;
+        //        }
+        //        return _appPath;
+        //    }
+        //}
+        private static string _appPath;
 
         public static string LangPath
         {
@@ -313,7 +325,12 @@ namespace MassK.Settings
             _plu_numeration = plu_num;
 
             bool.TryParse(root.Element("ShowDiscription")?.Value, out bool sh_discript);
-            _show_discription = sh_discript;
+                _show_discription = sh_discript;            
+                if (root.Element("ShowDiscription")?.Value is null)
+                {
+                    ShowDiscription = true;                    
+                }
+            
 
             _categories = Load<ProductCategory>();
             _scale_infos = Load<ScaleInfo>();
@@ -338,6 +355,7 @@ namespace MassK.Settings
 
         private static void SaveToXml(string name, string value)
         {
+            if (value is null) return;
             var x_doc = GetSettingXML();
             if (x_doc.Root.Element(name) is XElement element)
                 element.Value = value;

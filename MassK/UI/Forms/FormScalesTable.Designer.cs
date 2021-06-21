@@ -163,6 +163,7 @@ namespace MassK.UI.Forms
             this.ChkBox.Size = new System.Drawing.Size(15, 14);
             this.ChkBox.TabIndex = 19;
             this.ChkBox.UseVisualStyleBackColor = true;
+            this.ChkBox.CheckedChanged += new System.EventHandler(this.ChkBox_CheckedChanged);
             // 
             // ButtonFind
             // 

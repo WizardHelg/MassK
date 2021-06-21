@@ -78,6 +78,7 @@ namespace MassK.UI.Forms
             this.rdo1.Name = "rdo1";
             this.rdo1.Size = new System.Drawing.Size(14, 13);
             this.rdo1.TabIndex = 24;
+            this.rdo1.TabStop = true;
             this.rdo1.UseVisualStyleBackColor = true;
             // 
             // ButtonExit
@@ -95,6 +96,7 @@ namespace MassK.UI.Forms
             this.ButtonExit.TabIndex = 20;
             this.ButtonExit.Text = "Выход";
             this.ButtonExit.UseVisualStyleBackColor = false;
+            this.ButtonExit.Click += new System.EventHandler(this.ButtonExit_Click);
             // 
             // panel1
             // 
