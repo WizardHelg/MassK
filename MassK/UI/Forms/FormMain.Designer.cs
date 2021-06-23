@@ -58,6 +58,7 @@ namespace MassK.UI.Forms
             this.MenuLangList = new System.Windows.Forms.ToolStripDropDownButton();
             this.ButtonClearFilter = new System.Windows.Forms.Button();
             this.dataGrid = new MassK.UI.Controls.CustomDataGrid();
+            this.MenuHowItWorks = new System.Windows.Forms.ToolStripButton();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.MenuStrip.SuspendLayout();
@@ -247,7 +248,8 @@ namespace MassK.UI.Forms
             this.MenuFile,
             this.MenuSettings,
             this.MenuDescription,
-            this.MenuLangList});
+            this.MenuLangList,
+            this.MenuHowItWorks});
             this.MenuStrip.Location = new System.Drawing.Point(0, 0);
             this.MenuStrip.Name = "MenuStrip";
             this.MenuStrip.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
@@ -264,10 +266,9 @@ namespace MassK.UI.Forms
             this.MenuFile_LoadFromPC,
             this.MenuFile_LoadFromFile});
             this.MenuFile.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.MenuFile.Image = ((System.Drawing.Image)(resources.GetObject("MenuFile.Image")));
             this.MenuFile.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.MenuFile.Name = "MenuFile";
-            this.MenuFile.Size = new System.Drawing.Size(80, 45);
+            this.MenuFile.Size = new System.Drawing.Size(64, 45);
             this.MenuFile.Text = "Файл";
             this.MenuFile.DropDownOpening += new System.EventHandler(this.MenuFile_DropDownOpening);
             // 
@@ -314,10 +315,9 @@ namespace MassK.UI.Forms
             this.MenuSettings_ProductCategories,
             this.MenuSettings_PictureLibrary});
             this.MenuSettings.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.MenuSettings.Image = ((System.Drawing.Image)(resources.GetObject("MenuSettings.Image")));
             this.MenuSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.MenuSettings.Name = "MenuSettings";
-            this.MenuSettings.Size = new System.Drawing.Size(124, 45);
+            this.MenuSettings.Size = new System.Drawing.Size(108, 45);
             this.MenuSettings.Text = "Настройка";
             // 
             // MenuSettings_ScalesTable
@@ -351,10 +351,9 @@ namespace MassK.UI.Forms
             // MenuDescription
             // 
             this.MenuDescription.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.MenuDescription.Image = ((System.Drawing.Image)(resources.GetObject("MenuDescription.Image")));
             this.MenuDescription.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.MenuDescription.Name = "MenuDescription";
-            this.MenuDescription.Size = new System.Drawing.Size(110, 45);
+            this.MenuDescription.Size = new System.Drawing.Size(94, 45);
             this.MenuDescription.Text = "Описание";
             this.MenuDescription.Click += new System.EventHandler(this.ShowDescription_Click);
             // 
@@ -404,6 +403,16 @@ namespace MassK.UI.Forms
             this.dataGrid.TabIndex = 5;
             this.dataGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGrid_CellDoubleClick);
             this.dataGrid.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGrid_ColumnHeaderMouseClick);
+            // 
+            // MenuHowItWorks
+            // 
+            this.MenuHowItWorks.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.MenuHowItWorks.Image = ((System.Drawing.Image)(resources.GetObject("MenuHowItWorks.Image")));
+            this.MenuHowItWorks.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.MenuHowItWorks.Name = "MenuHowItWorks";
+            this.MenuHowItWorks.Size = new System.Drawing.Size(154, 45);
+            this.MenuHowItWorks.Text = "Как это работает";
+            this.MenuHowItWorks.Click += new System.EventHandler(this.MenuHowItWorks_Click);
             // 
             // FormMain
             // 
@@ -464,6 +473,7 @@ namespace MassK.UI.Forms
         private System.Windows.Forms.Button ButtonClearFilter;
         private System.Windows.Forms.ToolStripDropDownButton MenuLangList;
         private System.Windows.Forms.ToolStripMenuItem MenuFile_LoadFromFile;
+        private System.Windows.Forms.ToolStripButton MenuHowItWorks;
     }
 }
 
