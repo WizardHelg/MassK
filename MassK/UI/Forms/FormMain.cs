@@ -47,12 +47,12 @@ namespace MassK.UI.Forms
             if (SettingManager.ShowDiscription)
             {
                 FormAskShowPresentation ask = new FormAskShowPresentation();
-
-                if (ask.ShowDialog() == DialogResult.No)
+                DialogResult result= ask.ShowDialog();
+                if (result == DialogResult.No)
                 {
                     SettingManager.ShowDiscription = false;
                 }
-                else if (ask.ShowDialog() == DialogResult.Yes)
+                else if (result == DialogResult.Yes)
                 {
                     new FormDescription().ShowDialog();
                 }

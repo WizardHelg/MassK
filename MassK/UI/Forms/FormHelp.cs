@@ -27,13 +27,14 @@ namespace MassK.UI.Forms
                     }
                     else
                     {
+                        val = val.Trim(new char[] { '\n', '\r',' ','\\' });
                         string rtfHelpFile = Path.Combine(Settings.SettingManager.LangPath, val);
                         if (File.Exists(rtfHelpFile))
                         {
                             FileInfo fi = new FileInfo(rtfHelpFile);
                             if (fi.Extension.ToLower() != ".rtf") 
                             {
-                                throw new ApplicationException("Help file is not in the correct format!"); 
+                                throw new ApplicationException($"Help file is not in the correct format! \rFile: {rtfHelpFile}"); 
                             };
                             TextBox.LoadFile(rtfHelpFile);
                         }
