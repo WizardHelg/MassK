@@ -25,19 +25,8 @@ namespace MassK.Settings
             }
         }
         private static string _rootPath;
-
-        //public static string AppPath
-        //{
-        //    get
-        //    {
-        //        if (string.IsNullOrEmpty(_appPath))
-        //        {
-        //            _appPath = Application.StartupPath;
-        //        }
-        //        return _appPath;
-        //    }
-        //}
-        private static string _appPath;
+              
+     
 
         public static string LangPath
         {

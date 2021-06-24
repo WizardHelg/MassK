@@ -46,7 +46,16 @@ namespace MassK.UI.Forms
         {
             if (SettingManager.ShowDiscription)
             {
-                new FormDescription().ShowDialog();
+                FormAskShowPresentation ask = new FormAskShowPresentation();
+                DialogResult result= ask.ShowDialog();
+                if (result == DialogResult.No)
+                {
+                    SettingManager.ShowDiscription = false;
+                }
+                else if (result == DialogResult.Yes)
+                {
+                    new FormDescription().ShowDialog();
+                }
             }
         }
 
@@ -276,10 +285,10 @@ namespace MassK.UI.Forms
             ShowProductsWithoutPicturies.Visible = main_flag;
             FindProduct.Visible = main_flag;
             InField.Visible = main_flag;
-            
+
 
             ButtonProducts.Visible = lockContol != LockContolEnum.All;
-            MenuFile_LoadFromPC.Visible = CheckProjectonPC();           
+            MenuFile_LoadFromPC.Visible = CheckProjectonPC();
         }
 
         private void ButtonSaveToUsb_Click(object sender, EventArgs e)
@@ -361,7 +370,7 @@ namespace MassK.UI.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -379,16 +388,16 @@ namespace MassK.UI.Forms
             //SettingManager.Save(_keyboard);
 
             ProjectManager.SaveProject(_products, _keyboard);
-           // MenuFile_LoadFromPC.Enabled = true;
-          //  MenuFile_LoadFromPC.Visible = true;
-           MenuFile_LoadFromPC.Visible = CheckProjectonPC();
+            // MenuFile_LoadFromPC.Enabled = true;
+            //  MenuFile_LoadFromPC.Visible = true;
+            MenuFile_LoadFromPC.Visible = CheckProjectonPC();
         }
 
         private bool CheckProjectonPC()
         {
             string[] files = Directory.GetFiles(SettingManager.Projects, "*.xml");
             int count = files?.Length ?? 0;
-            return count > 0 ;
+            return count > 0;
             //if (File.Exists(Path.Combine(SettingManager.SettingPath, "Product.xml"))
             //    && File.Exists(Path.Combine(SettingManager.SettingPath, "KeyBoardItem.xml")))
             //    return true;
@@ -540,10 +549,7 @@ namespace MassK.UI.Forms
 
         }
 
-        private void ShowDescription_Click(object sender, EventArgs e)
-        {
-            new FormDescription().ShowDialog();
-        }
+
 
         private void ButtonHelp_Click(object sender, EventArgs e)
         {
@@ -564,33 +570,34 @@ namespace MassK.UI.Forms
 
             ScaleInfo scale = null;
 
-            if (SettingManager.ScaleInfos.Count>0)
-            scale = SettingManager.ScaleInfos.FirstOrDefault(x => x.Load);
+            if (SettingManager.ScaleInfos.Count > 0)
+                scale = SettingManager.ScaleInfos.FirstOrDefault(x => x.Load);
 
             //TODO тут как то получить одни весы. Так как выгрузка данных из пачики весов лишина смысла
 
             if (scale is null)
             {
-                MessageBox.Show("Выберите весы", "Отсуттствуют весы", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // "Выберите весы"
+                MessageBox.Show(LangPack.GetText("SelectScale"), LangPack.GetText("ScalesNotFound"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ShowScales();
                 return;
             }
-            
+
 
             List<Product> products = new List<Product>();
             List<KeyboardItem> keyboardItems = new List<KeyboardItem>();
-                     
+
             try
             {
                 ConnectionManager.Connection.LoadFile(scale, prod_path, ScaleFileNum.PROD);
                 products = MKConverter.ProdFromDat(prod_path, plu_path);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                MessageBox.Show("Не удалось загрузить продукты из весов", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(LangPack.GetText("FileProdErrorLoad"), string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            
+
             try
             {
                 ConnectionManager.Connection.LoadFile(scale, kb_path, ScaleFileNum.KB);
@@ -598,7 +605,7 @@ namespace MassK.UI.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Не удалось загрузить файл клавиатуры из весов", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(LangPack.GetText("FileKBErrorLoad"), string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             };
 
@@ -608,7 +615,7 @@ namespace MassK.UI.Forms
             }
             catch (Exception)
             {
-                MessageBox.Show("Не удалось загрузить PLU из весов", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(LangPack.GetText("FilePLUErrorLoad"), string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             if (products.Count > 0 && keyboardItems.Count > 0)
@@ -655,7 +662,7 @@ namespace MassK.UI.Forms
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -670,6 +677,26 @@ namespace MassK.UI.Forms
             ToolStripItem itmProj = (ToolStripItem)sender;
             Project project = (Project)itmProj.Tag;
             LoadData(project.Products, project.KeyboardItems);
+        }
+
+        private void MenuHowItWorks_Click(object sender, EventArgs e)
+        {
+            new FormDescription().ShowDialog();
+        }
+
+        /// <summary>
+        /// описание главной  формы
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ShowDescription_Click(object sender, EventArgs e)
+        {
+            FormHelp frmHelp = new FormHelp()
+            {
+                Text = "",
+                HelpText = ""
+            };
+            frmHelp.ShowDialog();
         }
 
     }

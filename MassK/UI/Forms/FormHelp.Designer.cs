@@ -45,10 +45,10 @@ namespace MassK.UI.Forms
             this.panel2.Controls.Add(this.ButtonExit);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.panel2.Location = new System.Drawing.Point(0, 364);
-            this.panel2.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.panel2.Location = new System.Drawing.Point(0, 537);
+            this.panel2.Margin = new System.Windows.Forms.Padding(8, 6, 8, 6);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(924, 58);
+            this.panel2.Size = new System.Drawing.Size(1015, 80);
             this.panel2.TabIndex = 17;
             // 
             // ProccessLable
@@ -59,10 +59,10 @@ namespace MassK.UI.Forms
             this.ProccessLable.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.ProccessLable.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.ProccessLable.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.ProccessLable.Location = new System.Drawing.Point(17, 20);
-            this.ProccessLable.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.ProccessLable.Location = new System.Drawing.Point(28, 28);
+            this.ProccessLable.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.ProccessLable.Name = "ProccessLable";
-            this.ProccessLable.Size = new System.Drawing.Size(703, 22);
+            this.ProccessLable.Size = new System.Drawing.Size(647, 30);
             this.ProccessLable.TabIndex = 21;
             this.ProccessLable.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -74,14 +74,13 @@ namespace MassK.UI.Forms
             this.ButtonExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ButtonExit.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.ButtonExit.ForeColor = System.Drawing.Color.Black;
-            this.ButtonExit.Location = new System.Drawing.Point(769, 11);
-            this.ButtonExit.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.ButtonExit.Location = new System.Drawing.Point(757, 15);
+            this.ButtonExit.Margin = new System.Windows.Forms.Padding(8, 6, 8, 6);
             this.ButtonExit.Name = "ButtonExit";
-            this.ButtonExit.Size = new System.Drawing.Size(137, 37);
+            this.ButtonExit.Size = new System.Drawing.Size(228, 51);
             this.ButtonExit.TabIndex = 20;
             this.ButtonExit.Text = "Выход";
             this.ButtonExit.UseVisualStyleBackColor = false;
-            this.ButtonExit.Click += new System.EventHandler(this.ButtonExit_Click);
             // 
             // panel1
             // 
@@ -89,9 +88,9 @@ namespace MassK.UI.Forms
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(8, 6, 8, 6);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(924, 58);
+            this.panel1.Size = new System.Drawing.Size(1015, 80);
             this.panel1.TabIndex = 18;
             // 
             // TextBox
@@ -99,22 +98,27 @@ namespace MassK.UI.Forms
             this.TextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.TextBox.Location = new System.Drawing.Point(0, 54);
+            this.TextBox.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.TextBox.Location = new System.Drawing.Point(0, 75);
+            this.TextBox.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.TextBox.Name = "TextBox";
-            this.TextBox.Size = new System.Drawing.Size(924, 307);
+            this.TextBox.ReadOnly = true;
+            this.TextBox.Size = new System.Drawing.Size(1013, 457);
             this.TextBox.TabIndex = 19;
-            this.TextBox.Text = "";
+            this.TextBox.Text = "Текст";
             // 
             // FormHelp
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.ButtonExit;
-            this.ClientSize = new System.Drawing.Size(924, 422);
+            this.ClientSize = new System.Drawing.Size(1015, 617);
             this.Controls.Add(this.TextBox);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
+            this.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Name = "FormHelp";
             this.Text = "Справка";
             this.panel2.ResumeLayout(false);
